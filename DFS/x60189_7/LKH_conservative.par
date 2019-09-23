@@ -1,0 +1,3 @@
+PROBLEM_FILE = tsp_conservative.tsp
+OUTPUT_TOUR_FILE = tsp_conservative_LKH.sol
+
