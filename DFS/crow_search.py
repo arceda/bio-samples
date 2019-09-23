@@ -26,9 +26,9 @@ num_fragments = fragments.shape[0]
 
 ITERATIONS = 2
 N = 3
-AP = 0.92
+AP = 0.02
 FL = 0.75
-P_LS = 0.45
+P_LS = 0.49
 crows = np.zeros(shape=(N,num_fragments))
 memory = np.zeros(shape=(N,num_fragments))
 
@@ -59,6 +59,28 @@ def fitness(solution):
     return overlap
 
 
+def OXFL(crow, food):
+    n = num_fragments
+    C1 = int(random.randint(0, n-1))
+    C2 = int((C1+n*FL) % n)
+    print("C1, C2: ", C1, C2)
+
+    new_solution = np.zeros(num_fragments)
+
+    if C1+n*FL <= n:
+        print("case A OXFL")
+        new_solution[C1:C2] = crow[C1:C2]
+        #for i in xrange(num_fragments):
+
+        
+    else:
+        print("case B OXFL")
+        new_solution[C1:C2] = food[C1:C2]
+
+
+    
+
+
 crows = init_population()
 memory = crows.copy()
 #print(crows)
@@ -71,6 +93,7 @@ while i < ITERATIONS:
         r = random.random()
         if r > AP:
             print("the crow look up", i)
+            OXFL(crows[i], random_crow)
         else:
             print("the crow move to ramdon position", i)
             #the crow go to a random position
@@ -89,5 +112,5 @@ while i < ITERATIONS:
     i += 1
 
 
-show_crows(crows)
-show_crows(memory)
+#show_crows(crows)
+#show_crows(memory)
