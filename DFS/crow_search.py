@@ -1,6 +1,8 @@
 import numpy as np
 import random
 
+#range es mas eficiente que range in python2, in python3 range = range()pyton2
+
 ###########################################################################################
 ############################### read data ##############################################
 instance = 'x60189_7'
@@ -25,7 +27,7 @@ num_fragments = fragments.shape[0]
 ###########################################################################################
 
 ITERATIONS = 2
-N = 3
+N = 32
 AP = 0.02
 FL = 0.75
 P_LS = 0.49
@@ -34,13 +36,13 @@ memory = np.zeros(shape=(N,num_fragments))
 
 def show_crows(solutions):
     print("SOLUTIONS")
-    for i in xrange(solutions.shape[0]):
+    for i in range(solutions.shape[0]):
         print(solutions[i])
         print(fitness(solutions[i]))
 
 
 def init_population():
-    for i in xrange(N):
+    for i in range(N):
         crow = np.arange(num_fragments) #individual = [0, 1, 2, ...] each index is a fragment
         np.random.shuffle(crow) #shuffle the fragment, this a ramdon solution
         crows[i] = crow
@@ -50,7 +52,7 @@ def init_population():
 def fitness(solution):
     #print("calculating fitness of: ", solution)
     overlap = 0
-    for i in xrange(num_fragments - 1):
+    for i in range(num_fragments - 1):
         #print("calculating overlap of: ", int(solution[i]), int(solution[i+1]))
         #print("overlap: ", matrix[ int(solution[i]), int(solution[i+1]) ] )
         overlap += matrix[int(solution[i]), int(solution[i+1])] #the overload is yet calculated in matrix
@@ -59,26 +61,48 @@ def fitness(solution):
     return overlap
 
 
-def OXFL(crow, food):
+def OXFL(crow1, crow2):
+    crow = crow1.copy()
+    victim = crow2.copy()
+
     n = num_fragments
+    #C1 y C2 van de 0 a num_fragments-1
     C1 = int(random.randint(0, n-1))
     C2 = int((C1+n*FL) % n)
     print("C1, C2: ", C1, C2)
 
-    new_solution = np.zeros(num_fragments)
+    sol = np.zeros(num_fragments)
 
     if C1+n*FL <= n:
         print("case A OXFL")
-        new_solution[C1:C2] = crow[C1:C2]
-        #for i in xrange(num_fragments):
-
-        
+        X = crow
+        M = victim   
     else:
         print("case B OXFL")
-        new_solution[C1:C2] = food[C1:C2]
+        X = victim
+        M = crow
 
-
+    # copy from C1 to C2 to new solution
+    sol[C1:C2] = X[C1:C2]
     
+    print("M", M.shape, M)
+    print("sol", sol.shape, sol)      
+    #delete the range C1:c2 from M
+    for i, x in enumerate(X[C1:C2]):
+        index, = np.where(M == x)
+        M = np.delete(M, index)  
+
+    print("M", M.shape, M)
+    sol[0:C1] = M[0:C1] # insert the firsts to C1 to new solution
+    M = np.delete(M, range(C1)) # delete the elements inserted
+    print("M", M.shape, M)
+    sol[C2:sol.shape[0]] = M
+    print("sol", sol.shape, sol)    
+
+    return sol
+
+def P2M_F(individual):
+    print("local search")
 
 
 crows = init_population()
@@ -87,13 +111,20 @@ memory = crows.copy()
 
 i=0
 while i < ITERATIONS:
-    for i in xrange(N):
+    for i in range(N):
         print('CROW ', i)
         random_crow = random.randint(0, N-1) #chose a random crow
         r = random.random()
-        if r > AP:
+        if r >= AP:
             print("the crow look up", i)
-            OXFL(crows[i], random_crow)
+            print("perform oxfl operator")
+            crows[i] = OXFL(crows[i], crows[random_crow])
+
+            #################     local search     ###################
+            r_ls = random.random()
+            if r_ls >= P_LS:
+                P2M_F(crows[i])
+
         else:
             print("the crow move to ramdon position", i)
             #the crow go to a random position
