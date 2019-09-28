@@ -1,11 +1,14 @@
 import numpy as np
 import random
 
+
 #range es mas eficiente que range in python2, in python3 range = range()pyton2
 
 ###########################################################################################
 ############################### read data ##############################################
 instance = 'x60189_7'
+
+
 
 matrix = np.genfromtxt(instance + '/matrix_conservative.csv', delimiter=',')
 fragments = np.array([])
@@ -26,7 +29,7 @@ num_fragments = fragments.shape[0]
 ###########################################################################################
 ###########################################################################################
 
-ITERATIONS = 2
+ITERATIONS = 300
 N = 32
 AP = 0.02
 FL = 0.75
@@ -57,7 +60,7 @@ def fitness(solution):
         #print("overlap: ", matrix[ int(solution[i]), int(solution[i+1]) ] )
         overlap += matrix[int(solution[i]), int(solution[i+1])] #the overload is yet calculated in matrix
     
-    print("fitness calculated: ", overlap)
+    #print("fitness calculated: ", overlap)
     return overlap
 
 
@@ -68,36 +71,44 @@ def OXFL(crow1, crow2):
     n = num_fragments
     #C1 y C2 van de 0 a num_fragments-1
     C1 = int(random.randint(0, n-1))
-    C2 = int((C1+n*FL) % n)
-    print("C1, C2: ", C1, C2)
+    C2 = int((C1+(n-1)*FL) % (n-1))
+    
+    #print("C1, C2: ", C1, C2)
 
     sol = np.zeros(num_fragments)
 
-    if C1+n*FL <= n:
-        print("case A OXFL")
+    #if C1+n*FL <= n-1:
+    if C1 < C2:
+        #print("case A OXFL")
         X = crow
         M = victim   
     else:
-        print("case B OXFL")
+        #print("case B OXFL")
         X = victim
         M = crow
+        temp = C1
+        C1 = C2
+        C2 = temp
 
     # copy from C1 to C2 to new solution
+    #print("X[C1:C2]", X[C1:C2].shape, X[C1:C2])
+
     sol[C1:C2] = X[C1:C2]
     
-    print("M", M.shape, M)
-    print("sol", sol.shape, sol)      
+    #print("X", X.shape, X)
+    #print("M", M.shape, M)
+    #print("sol", sol.shape, sol)      
     #delete the range C1:c2 from M
     for i, x in enumerate(X[C1:C2]):
         index, = np.where(M == x)
         M = np.delete(M, index)  
 
-    print("M", M.shape, M)
+    #print("M", M.shape, M)
     sol[0:C1] = M[0:C1] # insert the firsts to C1 to new solution
     M = np.delete(M, range(C1)) # delete the elements inserted
-    print("M", M.shape, M)
+    #print("M", M.shape, M)
     sol[C2:sol.shape[0]] = M
-    print("sol", sol.shape, sol)    
+    #print("sol", sol.shape, sol)    
 
     return sol
 
@@ -109,15 +120,16 @@ crows = init_population()
 memory = crows.copy()
 #print(crows)
 
-i=0
-while i < ITERATIONS:
+iter=0
+while iter < ITERATIONS:
+    print("ITERATION: ", iter)
     for i in range(N):
-        print('CROW ', i)
+        #print('CROW ', i)
         random_crow = random.randint(0, N-1) #chose a random crow
         r = random.random()
         if r >= AP:
-            print("the crow look up", i)
-            print("perform oxfl operator")
+            #print("the crow look up", i)
+            #print("perform oxfl operator")
             crows[i] = OXFL(crows[i], crows[random_crow])
 
             #################     local search     ###################
@@ -126,22 +138,28 @@ while i < ITERATIONS:
                 P2M_F(crows[i])
 
         else:
-            print("the crow move to ramdon position", i)
+            #print("the crow move to ramdon position", i)
             #the crow go to a random position
             #print('the crow go to random position', i, crows[i])
             np.random.shuffle(crows[i])
             #print('the crow went to random position', i, crows[i])
-            print("memory[i]: ",i,  memory[i])
-            print("crows[i]: ",i,  crows[i])
+            #print("memory[i]: ",i,  memory[i])
+            #print("crows[i]: ",i,  crows[i])
 
         if fitness(crows[i]) > fitness(memory[i]):
-            print("the new position is better, updating memory")
+            #print("the new position is better, updating memory")
             memory[i] = crows[i].copy()
             #print("memory[i]: ",i,  memory[i])
             #print("crows[i]: ",i,  crows[i])
         
-    i += 1
+    iter += 1
 
 
-#show_crows(crows)
-#show_crows(memory)
+# get the best fitness
+best_fitness = 0
+for i in range(N):
+    fit = fitness(memory[i])
+    if fit > best_fitness:
+        best_fitness = fit
+
+print("best fitness", best_fitness)
