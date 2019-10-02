@@ -8,14 +8,15 @@ from oxfl import OXFL
 
 ###########################################################################################
 ############################### read data ##############################################
-instance = 'x60189_7'
+instance = 'x60189_4'
 
 
 
 matrix = np.genfromtxt(instance + '/matrix_conservative.csv', delimiter=',')
 fragments = np.array([])
 
-fh = open(instance + '/frag_x60189_7.dat')
+#fh = open(instance + '/frag_x60189_7.dat')
+fh = open(instance + '/frag_'+ instance +'.dat')
 while True:
     line = fh.readline().replace('\n', '')
     fragments = np.append(fragments, line)
@@ -31,7 +32,7 @@ num_fragments = fragments.shape[0]
 ###########################################################################################
 ###########################################################################################
 
-ITERATIONS = 300
+ITERATIONS = 500
 N = 32
 AP = 0.02
 FL = 0.75

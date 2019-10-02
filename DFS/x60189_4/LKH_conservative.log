@@ -1,0 +1,88 @@
+[0] PARAMETER_FILE = LKH_conservative.par
+[0] Reading PROBLEM_FILE: "tsp_conservative.tsp" ... done
+[0] ASCENT_CANDIDATES = 39
+[0] BACKBONE_TRIALS = 0
+[0] BACKTRACKING = NO
+[0] # CANDIDATE_FILE =
+[0] CANDIDATE_SET_TYPE = ALPHA
+[0] EXCESS = 0.025
+[0] EXTRA_CANDIDATES = 0 
+[0] EXTRA_CANDIDATE_SET_TYPE = QUADRANT
+[0] GAIN23 = YES
+[0] GAIN_CRITERION = YES
+[0] INITIAL_PERIOD = 100
+[0] INITIAL_STEP_SIZE = 1
+[0] INITIAL_TOUR_ALGORITHM = WALK
+[0] # INITIAL_TOUR_FILE = 
+[0] INITIAL_TOUR_FRACTION = 1.000
+[0] # INPUT_TOUR_FILE = 
+[0] KICK_TYPE = 0
+[0] KICKS = 1
+[0] # MAX_BREADTH =
+[0] MAX_CANDIDATES = 5 
+[0] MAX_SWAPS = 40
+[0] MAX_TRIALS = 40
+[0] # MERGE_TOUR_FILE =
+[0] MOVE_TYPE = 5
+[0] # NONSEQUENTIAL_MOVE_TYPE = 5
+[0] # OPTIMUM =
+[0] OUTPUT_TOUR_FILE = tsp_conservative_LKH.sol
+[0] PATCHING_A = 1 
+[0] PATCHING_C = 0 
+[0] # PI_FILE = 
+[0] # POPULATION_SIZE = 0
+[0] PRECISION = 100
+[0] PROBLEM_FILE = tsp_conservative.tsp
+[0] RESTRICTED_SEARCH = YES
+[0] RUNS = 10
+[0] SEED = 1
+[0] STOP_AT_OPTIMUM = YES
+[0] SUBGRADIENT = YES
+[0] # SUBPROBLEM_SIZE =
+[0] # SUBPROBLEM_TOUR_FILE = 
+[0] SUBSEQUENT_MOVE_TYPE = 5
+[0] SUBSEQUENT_PATCHING = YES
+[0] # TIME_LIMIT =
+[0] # TOUR_FILE = 
+[0] TRACE_LEVEL = 1
+[0] 
+[0] Lower bound = 388519.9, Ascent time = 0.01 sec.
+[0] Cand.min = 5, Cand.avg = 5.0, Cand.max = 5
+[0] Preprocessing time = 0.01 sec.
+[0] * 1: Cost = 388522, Time = 0.00 sec. 
+[0] Writing OUTPUT_TOUR_FILE: "tsp_conservative_LKH.sol" ... done
+[0] Writing OUTPUT_TOUR_FILE: "tsp_conservative_LKH.sol" ... done
+[0] Run 1: Cost = 388522, Time = 0.00 sec. 
+[0] 
+[0] * 1: Cost = 388522, Time = 0.00 sec. 
+[0] Run 2: Cost = 388522, Time = 0.00 sec. 
+[0] 
+[0] * 1: Cost = 388522, Time = 0.00 sec. 
+[0] Run 3: Cost = 388522, Time = 0.00 sec. 
+[0] 
+[0] * 1: Cost = 388522, Time = 0.00 sec. 
+[0] Run 4: Cost = 388522, Time = 0.00 sec. 
+[0] 
+[0] * 1: Cost = 388522, Time = 0.00 sec. 
+[0] Run 5: Cost = 388522, Time = 0.00 sec. 
+[0] 
+[0] * 1: Cost = 388522, Time = 0.00 sec. 
+[0] Run 6: Cost = 388522, Time = 0.00 sec. 
+[0] 
+[0] * 1: Cost = 388522, Time = 0.00 sec. 
+[0] Run 7: Cost = 388522, Time = 0.00 sec. 
+[0] 
+[0] * 1: Cost = 388522, Time = 0.00 sec. 
+[0] Run 8: Cost = 388522, Time = 0.00 sec. 
+[0] 
+[0] * 1: Cost = 388522, Time = 0.00 sec. 
+[0] Run 9: Cost = 388522, Time = 0.00 sec. 
+[0] 
+[0] * 1: Cost = 388522, Time = 0.00 sec. 
+[0] Run 10: Cost = 388522, Time = 0.00 sec. 
+[0] 
+[0] Successes/Runs = 0/10 
+[0] Cost.min = 388522, Cost.avg = 388522.00, Cost.max = 388522
+[0] Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+[0] Trials.min = 40, Trials.avg = 40.0, Trials.max = 40
+[0] Time.min = 0.00 sec., Time.avg = 0.00 sec., Time.max = 0.00 sec.

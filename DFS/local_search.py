@@ -19,8 +19,8 @@ def PALS(K, individual, matrix_w):
 def calculateDeltas(individual, i, j, matrix_w):
     cutoff = 30
     delta_c = delta_f = 0
-    delta_f = delta_f - matrix_w[individual[i], individual[i-1]] - matrix_w[individual[j], individual[j+1]]
-    delta_f = matrix_w[individual[i-1], individual[j]] - matrix_w[individual[i], individual[j+1]]
+    delta_f = delta_f - matrix_w[individual[i-1], individual[i]] - matrix_w[individual[j], individual[j+1]]
+    delta_f = matrix_w[individual[i-1], individual[j]] + matrix_w[individual[i], individual[j+1]]
     if matrix_w[individual[i-1], individual[i]] > cutoff:
         delta_c = delta_c + 1
     if matrix_w[individual[j], individual[j+1]] > cutoff:
