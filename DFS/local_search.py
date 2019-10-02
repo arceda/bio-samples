@@ -1,9 +1,11 @@
 import numpy as np
 
-def PALS(N, individual, matrix_w):
+def PALS(K, individual, matrix_w):
+    #print("individual receive in PALS: ", individual)
+    individual = individual.astype(int)
     L = []
-    for i in range(N-2):
-        for j in range(i+1, N-1):
+    for i in range(K-2):
+        for j in range(i+1, K-1):
             delta_c, delta_f = calculateDeltas(individual, i, j, matrix_w)
             if delta_c < 0 or (delta_c == 0 and delta_f > 0):
                 L.append( (i, j, delta_f, delta_c) )
@@ -15,7 +17,7 @@ def PALS(N, individual, matrix_w):
     return individual
 
 def calculateDeltas(individual, i, j, matrix_w):
-    cutoff = 45
+    cutoff = 30
     delta_c = delta_f = 0
     delta_f = delta_f - matrix_w[individual[i], individual[i-1]] - matrix_w[individual[j], individual[j+1]]
     delta_f = matrix_w[individual[i-1], individual[j]] - matrix_w[individual[i], individual[j+1]]
@@ -31,7 +33,51 @@ def calculateDeltas(individual, i, j, matrix_w):
     return delta_c, delta_f
 
 def selectMovement(L):
-    print()
+    # get the posible movement with minimun delta_c
+    x = len(L)
+    L_temp = np.matrix(L)
+    delta_c_list = L_temp[:,3]
+    min_delta_c = np.amin(delta_c_list)
+
+    L_with_min_delta_c = []
+    for i in range(x):
+        if L_temp[i,3] == min_delta_c:
+            L_with_min_delta_c.append(np.squeeze(np.asarray(L_temp[i,:])))
+
+       
+    # get the posible movement with maximun delta_f
+    x = len(L_with_min_delta_c)
+    L_temp = np.matrix(L_with_min_delta_c)
+    delta_f_list = L_temp[:,2]
+    max_delta_f = np.amax(delta_f_list)
+    
+    L_with_max_delta_f = []
+    for i in range(x):
+        if L_temp[i,2] == max_delta_f:
+            L_with_max_delta_f.append(np.squeeze(np.asarray(L_temp[i,:])))
+
+    L_temp = np.matrix(L_with_max_delta_f)
+    
+    #print(L_temp.shape)   
+    #print(L_temp)
+    return int(L_temp[0, 0]), int(L_temp[0, 1])
+    
 
 def applyMovement(individual, i, j):
-    print()
+    #print("applying movement")
+    #print(i, j)
+    #print(individual)
+    tmp = individual[i]
+    individual[i] = individual[j]
+    individual[j] = tmp
+    #print(individual)
+    return individual
+
+
+if __name__ == "__main__" :
+    instance = 'x60189_7'
+    matrix = np.genfromtxt(instance + '/matrix_conservative.csv', delimiter=',')
+    num_fragments = 68
+    aleatory_solution = np.arange(num_fragments)
+    np.random.shuffle(aleatory_solution)
+    print(PALS(num_fragments, aleatory_solution, matrix))
