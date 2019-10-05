@@ -1,11 +1,16 @@
 import numpy as np
+from utils import fitness
+from utils import consensus
 
 def PALS(K, individual, matrix_w):
     #print("individual receive in PALS: ", individual)
     individual = individual.astype(int)
 
     iterations = 0
-    while iterations < 300:
+    #while iterations < 300:
+    
+    while iterations < 30000:
+        
         L = []
         for i in range(K-2):
             for j in range(i+1, K-1):
@@ -17,7 +22,12 @@ def PALS(K, individual, matrix_w):
             i, j = selectMovement(L)
             individual = applyMovement(individual, i, j)
 
+        #print(" interation PALS: ", iterations, " candidates number: ", len(L))
+
         iterations += 1
+
+        if len(L) <= 0:
+            break
     
     return individual
 
@@ -78,7 +88,7 @@ def applyMovement(individual, i, j):
     #print(individual)
     return individual
 
-
+"""
 def fitness(solution, matrix):
     #print("calculating fitness of: ", solution)
     overlap = 0
@@ -89,13 +99,41 @@ def fitness(solution, matrix):
     
     #print("fitness calculated: ", overlap)
     return overlap
-
+"""
 
 if __name__ == "__main__" :
     instance = 'x60189_7'
     matrix = np.genfromtxt(instance + '/matrix_conservative.csv', delimiter=',')
-    num_fragments = 68
+    #print(matrix.shape)
+    num_fragments = matrix.shape[0]
     aleatory_solution = np.arange(num_fragments)
     np.random.shuffle(aleatory_solution)
-    sol = PALS(num_fragments, aleatory_solution, matrix)
-    print(fitness(sol, matrix))
+
+    print("initial solution: ", aleatory_solution)
+    print("fitness: ", fitness(matrix, aleatory_solution))
+    print("contigs: ", consensus(matrix, aleatory_solution))
+
+    #################################################### pruebas #########################################
+    num_test = 30.0
+    fitness_acum = best_fitness = contig_acum = 0.0
+    best_contig = 100
+
+    for i in range(int(num_test)):
+        print("testin...", i)
+        sol = PALS(num_fragments, aleatory_solution, matrix)
+        fitness_temp = fitness(matrix, sol)
+        contigs_temp = consensus(matrix, sol)
+        fitness_acum += fitness_temp
+        contig_acum += contigs_temp
+        if fitness_temp > best_fitness:
+            best_fitness = fitness_temp
+        if contigs_temp < best_contig:
+            best_contig = contigs_temp
+
+    fitness_mean = fitness_acum/num_test
+    contigs_mean = contig_acum/num_test
+    
+    #print(fitness(sol, matrix))
+    print("initial solution: ", sol)
+    print("fitness: ", fitness_mean)
+    print("contigs: ", contigs_mean)

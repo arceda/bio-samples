@@ -2,6 +2,7 @@ import numpy as np
 import random
 from local_search import *
 from oxfl import OXFL
+from utils import fitness
 
 
 #range es mas eficiente que range in python2, in python3 range = range()pyton2
@@ -9,7 +10,6 @@ from oxfl import OXFL
 ###########################################################################################
 ############################### read data ##############################################
 instance = 'x60189_4'
-
 
 
 matrix = np.genfromtxt(instance + '/matrix_conservative.csv', delimiter=',')
@@ -32,7 +32,7 @@ num_fragments = fragments.shape[0]
 ###########################################################################################
 ###########################################################################################
 
-ITERATIONS = 500
+ITERATIONS = 200
 N = 32
 AP = 0.02
 FL = 0.75
@@ -44,7 +44,7 @@ def show_crows(solutions):
     print("SOLUTIONS")
     for i in range(solutions.shape[0]):
         print(solutions[i])
-        print(fitness(solutions[i]))
+        print(fitness(matrix, solutions[i]))
 
 
 def init_population():
@@ -54,7 +54,7 @@ def init_population():
         crows[i] = crow
     return crows
 
-
+"""
 def fitness(solution):
     #print("calculating fitness of: ", solution)
     overlap = 0
@@ -65,7 +65,7 @@ def fitness(solution):
     
     #print("fitness calculated: ", overlap)
     return overlap
-
+"""
 
 def P2M_F(individual):
     print("local search")
@@ -103,7 +103,7 @@ while iter < ITERATIONS:
             #print("memory[i]: ",i,  memory[i])
             #print("crows[i]: ",i,  crows[i])
 
-        if fitness(crows[i]) > fitness(memory[i]):
+        if fitness(matrix, crows[i]) > fitness(matrix, memory[i]):
             #print("the new position is better, updating memory")
             memory[i] = crows[i].copy()
             #print("memory[i]: ",i,  memory[i])
