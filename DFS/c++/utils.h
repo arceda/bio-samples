@@ -81,4 +81,16 @@ int fitness(ublas::matrix<int> m, ublas::vector<int> individual){
     return overlap;
 }
 
+int min_vector(ublas::vector<int> individual){
+    int min = individual[0];
+    int min_index = 0;
+    for (int i = 0; i < individual.size(); i++){
+        if (individual[i] < min){
+            min = individual[i];
+            min_index = i;
+        }
+    }
+    return min_index;
+}
+
 #endif

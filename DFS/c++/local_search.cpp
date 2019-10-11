@@ -8,6 +8,7 @@
 #include <boost/tokenizer.hpp>
 #include <boost/range/algorithm.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
+#include <boost/numeric/ublas/matrix_proxy.hpp>
 #include <boost/numeric/ublas/io.hpp>
 
 #include "utils.h"
@@ -31,7 +32,7 @@ using namespace boost::numeric::ublas;//matrix
 void calculateDeltas(ublas::vector<int> individual, int i, int j, ublas::matrix<int> matrix_w, int& delta_c, int &delta_f){
     //cout<<individual<<endl;
     //cout<<matrix_w<<endl;
-    cout<<i<<" "<<j<<endl;
+    //cout<<i<<" "<<j<<endl;
     //cout<<individual[i-1]<<individual[i]<<individual[j]<<individual[j+1]<<endl;
     delta_c = 0;
     delta_f = 0;
@@ -48,7 +49,10 @@ void calculateDeltas(ublas::vector<int> individual, int i, int j, ublas::matrix<
 }
 
 void selectMovement(ublas::matrix<int> L, int& i, int& j){
-    x = L.size1();
+    int x = L.size1();
+    ublas::matrix_column< ublas::matrix<int> > L_temp(L, 3);
+    int min_delta_c = min_vector(L_temp);
+    cout<<L_temp[min_delta_c]<<endl;
 }
 /*
 def selectMovement(L):
@@ -106,8 +110,10 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
         if (L.size1() > 0){
             //###################################################################################################
             //PALS original [1]
-            i, j = selectMovement(L)
-            individual = applyMovement(individual, i, j)
+            int i, j;
+            selectMovement(L, i, j);
+            //individual = applyMovement(individual, i, j)
+            break;
         }
         else
             break;
