@@ -2,6 +2,14 @@ import numpy as np
 from utils import fitness
 from utils import consensus
 
+# IMPLEMENTACION DE PALS CON SUS MODIFICACIONES
+######################################### REFERENCES ##############################################
+#[1] "A New Local Search Algorithm for the DNA Fragment Assembly Problem"
+#[2] "An improved problem aware local search algorithm for the DNA fragment assembly problem"
+#[3] "A hybrid crow search algorithm for solving the DNA fragment assembly problem"
+###################################################################################################
+
+
 def PALS(K, individual, matrix_w):
     #print("individual receive in PALS: ", individual)
     individual = individual.astype(int)
@@ -9,20 +17,34 @@ def PALS(K, individual, matrix_w):
     iterations = 0
     #while iterations < 300:
     
-    while iterations < 30000:
+    while iterations < 3000:
         
         L = []
         for i in range(K-2):
             for j in range(i+1, K-1):
                 delta_c, delta_f = calculateDeltas(individual, i, j, matrix_w)
-                if delta_c < 0 or (delta_c == 0 and delta_f > 0):
-                    L.append( (i, j, delta_f, delta_c) )
+                
+                ###################################################################################################
+                #if delta_c < 0 or (delta_c == 0 and delta_f > 0): #PALS original [1, 2]
+                if delta_f > 0: #PALS modificado en [3]
+                    L.append( [i, j, delta_f, delta_c] )
 
         if len(L) > 0:
-            i, j = selectMovement(L)
-            individual = applyMovement(individual, i, j)
+            ###################################################################################################
+            #PALS original [1]
+            #i, j = selectMovement(L)
+            #individual = applyMovement(individual, i, j)
 
-        #print(" interation PALS: ", iterations, " candidates number: ", len(L))
+            ###################################################################################################
+            #PALS modificado [2]
+            #individual = applyMovement_PALS2many(individual, L)
+
+            ###################################################################################################
+            #PALS modificado en [3]
+            individual = applyMovement_PALS2many_fit(individual, L)
+            #break
+
+        #print(" interation PALS: ", iterations, " candidates number: ", len(L), " fitness: ", fitness(matrix_w, individual))
 
         iterations += 1
 
@@ -88,41 +110,116 @@ def applyMovement(individual, i, j):
     #print(individual)
     return individual
 
-"""
-def fitness(solution, matrix):
-    #print("calculating fitness of: ", solution)
-    overlap = 0
-    for i in range(num_fragments - 1):
-        #print("calculating overlap of: ", int(solution[i]), int(solution[i+1]))
-        #print("overlap: ", matrix[ int(solution[i]), int(solution[i+1]) ] )
-        overlap += matrix[int(solution[i]), int(solution[i+1])] #the overload is yet calculated in matrix
-    
-    #print("fitness calculated: ", overlap)
-    return overlap
-"""
+# aplica el algoritmo de PALS2many* propuesto en [2]
+def applyMovement_PALS2many(individual, L):
+    L = np.array(L)
+    L = L.astype(int)    
+    #np.savetxt("L_initial.csv", L, delimiter=",", fmt='%i')
+
+    #sort ascending by delta_c (4th column), them by delta_f (3th column)
+    L = L[np.lexsort((L[:,2], L[:,3]))]    
+    #np.savetxt("L_final.csv", L, delimiter=",", fmt='%i')
+
+    #applied all the movement according to "An improved problem aware local search algorithm for the DNA fragment assembly problem"
+    index_used = np.array([]) # save the movements applied
+    count=0
+    for posible_movement in range(L.shape[0]):
+        #print("movement:", L[posible_movement])
+        #print("individual befores movement:", individual)
+        i = L[posible_movement][0]
+        j = L[posible_movement][1]
+
+        #si el movieminto no fue aplicado antes
+        #print(np.where(index_used==i)[0], np.where(index_used==j)[0])
+        if len(np.where(index_used==i)[0]) == 0 and len(np.where(index_used==j)[0]) == 0:
+            #print("apply movement")
+            index_used = np.append(index_used, i)
+            index_used = np.append(index_used, j)
+            
+            #swap
+            tmp = individual[i]
+            individual[i] = individual[j]
+            individual[j] = tmp
+            count += 1
+            #print("individual after movement:", individual)
+
+   
+    #print("movements applied: ", count)
+    #print("new individual: ", individual) 
+    return individual
+
+# aplica el algoritmo de PALS2many*fit propuesto [3]
+def applyMovement_PALS2many_fit(individual, L):
+    L = np.array(L)
+    L = L.astype(int)    
+    #np.savetxt("L_initial.csv", L, delimiter=",", fmt='%i')
+
+    #sorting descending by delta_f
+    L = L[L[:,2].argsort()[::-1]]   
+    #np.savetxt("L_final.csv", L, delimiter=",", fmt='%i')
+
+    #applied all the movement according to "An improved problem aware local search algorithm for the DNA fragment assembly problem"
+    index_used = np.array([]) # save the movements applied
+    count=0
+    for posible_movement in range(L.shape[0]):
+        #print("movement:", L[posible_movement])
+        #print("individual befores movement:", individual)
+        i = L[posible_movement][0]
+        j = L[posible_movement][1]
+
+        #si el movieminto no fue aplicado antes
+        #print(np.where(index_used==i)[0], np.where(index_used==j)[0])
+        if len(np.where(index_used==i)[0]) == 0 and len(np.where(index_used==j)[0]) == 0:
+            #print("apply movement")
+            index_used = np.append(index_used, i)
+            index_used = np.append(index_used, j)
+            
+            #swap
+            tmp = individual[i]
+            individual[i] = individual[j]
+            individual[j] = tmp
+            count += 1
+            #print("individual after movement:", individual)
+
+   
+    #print("movements applied: ", count)
+    #print("new individual: ", individual) 
+    return individual
 
 if __name__ == "__main__" :
-    instance = 'x60189_7'
+    instance = 'x60189_4'
     matrix = np.genfromtxt(instance + '/matrix_conservative.csv', delimiter=',')
     #print(matrix.shape)
     num_fragments = matrix.shape[0]
     aleatory_solution = np.arange(num_fragments)
     np.random.shuffle(aleatory_solution)
 
-    print("initial solution: ", aleatory_solution)
-    print("fitness: ", fitness(matrix, aleatory_solution))
-    print("contigs: ", consensus(matrix, aleatory_solution))
+    print("initial solution: ", aleatory_solution)    
+    sol = PALS(num_fragments, aleatory_solution, matrix)
+    fitness_temp = fitness(matrix, sol)
+    contigs_temp = consensus(matrix, sol)
+    print("fitness: ", fitness_temp, "contig: ", contigs_temp)
+    print("final solution: ", sol)
 
     #################################################### pruebas #########################################
     num_test = 30.0
     fitness_acum = best_fitness = contig_acum = 0.0
     best_contig = 100
 
+    
+    print("TESTING 30 ITEARTIONS...")    
+
     for i in range(int(num_test)):
-        print("testin...", i)
+        aleatory_solution = np.arange(num_fragments)
+        np.random.shuffle(aleatory_solution)
+
+        print("testing...", i)
         sol = PALS(num_fragments, aleatory_solution, matrix)
         fitness_temp = fitness(matrix, sol)
         contigs_temp = consensus(matrix, sol)
+
+        print("fitness: ", fitness_temp, "contig: ", contigs_temp)
+
         fitness_acum += fitness_temp
         contig_acum += contigs_temp
         if fitness_temp > best_fitness:
@@ -131,9 +228,8 @@ if __name__ == "__main__" :
             best_contig = contigs_temp
 
     fitness_mean = fitness_acum/num_test
-    contigs_mean = contig_acum/num_test
+    contigs_mean = contig_acum/num_test    
     
-    #print(fitness(sol, matrix))
-    print("initial solution: ", sol)
-    print("fitness: ", fitness_mean)
-    print("contigs: ", contigs_mean)
+    print("fitness_mean: ", fitness_mean)
+    print("contigs_mean: ", contigs_mean)
+    

@@ -79,7 +79,7 @@ iter=0
 while iter < ITERATIONS:
     print("ITERATION: ", iter)
     for i in range(N):
-        #print('CROW ', i)
+        print('CROW ', i)
         random_crow = random.randint(0, N-1) #chose a random crow
         r = random.random()
         if r >= AP:
@@ -90,6 +90,7 @@ while iter < ITERATIONS:
             #################     local search     ###################
             r_ls = random.random()
             if r_ls >= P_LS:
+                print("local search...")
                 individual = crows[i].copy()
                 individual = np.squeeze(np.asarray(individual))
                 crows[i] = PALS(num_fragments, individual, matrix)                
