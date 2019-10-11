@@ -4,12 +4,14 @@
 #include <string>
 #include <algorithm>    // copy
 #include <iterator>     // ostream_operator
+#include <random>
 
 #include <boost/tokenizer.hpp>
 #include <boost/range/algorithm.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/matrix_proxy.hpp>
 #include <boost/numeric/ublas/io.hpp>
+
 
 #include "utils.h"
 
@@ -48,42 +50,58 @@ void calculateDeltas(ublas::vector<int> individual, int i, int j, ublas::matrix<
         delta_c = delta_c - 1;
 }
 
+void applyMovement(ublas::vector<int>& individual, int i, int j){
+    int temp = individual[i];
+    individual[i] = individual[j];
+    individual[j] = temp;
+}
+
 void selectMovement(ublas::matrix<int> L, int& i, int& j){
-    int x = L.size1();
+    ///////////////////////////////////////////////
+    //get the posible movement with minimun delta_c
     ublas::matrix_column< ublas::matrix<int> > L_temp(L, 3);
     int min_delta_c = min_vector(L_temp);
-    cout<<L_temp[min_delta_c]<<endl;
+    //cout<<L_temp[min_delta_c]<<endl;
+
+    ublas::matrix<int> L_with_min_delta_c;
+    int index_matrix = 0;
+    int x = L.size1();
+    for(int i = 0; i < x; i++){
+        if(L(i, 3) == L_temp[min_delta_c]){
+            assign_to_matrix(L_with_min_delta_c, index_matrix, 0, L(i,0));
+            assign_to_matrix(L_with_min_delta_c, index_matrix, 1, L(i,1));
+            assign_to_matrix(L_with_min_delta_c, index_matrix, 2, L(i,2));
+            assign_to_matrix(L_with_min_delta_c, index_matrix, 3, L(i,3));
+            index_matrix++;
+        }
+    }
+
+    ///////////////////////////////////////////////
+    //get the posible movement with maximun delta_f    
+    ublas::matrix_column< ublas::matrix<int> > L_temp2(L_with_min_delta_c, 2);
+    int max_delta_f = max_vector(L_temp2);
+    //cout<<"mas delta f "<<L_temp2[max_delta_f]<<endl;
+    ublas::matrix<int> L_with_max_delta_f;
+    index_matrix = 0;
+    x = L_with_min_delta_c.size1();
+    for(int i = 0; i < x; i++){
+        if(L_with_min_delta_c(i, 2) == L_temp2[max_delta_f]){
+            assign_to_matrix(L_with_max_delta_f, index_matrix, 0, L_with_min_delta_c(i,0));
+            assign_to_matrix(L_with_max_delta_f, index_matrix, 1, L_with_min_delta_c(i,1));
+            assign_to_matrix(L_with_max_delta_f, index_matrix, 2, L_with_min_delta_c(i,2));
+            assign_to_matrix(L_with_max_delta_f, index_matrix, 3, L_with_min_delta_c(i,3));
+            index_matrix++;
+        }
+    }    
+
+    i = L_with_max_delta_f(0, 0);
+    j = L_with_max_delta_f(0, 1);
+    //cout<<L<<endl;
+    //cout<<L_with_min_delta_c<<endl;
+    //cout<<L_with_max_delta_f<<" "<<i<<" "<<j<<endl;
+
 }
-/*
-def selectMovement(L):
-    # get the posible movement with minimun delta_c
-    x = len(L)
-    L_temp = np.matrix(L)
-    delta_c_list = L_temp[:,3]
-    min_delta_c = np.amin(delta_c_list)
 
-    L_with_min_delta_c = []
-    for i in range(x):
-        if L_temp[i,3] == min_delta_c:
-            L_with_min_delta_c.append(np.squeeze(np.asarray(L_temp[i,:])))
-
-       
-    # get the posible movement with maximun delta_f
-    x = len(L_with_min_delta_c)
-    L_temp = np.matrix(L_with_min_delta_c)
-    delta_f_list = L_temp[:,2]
-    max_delta_f = np.amax(delta_f_list)
-    
-    L_with_max_delta_f = []
-    for i in range(x):
-        if L_temp[i,2] == max_delta_f:
-            L_with_max_delta_f.append(np.squeeze(np.asarray(L_temp[i,:])))
-
-    L_temp = np.matrix(L_with_max_delta_f)
-    
-    #print(L_temp.shape)   
-    #print(L_temp)
-    return int(L_temp[0, 0]), int(L_temp[0, 1])*/
 
 ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int> matrix_w){
     int iterations = 0;
@@ -106,26 +124,34 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
         //cout<<L<<endl;
         //break;
 
+        
+        cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<" fitness: "<<fitness(matrix_w, individual)<<" consensus: "<<consensus(matrix_w, individual)<<endl;
+
         iterations++;
         if (L.size1() > 0){
             //###################################################################################################
             //PALS original [1]
             int i, j;
             selectMovement(L, i, j);
-            //individual = applyMovement(individual, i, j)
-            break;
+            //cout<<"individual before movement:"<<individual<<endl;
+            applyMovement(individual, i, j);
+            //cout<<"individual after movement:"<<individual<<endl;
+            //cout<<"i,j "<<i<<" "<<j<<endl;
+            //break;
+
+
         }
         else
             break;
+
+        
     }
 
     return individual;
 }
 
-int main()
-{
-
-    ublas::matrix<int> m = read_csv("../x60189_4/matrix_conservative.csv");
+int main(){
+    ublas::matrix<int> m = read_csv("../x60189_7/matrix_conservative.csv");
     int num_fragments = m.size1();
     //cout<<m.size1()<<endl;
     
@@ -133,7 +159,12 @@ int main()
     std::vector<int> individual(num_fragments);
     for (int i = 0; i < individual.size(); i++)
         individual[i] = i;
-    range::random_shuffle(individual);
+    std::random_device rd;
+    std::mt19937 randEng(rd());
+    std::shuffle(individual.begin(), individual.end(), randEng);
+    //random number
+    
+    //range::random_shuffle(individual, randomNumber);
 
     //individual to boost vector
     ublas::vector<int> individual_t(individual.size());
@@ -142,6 +173,5 @@ int main()
     
     //call PALS
     ublas::vector<int> solution = PALS(num_fragments, individual_t, m);
-    //cout<<m<<endl;
-    
+    //cout<<m<<endl;    
 }

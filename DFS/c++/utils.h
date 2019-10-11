@@ -82,15 +82,35 @@ int fitness(ublas::matrix<int> m, ublas::vector<int> individual){
 }
 
 int min_vector(ublas::vector<int> individual){
-    int min = individual[0];
-    int min_index = 0;
-    for (int i = 0; i < individual.size(); i++){
-        if (individual[i] < min){
-            min = individual[i];
-            min_index = i;
+    if (individual.size() > 0){
+        int min = individual[0];
+        int min_index = 0;
+        for (int i = 0; i < individual.size(); i++){
+            if (individual[i] < min){
+                min = individual[i];
+                min_index = i;
+            }
         }
+        return min_index;
     }
-    return min_index;
+    else
+        return -1;
+}
+
+int max_vector(ublas::vector<int> individual){
+    if (individual.size() > 0){
+        int max = individual[0];
+        int max_index = 0;
+        for (int i = 0; i < individual.size(); i++){
+            if (individual[i] > max){
+                max = individual[i];
+                max_index = i;
+            }
+        }
+        return max_index;
+    }
+    else
+        return -1;
 }
 
 #endif
