@@ -44,7 +44,7 @@ def PALS(K, individual, matrix_w):
             individual = applyMovement_PALS2many_fit(individual, L)
             #break
 
-        print(" interation PALS: ", iterations, " candidates number: ", len(L), " fitness: ", fitness(matrix_w, individual))
+        #print(" interation PALS: ", iterations, " candidates number: ", len(L), " fitness: ", fitness(matrix_w, individual))
 
         iterations += 1
 

@@ -152,7 +152,7 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
     return individual;
 }
 
-/*
+
 int main(){
     ublas::matrix<int> m = read_csv("../x60189_4/matrix_conservative.csv");
     int num_fragments = m.size1();
@@ -161,5 +161,5 @@ int main(){
     
     ublas::vector<int> solution = PALS(num_fragments, individual_t, m);
     //cout<<m<<endl;    
-}*/
+}
 
