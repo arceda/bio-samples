@@ -20,8 +20,8 @@ def PALS(K, individual, matrix_w):
     while iterations < 3000:
         
         L = []
-        for i in range(K-2):
-            for j in range(i+1, K-1):
+        for i in range(1, K):
+            for j in range(0, K-1):
                 delta_c, delta_f = calculateDeltas(individual, i, j, matrix_w)
                 
                 ###################################################################################################
@@ -44,7 +44,7 @@ def PALS(K, individual, matrix_w):
             individual = applyMovement_PALS2many_fit(individual, L)
             #break
 
-        #print(" interation PALS: ", iterations, " candidates number: ", len(L), " fitness: ", fitness(matrix_w, individual))
+        print(" interation PALS: ", iterations, " candidates number: ", len(L), " fitness: ", fitness(matrix_w, individual))
 
         iterations += 1
 
@@ -86,7 +86,7 @@ def selectMovement(L):
     x = len(L_with_min_delta_c)
     L_temp = np.matrix(L_with_min_delta_c)
     delta_f_list = L_temp[:,2]
-    max_delta_f = np.amax(delta_f_list)
+    max_delta_f = np.amin(delta_f_list)
     
     L_with_max_delta_f = []
     for i in range(x):
@@ -206,7 +206,7 @@ if __name__ == "__main__" :
     fitness_acum = best_fitness = contig_acum = 0.0
     best_contig = 100
 
-    
+    """
     print("TESTING 30 ITEARTIONS...")    
 
     for i in range(int(num_test)):
@@ -231,5 +231,5 @@ if __name__ == "__main__" :
     contigs_mean = contig_acum/num_test    
     
     print("fitness_mean: ", fitness_mean)
-    print("contigs_mean: ", contigs_mean)
+    print("contigs_mean: ", contigs_mean)"""
     

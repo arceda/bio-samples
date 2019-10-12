@@ -1,3 +1,5 @@
+
+
 #include <iostream>     // cout, endl
 #include <fstream>      // fstream
 #include <vector>
@@ -28,7 +30,7 @@ using namespace boost::numeric::ublas;//matrix
 #[3] "A hybrid crow search algorithm for solving the DNA fragment assembly problem"
 ###################################################################################################
 
-//compile: g++ local_search.cpp utils.h  -lboost_regex
+//compile: g++ -std=c++11 local_search.cpp utils.h  -lboost_regex
 */
 
 void calculateDeltas(ublas::vector<int> individual, int i, int j, ublas::matrix<int> matrix_w, int& delta_c, int &delta_f){
@@ -79,7 +81,7 @@ void selectMovement(ublas::matrix<int> L, int& i, int& j){
     ///////////////////////////////////////////////
     //get the posible movement with maximun delta_f    
     ublas::matrix_column< ublas::matrix<int> > L_temp2(L_with_min_delta_c, 2);
-    int max_delta_f = max_vector(L_temp2);
+    int max_delta_f = min_vector(L_temp2);
     //cout<<"mas delta f "<<L_temp2[max_delta_f]<<endl;
     ublas::matrix<int> L_with_max_delta_f;
     index_matrix = 0;
@@ -150,28 +152,14 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
     return individual;
 }
 
+/*
 int main(){
-    ublas::matrix<int> m = read_csv("../x60189_7/matrix_conservative.csv");
+    ublas::matrix<int> m = read_csv("../x60189_4/matrix_conservative.csv");
     int num_fragments = m.size1();
-    //cout<<m.size1()<<endl;
+        
+    ublas::vector<int> individual_t = create_shuffle_vector(num_fragments);
     
-    //create individual
-    std::vector<int> individual(num_fragments);
-    for (int i = 0; i < individual.size(); i++)
-        individual[i] = i;
-    std::random_device rd;
-    std::mt19937 randEng(rd());
-    std::shuffle(individual.begin(), individual.end(), randEng);
-    //random number
-    
-    //range::random_shuffle(individual, randomNumber);
-
-    //individual to boost vector
-    ublas::vector<int> individual_t(individual.size());
-    std::copy(individual.begin(), individual.end(), individual_t.begin());
-    //cout<<individual_t<<endl;
-    
-    //call PALS
     ublas::vector<int> solution = PALS(num_fragments, individual_t, m);
     //cout<<m<<endl;    
-}
+}*/
+

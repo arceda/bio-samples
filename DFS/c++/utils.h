@@ -113,4 +113,28 @@ int max_vector(ublas::vector<int> individual){
         return -1;
 }
 
+ublas::vector<int> create_shuffle_vector(int num_fragments){
+    std::vector<int> individual(num_fragments);
+    for (int i = 0; i < individual.size(); i++)
+        individual[i] = i;
+    std::random_device rd;
+    std::mt19937 randEng(rd());
+    std::shuffle(individual.begin(), individual.end(), randEng);
+
+    //from std:vec to ublas::vec
+    ublas::vector<int> individual_t(individual.size());
+    std::copy(individual.begin(), individual.end(), individual_t.begin());
+
+    return individual_t;
+}
+
+int random_number(int low, int high){
+    std::random_device dev;
+    std::mt19937 rng(dev());
+    std::uniform_int_distribution<std::mt19937::result_type> dist6(low,high); // distribution in range [1, 6]
+
+    //std::cout << dist6(rng) << std::endl;
+    return dist6(rng);
+}
+
 #endif
