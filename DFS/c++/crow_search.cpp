@@ -31,7 +31,9 @@ ublas::matrix<int> init_population(int N, int num_fragments){
     for(int i = 0; i < N; i++){
         ublas::vector<int> individual = create_shuffle_vector(num_fragments);
         //cout<<"individual "<<individual<<endl;
-        ublas::row(crows, i) = individual;        
+        ublas::row(crows, i) = individual;   
+
+        //cout<<"cecee "<<ublas::row(crows, i)<<endl;
     }
     //cout<<"crows "<<crows<<endl;
 
@@ -52,17 +54,42 @@ void crow_search(ublas::matrix<int> matrix_w, int ITERATIONS, int N, float AP, f
     ublas::matrix<int> memory(crows);
 
     int iter = 0;
-    int r, r_ls;
+    int random_crow_index;
+    float r, r_ls;
+    ublas::vector<int> current_crow;
+    ublas::vector<int> current_memory;
     while(iter < 300){
+        cout<<"ITERATION "<<iter<<endl;
         for (int i = 0; i < N; i++){
-            cout<<"CROW "<<i<<endl;
+            cout<<"crow "<<i<<endl;
+            current_crow = row(crows, i);
+            current_memory = row(memory, i);
+            //cout<<"current_crow "<<current_crow<<endl;
             //cout<<random_number(0, N-1)<<endl;
-            r = float(random_number(0, N-1));
+            r = float(random_float());            
             if (r >= AP){
-
+                random_crow_index = random_number(0, N-1);
+                //OXFL oeprator          
+                
+                r_ls = float(random_float());
+                if (r_ls >= P_LS){
+                    cout<<"local search ..."<<endl;
+                    ublas::row(crows, i) = PALS(num_fragments, current_crow, matrix_w);    
+                    current_crow =   ublas::row(crows, i); 
+                }
             }else{
-
+                //move to random position     
+                ublas::row(crows, i) = create_shuffle_vector(num_fragments); 
+                current_crow =   ublas::row(crows, i); 
             }
+
+            if (fitness(matrix_w, current_crow) > fitness(matrix_w, current_memory)){
+                ublas::vector<int> temp(current_crow.size());
+                std::copy(current_crow.begin(), current_crow.end(), temp.begin());
+
+                ublas::row(memory, i) = temp;                 
+            }
+          
         }
         iter++;
     }

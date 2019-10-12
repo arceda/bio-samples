@@ -137,4 +137,12 @@ int random_number(int low, int high){
     return dist6(rng);
 }
 
+float random_float(){
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<> dis(0, 1);
+    //std::cout << dist6(rng) << std::endl;
+    return dis(gen);
+}
+
 #endif

@@ -81,7 +81,7 @@ void selectMovement(ublas::matrix<int> L, int& i, int& j){
     ///////////////////////////////////////////////
     //get the posible movement with maximun delta_f    
     ublas::matrix_column< ublas::matrix<int> > L_temp2(L_with_min_delta_c, 2);
-    int max_delta_f = min_vector(L_temp2);
+    int max_delta_f = max_vector(L_temp2);
     //cout<<"mas delta f "<<L_temp2[max_delta_f]<<endl;
     ublas::matrix<int> L_with_max_delta_f;
     index_matrix = 0;
@@ -105,7 +105,10 @@ void selectMovement(ublas::matrix<int> L, int& i, int& j){
 }
 
 
-ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int> matrix_w){
+ublas::vector<int> PALS(int K, ublas::vector<int> individual_temp, ublas::matrix<int> matrix_w){
+    ublas::vector<int> individual(individual_temp.size());
+    std::copy(individual_temp.begin(), individual_temp.end(), individual.begin());
+
     int iterations = 0;
     while (iterations < 3000){
         ublas::matrix<int> L;
@@ -127,7 +130,7 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
         //break;
 
         
-        cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<" fitness: "<<fitness(matrix_w, individual)<<" consensus: "<<consensus(matrix_w, individual)<<endl;
+        //cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<" fitness: "<<fitness(matrix_w, individual)<<" consensus: "<<consensus(matrix_w, individual)<<endl;
 
         iterations++;
         if (L.size1() > 0){
@@ -152,7 +155,7 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
     return individual;
 }
 
-
+/*
 int main(){
     ublas::matrix<int> m = read_csv("../x60189_4/matrix_conservative.csv");
     int num_fragments = m.size1();
@@ -161,5 +164,5 @@ int main(){
     
     ublas::vector<int> solution = PALS(num_fragments, individual_t, m);
     //cout<<m<<endl;    
-}
+}*/
 
