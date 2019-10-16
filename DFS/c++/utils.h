@@ -145,4 +145,12 @@ float random_float(){
     return dis(gen);
 }
 
+int find_in_vector(ublas::vector<int> vec, int data){
+    for (int i = 0; i < vec.size(); i++){
+        if(vec[i] == data)
+            return i;
+    }
+    return -1;
+}
+
 #endif
