@@ -93,48 +93,6 @@ void crow_search(ublas::matrix<int> matrix_w, int ITERATIONS, int N, float AP, f
         }
         iter++;
     }
-
-    //cout<<"crows "<<crows<<endl;
-    //cout<<"memory "<<memory<<endl;
-
-/*
-    iter=0
-while iter < ITERATIONS:
-    print("ITERATION: ", iter)
-    for i in range(N):
-        print('CROW ', i)
-        random_crow = random.randint(0, N-1) #chose a random crow
-        r = random.random()
-        if r >= AP:
-            #print("the crow look up", i)
-            #print("perform oxfl operator")
-            crows[i] = OXFL(crows[i], crows[random_crow], FL)
-
-            #################     local search     ###################
-            r_ls = random.random()
-            if r_ls >= P_LS:
-                print("local search...")
-                individual = crows[i].copy()
-                individual = np.squeeze(np.asarray(individual))
-                crows[i] = PALS(num_fragments, individual, matrix)                
-
-        else:
-            #print("the crow move to ramdon position", i)
-            #the crow go to a random position
-            #print('the crow go to random position', i, crows[i])
-            np.random.shuffle(crows[i])
-            #print('the crow went to random position', i, crows[i])
-            #print("memory[i]: ",i,  memory[i])
-            #print("crows[i]: ",i,  crows[i])
-
-        if fitness(matrix, crows[i]) > fitness(matrix, memory[i]):
-            #print("the new position is better, updating memory")
-            memory[i] = crows[i].copy()
-            #print("memory[i]: ",i,  memory[i])
-            #print("crows[i]: ",i,  crows[i])
-        
-    iter += 1
-*/
 }
 
 
