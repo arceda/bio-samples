@@ -31,6 +31,6 @@ using namespace boost::numeric::ublas;//matrix
 //compile: g++ -std=c++11 oxfl.cpp utils.h  -lboost_regex
 */
 
-ublas::vector<int> oxfl(ublas::vector<int> crow1, ublas::vector<int> crow2, float FL);
+ublas::vector<int> operator_oxfl(ublas::vector<int> crow1, ublas::vector<int> crow2, float FL);
 
 #endif
