@@ -65,21 +65,25 @@ ublas::matrix<int>  read_csv(string file){
     return m;
 }
 
-int consensus(ublas::matrix<int> m, ublas::vector<int> individual){ 
+int consensus(ublas::matrix<int> &m, ublas::vector<int> individual){ 
     int contigs = 1;
     for(int i = 0; i < individual.size()-1; i++){
-        if ( m(individual[i], individual[i+1]) < CUTOFF )
+        if ( m(individual[i], individual[i+1]) <= CUTOFF )
             contigs++;
     }
+
+    //if ( m(individual[individual.size()-1], individual[0]) <= CUTOFF )
+    //        contigs++;
+
     return contigs;
 }
 
-int fitness(ublas::matrix<int> m, ublas::vector<int> individual){ 
+int fitness(ublas::matrix<int> &m, ublas::vector<int> individual){ 
     int overlap = 0;
     for(int i = 0; i < individual.size()-1; i++){
         overlap += m(individual[i], individual[i+1]);
     }
-    return overlap;
+    return overlap + m(individual[individual.size()-1], individual[0]);
 }
 
 int min_vector(ublas::vector<int> individual){

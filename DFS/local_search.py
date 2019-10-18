@@ -26,20 +26,20 @@ def PALS(K, individual, matrix_w):
                 delta_c, delta_f = calculateDeltas(individual, i, j, matrix_w)
                 
                 ###################################################################################################
-                #if delta_c < 0 or (delta_c == 0 and delta_f > 0): #PALS original [1, 2]
-                if delta_f > 0: #PALS modificado en [3]
+                if (delta_c < 0) or (delta_c == 0 and delta_f > 0): #PALS original [1, 2]
+                #if delta_f > 0: #PALS modificado en [3]
                     L.append( [i, j, delta_f, delta_c] )
 
         if len(L) > 0:
             ###################################################################################################
             #PALS original [1]
-            start_time = time()
+            #start_time = time()
 
             i, j = selectMovement(L)
             individual = applyMovement(individual, i, j)
 
-            elapsed_time = time() - start_time
-            print("Elapsed time: %0.10f seconds." % elapsed_time)
+            #elapsed_time = time() - start_time
+            #print("Elapsed time: %0.10f seconds." % elapsed_time)
             
 
             ###################################################################################################
@@ -48,7 +48,10 @@ def PALS(K, individual, matrix_w):
 
             ###################################################################################################
             #PALS modificado en [3]
+            #start_time = time()
             #individual = applyMovement_PALS2many_fit(individual, L)
+            #elapsed_time = time() - start_time
+            #print("Elapsed time: %0.10f seconds." % elapsed_time)
             #break
 
         #print(" interation PALS: ", iterations, " candidates number: ", len(L))
@@ -94,7 +97,7 @@ def selectMovement(L):
     x = len(L_with_min_delta_c)
     L_temp = np.matrix(L_with_min_delta_c)
     delta_f_list = L_temp[:,2]
-    max_delta_f = np.amin(delta_f_list)
+    max_delta_f = np.amax(delta_f_list)
     
     L_with_max_delta_f = []
     for i in range(x):

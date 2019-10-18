@@ -25,4 +25,4 @@ def fitness(matrix, individual):
                 overlap += matrix[int(individual[i]), int(individual[i+1])] #the overload is yet calculated in matrix
 
                 #print("fitness calculated: ", overlap)
-        return overlap
+        return overlap + matrix[int(individual[x-1]), int(individual[0])] 

@@ -32,7 +32,7 @@ num_fragments = fragments.shape[0]
 ###########################################################################################
 ###########################################################################################
 
-ITERATIONS = 200
+ITERATIONS = 2
 N = 32
 AP = 0.02
 FL = 0.75
@@ -116,7 +116,7 @@ while iter < ITERATIONS:
 # get the best fitness
 best_fitness = 0
 for i in range(N):
-    fit = fitness(memory[i])
+    fit = fitness(matrix, memory[i])
     if fit > best_fitness:
         best_fitness = fit
 
