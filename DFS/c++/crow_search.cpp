@@ -5,6 +5,7 @@
 #include <algorithm>    // copy
 #include <iterator>     // ostream_operator
 #include <random>
+#include <ctime> 
 
 #include <boost/tokenizer.hpp>
 #include <boost/range/algorithm.hpp>

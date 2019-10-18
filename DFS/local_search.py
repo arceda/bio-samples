@@ -1,6 +1,7 @@
 import numpy as np
 from utils import fitness
 from utils import consensus
+from time import time
 
 # IMPLEMENTACION DE PALS CON SUS MODIFICACIONES
 ######################################### REFERENCES ##############################################
@@ -32,8 +33,14 @@ def PALS(K, individual, matrix_w):
         if len(L) > 0:
             ###################################################################################################
             #PALS original [1]
-            #i, j = selectMovement(L)
-            #individual = applyMovement(individual, i, j)
+            start_time = time()
+
+            i, j = selectMovement(L)
+            individual = applyMovement(individual, i, j)
+
+            elapsed_time = time() - start_time
+            print("Elapsed time: %0.10f seconds." % elapsed_time)
+            
 
             ###################################################################################################
             #PALS modificado [2]
@@ -41,9 +48,10 @@ def PALS(K, individual, matrix_w):
 
             ###################################################################################################
             #PALS modificado en [3]
-            individual = applyMovement_PALS2many_fit(individual, L)
+            #individual = applyMovement_PALS2many_fit(individual, L)
             #break
 
+        #print(" interation PALS: ", iterations, " candidates number: ", len(L))
         #print(" interation PALS: ", iterations, " candidates number: ", len(L), " fitness: ", fitness(matrix_w, individual))
 
         iterations += 1

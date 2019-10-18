@@ -154,9 +154,9 @@ int find_in_vector(ublas::vector<int> vec, int data){
     return -1;
 }
 
-void sort_by_column(ublas::matrix<int> data, int col){
+void sort_by_column(ublas::matrix<int> &data, int col){
 
-    cout<<"SORTING ..."<<endl;
+    //cout<<"SORTING ..."<<endl;
     //boost ,atrix to std matrix
     std::vector<std::vector<int> > M;
     for(int i = 0; i < data.size1(); i++){
@@ -182,6 +182,12 @@ void sort_by_column(ublas::matrix<int> data, int col){
                   return lhs[col] > rhs[col];
               });
 
+    
+    for(int i = 0; i < data.size1(); i++){
+        for(int j = 0; j < data.size2(); j++){
+            data(i, j) = M[i][j];
+        }
+    }
     
 
 }

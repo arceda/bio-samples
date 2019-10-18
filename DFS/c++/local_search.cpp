@@ -7,6 +7,7 @@
 #include <algorithm>    // copy
 #include <iterator>     // ostream_operator
 #include <random>
+#include <ctime> 
 
 #include <boost/tokenizer.hpp>
 #include <boost/range/algorithm.hpp>
@@ -107,6 +108,29 @@ void selectMovement(ublas::matrix<int> L, int& i, int& j){
 void applyMovement_PALS2many_fit(ublas::vector<int> &individual, ublas::matrix<int> L){
     //sorting descending by delta_f  
     sort_by_column(L, 2);
+    
+    std::vector<int> index_used;
+    int i, j, tmp;
+    std::vector<int>::iterator it_i;
+    std::vector<int>::iterator it_j;
+
+    for(int posible_movement =0; posible_movement < L.size1(); posible_movement++){
+        i = L(posible_movement, 0);
+        j = L(posible_movement, 1);
+
+        it_i = find (index_used.begin(), index_used.end(), i);
+        it_j = find (index_used.begin(), index_used.end(), j);
+        //#si el movieminto no fue aplicado antes
+        if(it_i == index_used.end() || it_j == index_used.end()){
+            index_used.push_back(i);
+            index_used.push_back(j);
+
+            //swap
+            tmp = individual[i];
+            individual[i] = individual[j];
+            individual[j] = tmp;
+        }
+    }   
 }
 
 ublas::vector<int> PALS(int K, ublas::vector<int> individual_temp, ublas::matrix<int> matrix_w){
@@ -133,18 +157,26 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual_temp, ublas::matrix
         //cout<<L<<endl;
         //break;
 
-        
-        //cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<" fitness: "<<fitness(matrix_w, individual)<<" consensus: "<<consensus(matrix_w, individual)<<endl;
+        //cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<endl;
+        ///cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<" fitness: "<<fitness(matrix_w, individual)<<" consensus: "<<consensus(matrix_w, individual)<<endl;
 
         iterations++;
         if (L.size1() > 0){
             //###################################################################################################
             //PALS original [1]
             int i, j;
+            
+            unsigned t0, t1; 
+            t0=clock();
+
             selectMovement(L, i, j);
-            //cout<<"individual before movement:"<<individual<<endl;
             applyMovement(individual, i, j);
-            //cout<<"individual after movement:"<<individual<<endl;            
+
+            t1 = clock();
+            double time = (double(t1-t0)/CLOCKS_PER_SEC);
+            cout << "Execution Time: " << time << endl;
+ 
+                       
 
             //###################################################################################################
             //#PALS modificado [2]
@@ -152,8 +184,10 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual_temp, ublas::matrix
 
             //###################################################################################################
             //#PALS modificado en [3]
-            applyMovement_PALS2many_fit(individual, L);
-            break;
+            //cout<<"individual before movement:"<<individual<<endl;
+            //applyMovement_PALS2many_fit(individual, L);
+            //cout<<"individual after movement:"<<individual<<endl;       
+            //break;
         }
         else
             break;
@@ -172,6 +206,7 @@ int main(){
     ublas::vector<int> individual_t = create_shuffle_vector(num_fragments);
     
     ublas::vector<int> solution = PALS(num_fragments, individual_t, m);
-    //cout<<m<<endl;    
+    cout<<"fit:"<<fitness(m, solution)<<endl;    
+    cout<<"consensus:"<<consensus(m, solution)<<endl;    
 }
 
