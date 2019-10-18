@@ -7,6 +7,7 @@
 #include <string>
 #include <algorithm>    // copy
 #include <iterator>     // ostream_operator
+#include <random>
 
 #include <boost/tokenizer.hpp>
 #include <boost/numeric/ublas/matrix.hpp>

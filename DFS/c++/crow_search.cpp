@@ -15,13 +15,14 @@
 
 #include "utils.h"
 #include "local_search.cpp"
+#include "oxfl.cpp"
 
 using namespace std;
 using namespace boost; //range
 using namespace boost::numeric;//ublas.matrix, ublas.vector
 using namespace boost::numeric::ublas;//matrix
 
-//compile: g++ -std=c++11 crow_search.cpp  local_search.h utils.h  -lboost_regex
+//compile: g++ -std=c++11 oxfl.h crow_search.cpp  local_search.h utils.h  -lboost_regex
 
 
 
@@ -52,24 +53,30 @@ void crow_search(ublas::matrix<int> matrix_w, int ITERATIONS, int N, float AP, f
 
     ublas::matrix<int> crows = init_population(N, num_fragments);
     ublas::matrix<int> memory(crows);
-
+    
     int iter = 0;
     int random_crow_index;
     float r, r_ls;
     ublas::vector<int> current_crow;
+    ublas::vector<int> current_victim;
     ublas::vector<int> current_memory;
-    while(iter < 300){
+
+    while(iter < 2){
         cout<<"ITERATION "<<iter<<endl;
         for (int i = 0; i < N; i++){
             cout<<"crow "<<i<<endl;
-            current_crow = row(crows, i);
-            current_memory = row(memory, i);
+            current_crow = ublas::row(crows, i);
+            current_memory = ublas::row(memory, i);
             //cout<<"current_crow "<<current_crow<<endl;
             //cout<<random_number(0, N-1)<<endl;
             r = float(random_float());            
             if (r >= AP){
+                cout<<"oxfl ..."<<endl;
                 random_crow_index = random_number(0, N-1);
-                //OXFL oeprator          
+                current_victim = ublas::row(crows, random_crow_index);
+                //OXFL oeprator   
+                ublas::row(crows, i) = operator_oxfl(current_crow, current_victim, FL); 
+                current_crow =   ublas::row(crows, i);       
                 
                 r_ls = float(random_float());
                 if (r_ls >= P_LS){
@@ -93,6 +100,22 @@ void crow_search(ublas::matrix<int> matrix_w, int ITERATIONS, int N, float AP, f
         }
         iter++;
     }
+
+
+    ////////////////////////////GETTING BEST FITNESS/////////////////////////////////
+    int best_fitness = 0;
+    for (int i = 0; i < N; i++){
+        int tmp_fit = fitness(matrix_w, ublas::row(memory, i));
+        int tmp_contigs = consensus(matrix_w, ublas::row(memory, i));
+        cout<<"fitness "<<i<<" "<<tmp_fit<<endl;
+        cout<<"contigs "<<i<<" "<<tmp_contigs<<endl;
+        
+        if(tmp_fit > best_fitness)
+            best_fitness = tmp_fit;
+    }
+    cout<<"BEST FITNESS: "<<best_fitness<<endl;
+    /////////////////////////////////////////////////////////////////////////////////
+
 }
 
 
