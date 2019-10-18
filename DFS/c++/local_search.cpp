@@ -234,7 +234,7 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
     return individual;
 }
 
-
+/*
 int main(){
     ublas::matrix<int> m = read_csv("../x60189_4/matrix_conservative.csv");
     int num_fragments = m.size1();
@@ -276,5 +276,5 @@ int main(){
     cout<<best_fitness<<"\t\t"<<mean_fitness<<"\t\t"<<worst_fitness<<endl;
     cout<<best_contigs<<"\t\t"<<mean_contigs<<"\t\t"<<worst_contigs<<endl;    
     ///////////////////////////////////////////////////////////////////////////////////////////////  
-}
+}*/
 
