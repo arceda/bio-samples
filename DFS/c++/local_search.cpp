@@ -104,6 +104,10 @@ void selectMovement(ublas::matrix<int> L, int& i, int& j){
 
 }
 
+void applyMovement_PALS2many_fit(ublas::vector<int> &individual, ublas::matrix<int> L){
+    //sorting descending by delta_f  
+    sort_by_column(L, 2);
+}
 
 ublas::vector<int> PALS(int K, ublas::vector<int> individual_temp, ublas::matrix<int> matrix_w){
     ublas::vector<int> individual(individual_temp.size());
@@ -140,11 +144,16 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual_temp, ublas::matrix
             selectMovement(L, i, j);
             //cout<<"individual before movement:"<<individual<<endl;
             applyMovement(individual, i, j);
-            //cout<<"individual after movement:"<<individual<<endl;
-            //cout<<"i,j "<<i<<" "<<j<<endl;
-            //break;
+            //cout<<"individual after movement:"<<individual<<endl;            
 
+            //###################################################################################################
+            //#PALS modificado [2]
+            //#individual = applyMovement_PALS2many(individual, L)
 
+            //###################################################################################################
+            //#PALS modificado en [3]
+            applyMovement_PALS2many_fit(individual, L);
+            break;
         }
         else
             break;
@@ -155,7 +164,7 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual_temp, ublas::matrix
     return individual;
 }
 
-/*
+
 int main(){
     ublas::matrix<int> m = read_csv("../x60189_4/matrix_conservative.csv");
     int num_fragments = m.size1();
@@ -164,5 +173,5 @@ int main(){
     
     ublas::vector<int> solution = PALS(num_fragments, individual_t, m);
     //cout<<m<<endl;    
-}*/
+}
 

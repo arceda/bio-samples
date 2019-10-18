@@ -37,6 +37,7 @@ using namespace boost::numeric::ublas;//matrix
 void calculateDeltas(ublas::vector<int> individual, int i, int j, ublas::matrix<int> matrix_w, int& delta_c, int &delta_f);
 void applyMovement(ublas::vector<int>& individual, int i, int j);
 void selectMovement(ublas::matrix<int> L, int& i, int& j);
+void applyMovement_PALS2many_fit(ublas::vector<int> &individual, ublas::matrix<int> L)
 ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int> matrix_w);
 
 #endif
