@@ -142,23 +142,26 @@ ublas::vector<int> crow_search(ublas::matrix<int> matrix_w, int ITERATIONS, int 
 
 
 int main(){
-    int ITERATIONS = 500;
+    //int ITERATIONS = 500;
+    int ITERATIONS = 100;
     int N = 32;
     float AP = 0.02;
     float FL = 0.75;
     float P_LS = 0.49;
 
-    ublas::matrix<int> m = read_csv("../x60189_7/matrix_conservative.csv");
+
+    ublas::matrix<int> m = read_csv("../x60189_6/matrix_conservative.csv");
     int num_fragments = m.size1();    
-    crow_search(m, ITERATIONS, N, AP, FL, P_LS, true);
+    //crow_search(m, ITERATIONS, N, AP, FL, P_LS, true);
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    /*cout<<"TESTING... :"<<endl<<endl;    
+    cout<<"TESTING... :"<<endl<<endl;    
    
     int f_tmp, c_tmp;
     std::vector<int> fitness_vec;
     std::vector<int> contigs_vec;
-    for (int i = 0; i < 30; i++){
+    //for (int i = 0; i < 30; i++){
+    for (int i = 0; i < 5; i++){
         ublas::vector<int> sol = crow_search(m, ITERATIONS, N, AP, FL, P_LS, false);
 
         f_tmp = fitness(m, sol);
@@ -179,7 +182,7 @@ int main(){
     cout<<endl;
     cout<<"BEST"<<"\t\t"<<"MEAN"<<"\t\t"<<"WORST"<<endl;
     cout<<best_fitness<<"\t\t"<<mean_fitness<<"\t\t"<<worst_fitness<<endl;
-    cout<<best_contigs<<"\t\t"<<mean_contigs<<"\t\t"<<worst_contigs<<endl;    */
+    cout<<best_contigs<<"\t\t"<<mean_contigs<<"\t\t"<<worst_contigs<<endl;    
     /////////////////////////////////////////////////////////////////////////////////////////////// 
 
 
