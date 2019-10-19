@@ -21,6 +21,7 @@ using namespace boost::numeric::ublas;//matrix
 
 int CUTOFF = 30;
 
+
 template<typename T, typename U>
 void assign_to_matrix(ublas::matrix<T>& m,std::size_t r,std::size_t c,U const& data)
 {
@@ -179,6 +180,8 @@ void sort_by_column(ublas::matrix<int> &data, int col){
         }
         cout<<endl;
     }*/
+
+    //std::shuffle(M.begin(), M.end(), gen);
    
     std::sort(M.begin(),
               M.end(),

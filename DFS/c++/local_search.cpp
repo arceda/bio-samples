@@ -43,6 +43,8 @@ void calculateDeltas(ublas::vector<int> individual, int i, int j, ublas::matrix<
     delta_f = 0;
     delta_f = delta_f - matrix_w(individual[i-1], individual[i]) - matrix_w(individual[j], individual[j+1]);
     delta_f = delta_f + matrix_w(individual[i-1], individual[j]) + matrix_w(individual[i], individual[j+1]);
+
+   
     if (matrix_w(individual[i-1], individual[i]) > CUTOFF)
         delta_c = delta_c + 1;
     if (matrix_w(individual[j], individual[j+1]) > CUTOFF)
@@ -117,7 +119,7 @@ void selectMovement(ublas::matrix<int> L, int& i, int& j){
 
 }
 
-void applyMovement_PALS2many_fit(ublas::vector<int> &individual, ublas::matrix<int> L){
+void applyMovement_PALS2many_fit(ublas::vector<int> &individual, ublas::matrix<int>& L){
     //cout<<"applyMovement_PALS2many_fit"<<endl;
     
     //sorting descending by delta_f  
@@ -168,16 +170,14 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
 
         int l_index = 0;
         int delta_c, delta_f;
+
+        //###################################################################################################
+        //PALS original [1]
+        /*
         for (int i = 1; i < K; i++){
             for (int j = 0; j < K-1; j++){    
                 calculateDeltas(individual, i, j, matrix_w, delta_c, delta_f);
-                if ((delta_c < 0) || (delta_c == 0 && delta_f > 0)){
-                //#PALS modificado en [3]   
-                //if (delta_f > 0){
-                    //assign_to_matrix(L, l_index, 0, i);
-                    //assign_to_matrix(L, l_index, 1, j);
-                    //assign_to_matrix(L, l_index, 2, delta_f);
-                    //assign_to_matrix(L, l_index, 3, delta_c);
+                if ((delta_c < 0) || (delta_c == 0 && delta_f > 0)){                
                     L.resize(L.size1()+1, 4);
                     L(l_index, 0) = i;
                     L(l_index, 1) = j;
@@ -185,47 +185,51 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
                     L(l_index, 3) = delta_c;
                     l_index++;
                 }
-            }
+            }            
         }
-        //cout<<L<<endl;
-        //break;
 
-        
         if (L.size1() > 0){
-            //###################################################################################################
-            //PALS original [1]
-            
-            int i, j;
-            
+            int i, j;    
             //unsigned t0=clock();
 
-            selectMovement(L, i, j);
-            applyMovement(individual, i, j);
+            //selectMovement(L, i, j);
+            //applyMovement(individual, i, j);
 
             //unsigned t1 = clock();
-            //double time = (double(t1-t0)/CLOCKS_PER_SEC);
-            //cout << "Execution Time: " << time << endl;
-            
-                       
+            //cout << "Execution Time: " << (double(t1-t0)/CLOCKS_PER_SEC) << endl;
+        } else break; 
+        //###################################################################################################
+        */
 
-            //###################################################################################################
-            //#PALS modificado [2]
-            //#individual = applyMovement_PALS2many(individual, L)
-
-            //###################################################################################################
-            //#PALS modificado en [3]
+        //###################################################################################################
+        //#PALS modificado en [3]        
+        for (int i = 1; i < K; i++){
+            for (int j = i; j < K-1; j++){    
+                calculateDeltas(individual, i, j, matrix_w, delta_c, delta_f);
+                if (delta_f > 0){
+                    L.resize(L.size1()+1, 4);
+                    L(l_index, 0) = i;
+                    L(l_index, 1) = j;
+                    L(l_index, 2) = delta_f;
+                    L(l_index, 3) = delta_c;
+                    l_index++;
+                }
+            }            
+        }
+       
+       if (L.size1() > 0){  
             //cout<<"individual before movement:"<<individual<<endl;
             //t0=clock();
-            //applyMovement_PALS2many_fit(individual, L);
+            applyMovement_PALS2many_fit(individual, L);
             //t1 = clock();
             //cout << "Execution Time: " << (double(t1-t0)/CLOCKS_PER_SEC) << endl;
             //cout<<"individual after movement:"<<individual<<endl;       
-            //break;
-        }
-        else
-            break;  
+            //break;  
+        }else break;  
+        //###################################################################################################
 
         //cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<endl;
+        cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<endl<<L<<endl<<endl;
         //cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<" fitness: "<<fitness(matrix_w, individual)<<" consensus: "<<consensus(matrix_w, individual)<<endl;
 
         iterations++;      
@@ -234,7 +238,7 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
     return individual;
 }
 
-/*
+
 int main(){
     ublas::matrix<int> m = read_csv("../x60189_4/matrix_conservative.csv");
     int num_fragments = m.size1();
@@ -246,6 +250,7 @@ int main(){
     cout<<"contigs :"<<consensus(m, solution)<<endl;    
 
 
+    /*
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////PRUEBAS///////////////////////////////////////////////////
     cout<<"TESTING... :"<<endl<<endl;    
@@ -276,5 +281,6 @@ int main(){
     cout<<best_fitness<<"\t\t"<<mean_fitness<<"\t\t"<<worst_fitness<<endl;
     cout<<best_contigs<<"\t\t"<<mean_contigs<<"\t\t"<<worst_contigs<<endl;    
     ///////////////////////////////////////////////////////////////////////////////////////////////  
-}*/
+    */
+}
 
