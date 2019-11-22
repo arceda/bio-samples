@@ -142,8 +142,8 @@ ublas::vector<int> crow_search(ublas::matrix<int> matrix_w, int ITERATIONS, int 
 
 
 int main(){
-    //int ITERATIONS = 500;
-    int ITERATIONS = 200;
+    int ITERATIONS = 500;
+    //int ITERATIONS = 200;
     int N = 32;
     float AP = 0.02;
     float FL = 0.75;
@@ -160,8 +160,8 @@ int main(){
     int f_tmp, c_tmp;
     std::vector<int> fitness_vec;
     std::vector<int> contigs_vec;
-    //for (int i = 0; i < 30; i++){
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 30; i++){
+    //for (int i = 0; i < 10; i++){
         ublas::vector<int> sol = crow_search(m, ITERATIONS, N, AP, FL, P_LS, false);
 
         f_tmp = fitness(m, sol);

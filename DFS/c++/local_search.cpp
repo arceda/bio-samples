@@ -173,7 +173,7 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
 
         //###################################################################################################
         //PALS original [1]
-        /*
+        
         for (int i = 1; i < K; i++){
             for (int j = 0; j < K-1; j++){    
                 calculateDeltas(individual, i, j, matrix_w, delta_c, delta_f);
@@ -192,18 +192,18 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
             int i, j;    
             //unsigned t0=clock();
 
-            //selectMovement(L, i, j);
-            //applyMovement(individual, i, j);
+            selectMovement(L, i, j);
+            applyMovement(individual, i, j);
 
             //unsigned t1 = clock();
             //cout << "Execution Time: " << (double(t1-t0)/CLOCKS_PER_SEC) << endl;
         } else break; 
         //###################################################################################################
-        */
+        
 
         //###################################################################################################
         //#PALS modificado en [3]        
-        for (int i = 1; i < K; i++){
+        /*for (int i = 1; i < K; i++){
             for (int j = i; j < K-1; j++){    
                 calculateDeltas(individual, i, j, matrix_w, delta_c, delta_f);
                 if (delta_f > 0){
@@ -225,11 +225,11 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
             //cout << "Execution Time: " << (double(t1-t0)/CLOCKS_PER_SEC) << endl;
             //cout<<"individual after movement:"<<individual<<endl;       
             //break;  
-        }else break;  
+        }else break;  */
         //###################################################################################################
 
         //cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<endl;
-        cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<endl<<L<<endl<<endl;
+        //cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<endl<<L<<endl<<endl;
         //cout<<" interation PALS: "<<iterations<<" candidates number: "<<L.size1()<<" fitness: "<<fitness(matrix_w, individual)<<" consensus: "<<consensus(matrix_w, individual)<<endl;
 
         iterations++;      
@@ -238,7 +238,7 @@ ublas::vector<int> PALS(int K, ublas::vector<int> individual, ublas::matrix<int>
     return individual;
 }
 
-
+/*
 int main(){
     ublas::matrix<int> m = read_csv("../x60189_4/matrix_conservative.csv");
     int num_fragments = m.size1();
@@ -250,7 +250,7 @@ int main(){
     cout<<"contigs :"<<consensus(m, solution)<<endl;    
 
 
-    /*
+    
     ///////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////PRUEBAS///////////////////////////////////////////////////
     cout<<"TESTING... :"<<endl<<endl;    
@@ -281,6 +281,6 @@ int main(){
     cout<<best_fitness<<"\t\t"<<mean_fitness<<"\t\t"<<worst_fitness<<endl;
     cout<<best_contigs<<"\t\t"<<mean_contigs<<"\t\t"<<worst_contigs<<endl;    
     ///////////////////////////////////////////////////////////////////////////////////////////////  
-    */
-}
+    
+}*/
 
