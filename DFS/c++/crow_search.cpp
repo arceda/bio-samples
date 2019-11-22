@@ -200,6 +200,15 @@ int main(int argc, char *argv[]){
     cout<<best_contigs<<"\t\t"<<mean_contigs<<"\t\t"<<worst_contigs<<endl;    
     /////////////////////////////////////////////////////////////////////////////////////////////// 
 
+    ofstream outfile;
+    outfile.open (strcat(csv,"_results.txt"));
+    outfile<<"Reading: "<< csv <<endl;
+    outfile<<"Num test: "<< TESTS<< endl;
+    outfile<<"Iterations: "<< ITERATIONS<< endl;
+    outfile<<"BEST"<<"\t\t"<<"MEAN"<<"\t\t"<<"WORST"<<endl;
+    outfile<<best_fitness<<"\t\t"<<mean_fitness<<"\t\t"<<worst_fitness<<endl;
+    outfile<<best_contigs<<"\t\t"<<mean_contigs<<"\t\t"<<worst_contigs<<endl; 
+
 
 }
 
