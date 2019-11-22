@@ -141,8 +141,13 @@ ublas::vector<int> crow_search(ublas::matrix<int> matrix_w, int ITERATIONS, int 
 }
 
 
-int main(){
-    int ITERATIONS = 500;
+int main(int argc, char *argv[]){
+    char* num_test = argv[1];
+    char* num_iterations = argv[2];
+    char* csv = argv[3];
+
+    int TESTS = atoi( num_test );
+    int ITERATIONS = atoi( num_iterations );
     //int ITERATIONS = 200;
     int N = 32;
     float AP = 0.02;
@@ -150,18 +155,25 @@ int main(){
     float P_LS = 0.49;
 
 
-    ublas::matrix<int> m = read_csv("../x60189_4/matrix_conservative.csv");
+    //ublas::matrix<int> m = read_csv("../x60189_4/matrix_conservative.csv");
+    ublas::matrix<int> m = read_csv(csv);
     int num_fragments = m.size1();    
     //crow_search(m, ITERATIONS, N, AP, FL, P_LS, true);
 
     //////////////////////////////////////////////////////////////////////////////////////////////
-    cout<<"TESTING... :"<<endl<<endl;    
+    cout<<"TESTING... :"<<endl<<endl;  
+    cout<<"Reading: "<< csv <<endl;
+    cout<<"Num test: "<< TESTS<< endl;
+    cout<<"Iterations: "<< ITERATIONS<< endl;
+    
+
    
     int f_tmp, c_tmp;
     std::vector<int> fitness_vec;
     std::vector<int> contigs_vec;
-    for (int i = 0; i < 30; i++){
+    for (int i = 0; i < TESTS; i++){
     //for (int i = 0; i < 10; i++){
+        cout<<endl<<endl<<"****************TEST : "<< i <<"*********************"<<endl;
         ublas::vector<int> sol = crow_search(m, ITERATIONS, N, AP, FL, P_LS, false);
 
         f_tmp = fitness(m, sol);
@@ -180,6 +192,9 @@ int main(){
     float mean_contigs = (std::accumulate(contigs_vec.begin(), contigs_vec.end(), 0.0))/contigs_vec.size();
 
     cout<<endl;
+    cout<<"Reading: "<< csv <<endl;
+    cout<<"Num test: "<< TESTS<< endl;
+    cout<<"Iterations: "<< ITERATIONS<< endl;
     cout<<"BEST"<<"\t\t"<<"MEAN"<<"\t\t"<<"WORST"<<endl;
     cout<<best_fitness<<"\t\t"<<mean_fitness<<"\t\t"<<worst_fitness<<endl;
     cout<<best_contigs<<"\t\t"<<mean_contigs<<"\t\t"<<worst_contigs<<endl;    
@@ -187,3 +202,5 @@ int main(){
 
 
 }
+
+//./crow_search_final.out 30 500 "/home/vicente/projects/BIOINFORMATICS/datasets/genfrag/x60189_4/matrix_conservative.csv"
