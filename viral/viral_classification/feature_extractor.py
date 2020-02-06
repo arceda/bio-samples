@@ -152,7 +152,9 @@ def recursiveFeatureElimination(X, y, k_mers, features_max):
             if value == False: k_mers[i] = None
         new_k_mers = list(filter(lambda a: a != None, k_mers))
 
-    return new_X, new_k_mers    
+        return new_X, new_k_mers    
+    else:
+        return X, k_mers    
     
     
 ###################################################################################################
@@ -162,10 +164,10 @@ def recursiveFeatureElimination(X, y, k_mers, features_max):
 
 ###################################################################################################
 #############################        EVALUATE FEATURE SIZES         ###############################
-def evaluateFeatureSizes(X, y, k_mers, features_min, features_max):
+def evaluateFeatureSizes(X, y, k_mers, range_features):
     clf = SVC(kernel = "linear", C = 1)   
 
-    for n in range(features_min, features_max + 1):
+    for n in range_features:
         print("\rRFE :", round(n / features_max * 100, 0), "%", end='')
         f_measure = 0
         k_mers_rfe = []
@@ -260,12 +262,15 @@ def getOptimalSolution(scores_list, supports_list, k_mers_range, features_range,
 if __name__ == "__main__" :
     #training_data = generateLabeledData("../Data/HIVGRPCG/data.fa", "../Data/HIVGRPCG/class.csv")
     
-    features_max = 50
+    features_max = 70
     features_min = 10
     n_splits = 5
-    k_min = 3
-    k_max = 4  
-    T = 0.1
+    k_min = 2
+    k_max = 20  
+    T = 0.99
+
+    range_k_mers = range(k_min, k_max + 1, 2)
+    range_features = range(features_min, features_max + 1, 2)
 
     scores_list = []
     supports_list = []
@@ -273,7 +278,8 @@ if __name__ == "__main__" :
     trainingData = generateLabeledData("../castor_krfe/Data/HIVGRPCG/data.fa", "../castor_krfe/Data/HIVGRPCG/class.csv")
     data         = generateData("../castor_krfe/Data/HIVGRPCG/data.fa")
     
-    for k in range(k_min, k_max + 1): 
+    for k in range_k_mers: 
+        print("Evaluatng with k-mer:", k)
         
         k_mers      = generate_K_mers(trainingData, k)    
         X, y        = generateXYMatrice(trainingData, k_mers, k) # OCURERNCE MATRIX
@@ -287,13 +293,13 @@ if __name__ == "__main__" :
         labelEncodel = LabelEncoder()
         y = labelEncodel.fit_transform(y)
     
-        scores, supports =  evaluateFeatureSizes(X, y, k_mers, features_min, features_max)
+        scores, supports =  evaluateFeatureSizes(X, y, k_mers, range_features)
     
         scores_list.append(scores)
         supports_list.append(supports)
 
 
-    getOptimalSolution(scores_list, supports_list, range(k_min, k_max + 1), range(features_min, features_max + 1), T)
+    getOptimalSolution(scores_list, supports_list, range_k_mers, range_features, T)
    
 
     '''
