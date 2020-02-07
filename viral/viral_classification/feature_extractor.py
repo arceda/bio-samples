@@ -302,34 +302,4 @@ if __name__ == "__main__" :
     getOptimalSolution(scores_list, supports_list, range_k_mers, range_features, T)
    
 
-    '''
-    fa_file = "../castor_krfe/Data/HIVGRPCG/data.fa"
-    cls_file = "../castor_krfe/Data/HIVGRPCG/class.csv"
-    
-    data = []
-
-    # Open the class file
-    with open(cls_file) as f:
-        reader = dict(csv.reader(f))
-
-    # Open the sequences file}
-    sequences = SeqIO.parse(fa_file, "fasta")
-
-
-    for record in sequences:
-        
-        
-        
-        if record.id in reader:
-            # Generate table [Id, Sequences, Class]
-            data.append([record.id, record.seq.upper(), reader[record.id]])
-
-
-    temp = next(SeqIO.parse("../castor_krfe/Data/HIVGRPCG/data.fa", "fasta"))
-    print("%s %i" % (temp.id, len(temp)))
-    
-    record_dict = SeqIO.index("../castor_krfe/Data/HIVGRPCG/data.fa", "fasta")
-    print(len(record_dict))
-    print(record_dict.get_raw("AJ006022").decode())
-    record_dict.close()
-    '''
+  
