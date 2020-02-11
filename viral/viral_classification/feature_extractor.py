@@ -3,6 +3,8 @@ import csv
 import numpy as np
 from Bio import SeqIO
 import re
+import sys
+
 import matplotlib.pyplot as plt
 from sklearn.metrics import f1_score
 from sklearn.feature_selection import RFE
@@ -311,7 +313,9 @@ def getBestKmersAndFeatures(path):
 
 if __name__ == "__main__" :
     #training_data = generateLabeledData("../Data/HIVGRPCG/data.fa", "../Data/HIVGRPCG/class.csv")
-    best_k_mers, best_k_length= getBestKmersAndFeatures('/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/PAPILLOMA/HPVSPECG')
+    path = sys.argv[1] # folder path if fasta and csv
+    #path = '/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/PAPILLOMA/HPVSPECG'
+    best_k_mers, best_k_length= getBestKmersAndFeatures(path)
     print("Identified k =", best_k_length)
     print("Identified k-mers  =", best_k_mers)
 
