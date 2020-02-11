@@ -164,13 +164,17 @@ def recursiveFeatureElimination(X, y, k_mers, features_max):
 
 ###################################################################################################
 #############################        EVALUATE FEATURE SIZES         ###############################
-def evaluateFeatureSizes(X, y, k_mers, range_features):
-    clf = SVC(kernel = "linear", C = 1)   
+# X: ocurrence matrix of each k-mer
+def evaluateFeatureSizes(X, y, k_mers, range_features, features_max, n_splits):
+    clf = SVC(kernel = "linear", C = 1)  
+    
+    scores = []
+    supports = []
 
     for n in range_features:
         print("\rRFE :", round(n / features_max * 100, 0), "%", end='')
         f_measure = 0
-        k_mers_rfe = []
+        k_mers_rfe = [] # here we store the k-mers no eliminated
         rfe = RFE(estimator = clf, n_features_to_select = n, step = 1)
         X_rfe = rfe.fit_transform(X, y)
 
@@ -213,11 +217,12 @@ def getOptimalSolution(scores_list, supports_list, k_mers_range, features_range,
     optimal_score = 0
     
     # Identify best solution
+    # here we indetified the best set of k-mers (one element in supports_list) based on the max score (scores_list) 
     for i, s in enumerate(scores_list):
         if max(s) > best_score:
             best_score = max(s)
             index = s.index(max(s))
-            best_k_length = k_mers_range[i]
+            best_k_length = k_mers_range[i] #here we store the value of k in k-mer
             best_k_mers = supports_list[i][index]
         elif max(s) == best_score:
             if s.index(max(s)) < index:
@@ -228,6 +233,8 @@ def getOptimalSolution(scores_list, supports_list, k_mers_range, features_range,
         else: pass
 
 	# Identify optimal solution
+    # here, we considered all the solutions (scores_list)  that at least have the T% of the best score 
+    # and considered the one that have  the fewest features
     for i, l in enumerate(scores_list):
         for j, s in enumerate(l):
             if s >=  best_score * T and j <= index: 
@@ -254,52 +261,58 @@ def getOptimalSolution(scores_list, supports_list, k_mers_range, features_range,
     
     fname = str('fig_file')
     plt.savefig(fname)
+
+    return best_k_mers, best_k_length
  
 ###################################################################################################
 ###################################################################################################  
     
-
-if __name__ == "__main__" :
-    #training_data = generateLabeledData("../Data/HIVGRPCG/data.fa", "../Data/HIVGRPCG/class.csv")
-    
-    features_max = 70
-    features_min = 10
+def getBestKmersAndFeatures(path):
+    features_max = 50
+    features_min = 1
     n_splits = 5
-    k_min = 2
-    k_max = 20  
+    k_min = 5
+    k_max = 25  
     T = 0.99
 
-    range_k_mers = range(k_min, k_max + 1, 2)
+    range_k_mers = range(k_min, k_max + 1, 5)
     range_features = range(features_min, features_max + 1, 2)
 
     scores_list = []
     supports_list = []
     
-    trainingData = generateLabeledData("../castor_krfe/Data/HIVGRPCG/data.fa", "../castor_krfe/Data/HIVGRPCG/class.csv")
-    data         = generateData("../castor_krfe/Data/HIVGRPCG/data.fa")
+    trainingData = generateLabeledData(path + "/data.fa", path +  "/class.csv")
+    #trainingData = generateLabeledData("../castor_krfe/Data/HIVGRPCG/data.fa", "../castor_krfe/Data/HIVGRPCG/class.csv")
+    #data         = generateData("../castor_krfe/Data/HIVGRPCG/data.fa")
     
     for k in range_k_mers: 
-        print("Evaluatng with k-mer:", k)
+        print("\nEvaluatng with k-mer:", k)
         
-        k_mers      = generate_K_mers(trainingData, k)    
+        k_mers      = generate_K_mers(trainingData, k) #list of substring of size k: (if k = 2; k_mers= [AT, CG, AC, ...])    
         X, y        = generateXYMatrice(trainingData, k_mers, k) # OCURERNCE MATRIX
         X           = maxMinNormalization(X)
         X, k_mers   = recursiveFeatureElimination(X, y, k_mers, features_max)
-                
-    
-        scores = []
-        supports = []
+                           
     
         labelEncodel = LabelEncoder()
         y = labelEncodel.fit_transform(y)
     
-        scores, supports =  evaluateFeatureSizes(X, y, k_mers, range_features)
+        # score = f1-measure, support = list of k-mers
+        scores, supports =  evaluateFeatureSizes(X, y, k_mers, range_features, features_max, n_splits)
     
         scores_list.append(scores)
-        supports_list.append(supports)
+        supports_list.append(supports) 
 
 
-    getOptimalSolution(scores_list, supports_list, range_k_mers, range_features, T)
+    best_k_mers, best_k_length = getOptimalSolution(scores_list, supports_list, range_k_mers, range_features, T)
+
+    return best_k_mers, best_k_length
    
+
+if __name__ == "__main__" :
+    #training_data = generateLabeledData("../Data/HIVGRPCG/data.fa", "../Data/HIVGRPCG/class.csv")
+    best_k_mers, best_k_length= getBestKmersAndFeatures('/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/PAPILLOMA/HPVSPECG')
+    print("Identified k =", best_k_length)
+    print("Identified k-mers  =", best_k_mers)
 
   
