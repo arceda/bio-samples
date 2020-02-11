@@ -144,7 +144,8 @@ def maxMinNormalization(X):
 ###################################################################################################
 #############################     RECURSIVE FEATURE ELIMINATION     ###############################
 def recursiveFeatureElimination(X, y, k_mers, features_max):
-    preliminary_rfe_step = 0.1
+    #preliminary_rfe_step = 0.1
+    preliminary_rfe_step = 1
     clf = SVC(kernel = "linear", C = 1)   
     
     if len(X[0]) > features_max:
@@ -194,9 +195,9 @@ def evaluateFeatureSizes(X, y, k_mers, range_features, features_max, n_splits):
 
             # Prediction
 
-            start_time = time.clock()
+            #start_time = time.clock()
             clf.fit(X_train, y_train)
-            print(time.clock() - start_time, "seconds")
+            #print(time.clock() - start_time, "seconds")
             y_pred = clf.predict(X_test)
         
             # Calcul metric scores
@@ -298,7 +299,7 @@ def getBestKmersAndFeatures(path):
         
         start_time = time.clock()
         k_mers      = generate_K_mers(trainingData, k) #list of substring of size k: (if k = 2; k_mers= [AT, CG, AC, ...])    
-        print('generate_K_mers took', time.clock() - start_time, "seconds")
+        print('generate_K_mers took', time.clock() - start_time, "seconds", "feature size ", len(k_mers))
 
         start_time = time.clock()
         X, y        = generateXYMatrice(trainingData, k_mers, k) # OCURERNCE MATRIX
@@ -309,6 +310,7 @@ def getBestKmersAndFeatures(path):
         print('maxMinNormalization took', time.clock() - start_time, "seconds")
 
         start_time = time.clock()
+        print("feature size ", len(k_mers))
         X, k_mers   = recursiveFeatureElimination(X, y, k_mers, features_max)
         print('recursiveFeatureElimination took', time.clock() - start_time, "seconds")
                            
