@@ -18,6 +18,8 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 
+import time
+
 ###################################################################################################
 #################################        READ DATASET            ##################################
 # out: matrix [ [seq.id, seq, virus_type], ... ]
@@ -55,6 +57,7 @@ def generateData(fa_file):
 # data: trainign dataset [ [seq.id, seq, virus_type], ... ]
 # k: k size in k-mers
 def generate_K_mers(data, k):
+    
 	# List of k-mer
     K_mer = []
     dict = {}
@@ -127,10 +130,10 @@ def generateXYMatrice(data, K_mer, k):
 def maxMinNormalization(X):
     X_max = max(max(X))
     if X_max > 1:		
-        print("Apply linearly scaling each attribute to the range [0, 1]")
+        #print("Apply linearly scaling each attribute to the range [0, 1]")
         minMaxScaler = MinMaxScaler(feature_range=(0, 1), copy = False)
         X = minMaxScaler.fit_transform(X)
-    else: print("Scaling not required ")
+    #else: print("Scaling not required ")
     
     return X
 
@@ -145,7 +148,7 @@ def recursiveFeatureElimination(X, y, k_mers, features_max):
     clf = SVC(kernel = "linear", C = 1)   
     
     if len(X[0]) > features_max:
-        print("Preliminary - RFE...")	
+        #print("Preliminary - RFE...")	
         rfe = RFE(estimator = clf, n_features_to_select = features_max, step = preliminary_rfe_step)
         new_X = rfe.fit_transform(X, y)
 
@@ -190,7 +193,10 @@ def evaluateFeatureSizes(X, y, k_mers, range_features, features_max, n_splits):
             y_train, y_test = list(y[test_index]), list(y[train_index])
 
             # Prediction
+
+            start_time = time.clock()
             clf.fit(X_train, y_train)
+            print(time.clock() - start_time, "seconds")
             y_pred = clf.predict(X_test)
         
             # Calcul metric scores
@@ -288,30 +294,49 @@ def getBestKmersAndFeatures(path):
     #data         = generateData("../castor_krfe/Data/HIVGRPCG/data.fa")
     
     for k in range_k_mers: 
-        print("\nEvaluatng with k-mer:", k)
+        print("\n\n Evaluatng with k-mer:", k)
         
+        start_time = time.clock()
         k_mers      = generate_K_mers(trainingData, k) #list of substring of size k: (if k = 2; k_mers= [AT, CG, AC, ...])    
+        print('generate_K_mers took', time.clock() - start_time, "seconds")
+
+        start_time = time.clock()
         X, y        = generateXYMatrice(trainingData, k_mers, k) # OCURERNCE MATRIX
+        print('generateXYMatrice took', time.clock() - start_time, "seconds")
+
+        start_time = time.clock()
         X           = maxMinNormalization(X)
+        print('maxMinNormalization took', time.clock() - start_time, "seconds")
+
+        start_time = time.clock()
         X, k_mers   = recursiveFeatureElimination(X, y, k_mers, features_max)
+        print('recursiveFeatureElimination took', time.clock() - start_time, "seconds")
                            
     
         labelEncodel = LabelEncoder()
         y = labelEncodel.fit_transform(y)
     
         # score = f1-measure, support = list of k-mers
+        start_time = time.clock()
         scores, supports =  evaluateFeatureSizes(X, y, k_mers, range_features, features_max, n_splits)
+        print('evaluateFeatureSizes took', time.clock() - start_time, "seconds")
     
         scores_list.append(scores)
         supports_list.append(supports) 
 
 
+    start_time = time.clock()
     best_k_mers, best_k_length = getOptimalSolution(scores_list, supports_list, range_k_mers, range_features, T)
+    print('getOptimalSolution took', time.clock() - start_time, "seconds")
 
     return best_k_mers, best_k_length
    
 
 if __name__ == "__main__" :
+    # CMD
+    # python3 viral/viral_classification/feature_extractor.py '/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/PAPILLOMA/HPVSPECG'
+
+
     #training_data = generateLabeledData("../Data/HIVGRPCG/data.fa", "../Data/HIVGRPCG/class.csv")
     path = sys.argv[1] # folder path if fasta and csv
     #path = '/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/PAPILLOMA/HPVSPECG'
