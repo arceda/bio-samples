@@ -29,7 +29,8 @@ datasets = ['HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL']
 #datasets = ['PAPILLOMA/HPVGENCG', 'PAPILLOMA/HPVSPECG', 'HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL', 'HEPATITIS-B/HBVGENCG''POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/POLSPEVP3', 'POLYOMAVIRUS/POLSPEST', 'POLYOMAVIRUS/POLSPELT', 'RHINOVIRUS/RHISPECG', 'DENGE/DENSPECG', 'INFLUENZA/INSUBFNA', 'INFLUENZA/INFSUBHA', 'INFLUENZA/INFSUBMP', 'EBOLA/EBOSPECG']
 
 iterations_number = 2
-dataset_path = "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/"
+#dataset_path = "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/"
+path = sys.argv[1]
 f = open("results_k-mers_features.txt", "a")
 f.write("Dataset,k,nfeatures,k-mers")
 
