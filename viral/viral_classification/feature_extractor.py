@@ -144,9 +144,11 @@ def maxMinNormalization(X):
 ###################################################################################################
 #############################     RECURSIVE FEATURE ELIMINATION     ###############################
 def recursiveFeatureElimination(X, y, k_mers, features_max):
-    #preliminary_rfe_step = 0.1
-    preliminary_rfe_step = 1
+    preliminary_rfe_step = 0.1 #10%
+    #preliminary_rfe_step = 1
     clf = SVC(kernel = "linear", C = 1)   
+    
+    # original
     
     if len(X[0]) > features_max:
         #print("Preliminary - RFE...")	
@@ -158,7 +160,12 @@ def recursiveFeatureElimination(X, y, k_mers, features_max):
             if value == False: k_mers[i] = None
         new_k_mers = list(filter(lambda a: a != None, k_mers))
 
-        return new_X, new_k_mers    
+        print("reduce features to ", len(new_k_mers))
+
+        return new_X, new_k_mers 
+
+        
+  
     else:
         return X, k_mers    
     
@@ -276,7 +283,7 @@ def getOptimalSolution(scores_list, supports_list, k_mers_range, features_range,
 ###################################################################################################
 ###################################################################################################  
     
-def getBestKmersAndFeatures(path):
+def getBestKmersAndFeatures(path, trainingData=None):
     
     '''
     features_max = 100
@@ -302,7 +309,8 @@ def getBestKmersAndFeatures(path):
     scores_list = []
     supports_list = []
     
-    trainingData = generateLabeledData(path + "/data.fa", path +  "/class.csv")
+    if trainingData == None:
+        trainingData = generateLabeledData(path + "/data.fa", path +  "/class.csv")
     #trainingData = generateLabeledData("../castor_krfe/Data/HIVGRPCG/data.fa", "../castor_krfe/Data/HIVGRPCG/class.csv")
     #data         = generateData("../castor_krfe/Data/HIVGRPCG/data.fa")
     

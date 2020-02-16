@@ -34,11 +34,18 @@ dataset_path = sys.argv[1]
 f = open("results_k-mers_features.txt", "a")
 f.write("Dataset,k,nfeatures,k-mers")
 
+trainingData = generateLabeledData(path + "/data.fa", path +  "/class.csv")
 
 for i, dataset in enumerate(datasets):
     print(i, "EVALUATING DATASET: ", dataset, "...")
     
     for j in range(iterations_number):
+        
+        for train_index, test_index in StratifiedKFold(n_splits = n_splits, shuffle=True, random_state=None).split(X_rfe, y):
+        
+        
+        
+        
         print("iteration ...", j)
         best_k_mers, best_k_length = fe.getBestKmersAndFeatures(dataset_path + dataset)
         print(dataset + "," + str(best_k_length) + "," + str(len(best_k_mers)) + "," + str(best_k_mers))
