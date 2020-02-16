@@ -6,3 +6,4 @@ DFS/oxfl.pyc
 DFS/__pycache__/local_search.cpython-35.pyc
 DFS/__pycache__/utils.cpython-35.pyc
 viral/viral_classification/fig_file.png
+viral/viral_classification/results_k-mers_features.txt

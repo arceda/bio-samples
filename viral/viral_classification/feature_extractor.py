@@ -277,15 +277,27 @@ def getOptimalSolution(scores_list, supports_list, k_mers_range, features_range,
 ###################################################################################################  
     
 def getBestKmersAndFeatures(path):
-    features_max = 50
+    
+    '''
+    features_max = 100
     features_min = 1
     n_splits = 5
+    k_min = 1
+    k_max = 30  
+    T = 0.99
+
+    range_k_mers = range(k_min, k_max + 1, 1)
+    range_features = range(features_min, features_max + 1, 1)
+    '''
+    features_max = 50
+    features_min = 5
+    n_splits = 5
     k_min = 5
-    k_max = 25  
+    k_max = 15  
     T = 0.99
 
     range_k_mers = range(k_min, k_max + 1, 5)
-    range_features = range(features_min, features_max + 1, 2)
+    range_features = range(features_min, features_max + 1, 5)
 
     scores_list = []
     supports_list = []
@@ -295,7 +307,7 @@ def getBestKmersAndFeatures(path):
     #data         = generateData("../castor_krfe/Data/HIVGRPCG/data.fa")
     
     for k in range_k_mers: 
-        print("\n\n Evaluatng with k-mer:", k)
+        print("\n\n Evaluating with k-mer:", k)
         
         start_time = time.clock()
         k_mers      = generate_K_mers(trainingData, k) #list of substring of size k: (if k = 2; k_mers= [AT, CG, AC, ...])    
@@ -309,6 +321,7 @@ def getBestKmersAndFeatures(path):
         X           = maxMinNormalization(X)
         print('maxMinNormalization took', time.clock() - start_time, "seconds")
 
+        # THIS TKE TOO LONG TIME!!!!!, WE START WITH 1K FEATURES
         start_time = time.clock()
         print("feature size ", len(k_mers))
         X, k_mers   = recursiveFeatureElimination(X, y, k_mers, features_max)
@@ -327,9 +340,9 @@ def getBestKmersAndFeatures(path):
         supports_list.append(supports) 
 
 
-    start_time = time.clock()
+    #start_time = time.clock()
     best_k_mers, best_k_length = getOptimalSolution(scores_list, supports_list, range_k_mers, range_features, T)
-    print('getOptimalSolution took', time.clock() - start_time, "seconds")
+    #print('getOptimalSolution took', time.clock() - start_time, "seconds")
 
     return best_k_mers, best_k_length
    
