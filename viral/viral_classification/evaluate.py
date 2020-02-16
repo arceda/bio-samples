@@ -23,32 +23,42 @@ from sklearn.ensemble import RandomForestClassifier
 
 import time
 import feature_extractor as fe
+from random import shuffle
+
+
+if not sys.warnoptions:
+    import warnings
+    warnings.simplefilter("ignore")
 
 # at first we will evaluate just the HIV datasets
-datasets = ['HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL'] 
+datasets = ['POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/POLSPEVP3'] 
+#datasets = ['POLYOMAVIRUS/POLSPEVP1'] 
 #datasets = ['PAPILLOMA/HPVGENCG', 'PAPILLOMA/HPVSPECG', 'HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL', 'HEPATITIS-B/HBVGENCG''POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/POLSPEVP3', 'POLYOMAVIRUS/POLSPEST', 'POLYOMAVIRUS/POLSPELT', 'RHINOVIRUS/RHISPECG', 'DENGE/DENSPECG', 'INFLUENZA/INSUBFNA', 'INFLUENZA/INFSUBHA', 'INFLUENZA/INFSUBMP', 'EBOLA/EBOSPECG']
 
-iterations_number = 2
+iterations_number = 3
 #dataset_path = "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/"
 dataset_path = sys.argv[1]
-f = open("results_k-mers_features.txt", "a")
-f.write("Dataset,k,nfeatures,k-mers")
 
-trainingData = generateLabeledData(path + "/data.fa", path +  "/class.csv")
 
 for i, dataset in enumerate(datasets):
-    print(i, "EVALUATING DATASET: ", dataset, "...")
-    
-    for j in range(iterations_number):
-        
-        for train_index, test_index in StratifiedKFold(n_splits = n_splits, shuffle=True, random_state=None).split(X_rfe, y):
-        
-        
-        
-        
-        print("iteration ...", j)
-        best_k_mers, best_k_length = fe.getBestKmersAndFeatures(dataset_path + dataset)
-        print(dataset + "," + str(best_k_length) + "," + str(len(best_k_mers)) + "," + str(best_k_mers))
-        f.write(dataset + "," + str(best_k_length) + "," + str(len(best_k_mers)) + "," + str(best_k_mers))
+    print(i, "\n\nEVALUATING DATASET: ", dataset, "...")
+    print('===========================================================')
+    print('===========================================================')    
+    trainingData = fe.generateLabeledData(dataset_path + dataset + "/data.fa", dataset_path  + dataset + "/class.csv")
 
-f.close()
+    f = open(dataset_path + dataset + "/results.metrics", "w")
+    f.write("Dataset,k,nfeatures,k-mers\n")
+    
+    for j in range(iterations_number):  
+        print('\niteration ....', j) 
+        print('==================================')       
+        shuffle(trainingData)
+        train = trainingData[:int(len(trainingData)*0.8)]
+        test = trainingData[int(len(trainingData)*0.8):len(trainingData)]
+        #print(len(trainingData), len(train), len(test))
+        
+        best_k_mers, best_k_length = fe.getBestKmersAndFeatures('', train )
+        print(dataset + "," + str(best_k_length) + "," + str(len(best_k_mers)) + "," + str(best_k_mers))
+        f.write(dataset + ";" + str(best_k_length) + ";" + str(len(best_k_mers)) + ";" + str(best_k_mers) + "\n")
+
+    f.close()

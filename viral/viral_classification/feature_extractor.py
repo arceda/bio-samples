@@ -79,6 +79,7 @@ def generate_K_mers(data, k):
 
 ###################################################################################################
 #################################   OCURRENCE OF EACH K-MER      ##################################
+# IT IS USED IN PREDICTIONS
 def generateMatrice(data, K_mer, k):
 	# Variables
     X = []
@@ -296,7 +297,7 @@ def getBestKmersAndFeatures(path, trainingData=None):
     range_k_mers = range(k_min, k_max + 1, 1)
     range_features = range(features_min, features_max + 1, 1)
     '''
-    features_max = 50
+    features_max = 20
     features_min = 5
     n_splits = 5
     k_min = 5
@@ -305,6 +306,7 @@ def getBestKmersAndFeatures(path, trainingData=None):
 
     range_k_mers = range(k_min, k_max + 1, 5)
     range_features = range(features_min, features_max + 1, 5)
+    
 
     scores_list = []
     supports_list = []
@@ -331,7 +333,7 @@ def getBestKmersAndFeatures(path, trainingData=None):
 
         # THIS TKE TOO LONG TIME!!!!!, WE START WITH 1K FEATURES
         start_time = time.clock()
-        print("feature size ", len(k_mers))
+        #print("feature size ", len(k_mers))
         X, k_mers   = recursiveFeatureElimination(X, y, k_mers, features_max)
         print('recursiveFeatureElimination took', time.clock() - start_time, "seconds")
                            
@@ -354,6 +356,20 @@ def getBestKmersAndFeatures(path, trainingData=None):
 
     return best_k_mers, best_k_length
    
+
+
+def train_model(training_data, best_k_mers):
+
+    # Generate  matrices
+    best_k_length = len(best_k_mers[0])
+    X_train, y_train = generateXYMatrice(training_data, best_k_mers, best_k_length)
+
+    # Implement and fit classifier
+    clf = SVC(kernel = "linear", C = 1) 
+    clf.fit(X_train, y_train)
+    
+    return clf
+
 
 if __name__ == "__main__" :
     # CMD
