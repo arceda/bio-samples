@@ -35,7 +35,7 @@ datasets = ['POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/PO
 #datasets = ['POLYOMAVIRUS/POLSPEVP1'] 
 #datasets = ['PAPILLOMA/HPVGENCG', 'PAPILLOMA/HPVSPECG', 'HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL', 'HEPATITIS-B/HBVGENCG''POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/POLSPEVP3', 'POLYOMAVIRUS/POLSPEST', 'POLYOMAVIRUS/POLSPELT', 'RHINOVIRUS/RHISPECG', 'DENGE/DENSPECG', 'INFLUENZA/INSUBFNA', 'INFLUENZA/INFSUBHA', 'INFLUENZA/INFSUBMP', 'EBOLA/EBOSPECG']
 
-iterations_number = 3
+iterations_number = 100
 #dataset_path = "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/"
 dataset_path = sys.argv[1]
 
@@ -47,7 +47,7 @@ for i, dataset in enumerate(datasets):
     trainingData = fe.generateLabeledData(dataset_path + dataset + "/data.fa", dataset_path  + dataset + "/class.csv")
 
     f = open(dataset_path + dataset + "/results.metrics", "w")
-    f.write("Dataset,k,nfeatures,k-mers\n")
+    f.write("dataset;acc;precision;recall;fscore;nfeatures;k-mers;times\n")
     
     for j in range(iterations_number):  
         print('\niteration ....', j) 
@@ -57,8 +57,22 @@ for i, dataset in enumerate(datasets):
         test = trainingData[int(len(trainingData)*0.8):len(trainingData)]
         #print(len(trainingData), len(train), len(test))
         
-        best_k_mers, best_k_length = fe.getBestKmersAndFeatures('', train )
+        best_k_mers, best_k_length, times = fe.getBestKmersAndFeatures('', train )
         print(dataset + "," + str(best_k_length) + "," + str(len(best_k_mers)) + "," + str(best_k_mers))
-        f.write(dataset + ";" + str(best_k_length) + ";" + str(len(best_k_mers)) + ";" + str(best_k_mers) + "\n")
+
+        print('training...')
+        model = fe.train_model(train, best_k_mers)
+
+        acc, precision, recall, fscore = fe.evaluation(model, test, best_k_mers)
+
+        f.write(dataset + ";")
+        f.write(str(acc) + ";")
+        f.write(str(precision) + ";")
+        f.write(str(recall) + ";")
+        f.write(str(fscore) + ";")
+        f.write(str(best_k_length) + ";")
+        f.write(str(len(best_k_mers)) + ";")
+        f.write(str(best_k_mers) + ";")
+        f.write(str(times) + "\n")
 
     f.close()

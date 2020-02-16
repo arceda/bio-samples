@@ -7,6 +7,8 @@ import sys
 
 import matplotlib.pyplot as plt
 from sklearn.metrics import f1_score
+from sklearn.metrics import accuracy_score
+from sklearn.metrics import precision_recall_fscore_support
 from sklearn.feature_selection import RFE
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import LabelEncoder
@@ -286,7 +288,7 @@ def getOptimalSolution(scores_list, supports_list, k_mers_range, features_range,
     
 def getBestKmersAndFeatures(path, trainingData=None):
     
-    '''
+    
     features_max = 100
     features_min = 1
     n_splits = 5
@@ -294,8 +296,8 @@ def getBestKmersAndFeatures(path, trainingData=None):
     k_max = 30  
     T = 0.99
 
-    range_k_mers = range(k_min, k_max + 1, 1)
-    range_features = range(features_min, features_max + 1, 1)
+    range_k_mers = range(k_min, k_max + 1, 2)
+    range_features = range(features_min, features_max + 1, 2)
     '''
     features_max = 20
     features_min = 5
@@ -306,7 +308,7 @@ def getBestKmersAndFeatures(path, trainingData=None):
 
     range_k_mers = range(k_min, k_max + 1, 5)
     range_features = range(features_min, features_max + 1, 5)
-    
+    '''
 
     scores_list = []
     supports_list = []
@@ -316,26 +318,28 @@ def getBestKmersAndFeatures(path, trainingData=None):
     #trainingData = generateLabeledData("../castor_krfe/Data/HIVGRPCG/data.fa", "../castor_krfe/Data/HIVGRPCG/class.csv")
     #data         = generateData("../castor_krfe/Data/HIVGRPCG/data.fa")
     
+    start_time_t = time.clock()
+
     for k in range_k_mers: 
         print("\n\n Evaluating with k-mer:", k)
         
         start_time = time.clock()
         k_mers      = generate_K_mers(trainingData, k) #list of substring of size k: (if k = 2; k_mers= [AT, CG, AC, ...])    
-        print('generate_K_mers took', time.clock() - start_time, "seconds", "feature size ", len(k_mers))
+        t_1 = time.clock() - start_time; print('generate_K_mers took', t_1, "seconds", "feature size ", len(k_mers))
 
         start_time = time.clock()
         X, y        = generateXYMatrice(trainingData, k_mers, k) # OCURERNCE MATRIX
-        print('generateXYMatrice took', time.clock() - start_time, "seconds")
+        t_2 = time.clock() - start_time; print('generateXYMatrice took', t_2, "seconds")
 
         start_time = time.clock()
         X           = maxMinNormalization(X)
-        print('maxMinNormalization took', time.clock() - start_time, "seconds")
+        t_3 = time.clock() - start_time; print('maxMinNormalization took', t_3, "seconds")
 
         # THIS TKE TOO LONG TIME!!!!!, WE START WITH 1K FEATURES
         start_time = time.clock()
         #print("feature size ", len(k_mers))
         X, k_mers   = recursiveFeatureElimination(X, y, k_mers, features_max)
-        print('recursiveFeatureElimination took', time.clock() - start_time, "seconds")
+        t_4 = time.clock() - start_time; print('recursiveFeatureElimination took', t_4, "seconds")
                            
     
         labelEncodel = LabelEncoder()
@@ -344,19 +348,22 @@ def getBestKmersAndFeatures(path, trainingData=None):
         # score = f1-measure, support = list of k-mers
         start_time = time.clock()
         scores, supports =  evaluateFeatureSizes(X, y, k_mers, range_features, features_max, n_splits)
-        print('evaluateFeatureSizes took', time.clock() - start_time, "seconds")
+        t_5 = time.clock() - start_time; print('evaluateFeatureSizes took', t_5, "seconds")
     
         scores_list.append(scores)
         supports_list.append(supports) 
 
 
-    #start_time = time.clock()
+    start_time = time.clock()
     best_k_mers, best_k_length = getOptimalSolution(scores_list, supports_list, range_k_mers, range_features, T)
-    #print('getOptimalSolution took', time.clock() - start_time, "seconds")
+    t_6 = time.clock() - start_time; print('getOptimalSolution took', t_6, "seconds")
 
-    return best_k_mers, best_k_length
+    t_0 = time.clock() - start_time_t
+
+    return best_k_mers, best_k_length, [t_0, t_1, t_2, t_3, t_4, t_5, t_6]
    
-
+###################################################################################################
+#############################               TRAINING                ###############################
 
 def train_model(training_data, best_k_mers):
 
@@ -370,6 +377,24 @@ def train_model(training_data, best_k_mers):
     
     return clf
 
+def evaluation(clf, testing_data, best_k_mers):
+
+    # Generate matrices
+    best_k_length = len(best_k_mers[0])
+    X_test, y_test = generateXYMatrice(testing_data, best_k_mers, best_k_length)
+
+    # Realize prediction
+    y_pred = clf.predict(X_test)
+        
+    # Calcul metric scores
+    metrics = precision_recall_fscore_support(y_test, y_pred, average='weighted')
+    acc = accuracy_score(y_test, y_pred)
+
+    print('metrics: acc, precision, recall, fscore ', acc, metrics)
+    return acc, metrics[0], metrics[1], metrics[2]
+
+###################################################################################################
+################################################################################################### 
 
 if __name__ == "__main__" :
     # CMD
@@ -379,7 +404,7 @@ if __name__ == "__main__" :
     #training_data = generateLabeledData("../Data/HIVGRPCG/data.fa", "../Data/HIVGRPCG/class.csv")
     path = sys.argv[1] # folder path if fasta and csv
     #path = '/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/PAPILLOMA/HPVSPECG'
-    best_k_mers, best_k_length= getBestKmersAndFeatures(path)
+    best_k_mers, best_k_length, times = getBestKmersAndFeatures(path)
     print("Identified k =", best_k_length)
     print("Identified k-mers  =", best_k_mers)
 
