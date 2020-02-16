@@ -30,7 +30,7 @@ datasets = ['HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL']
 
 iterations_number = 2
 #dataset_path = "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/"
-path = sys.argv[1]
+dataset_path = sys.argv[1]
 f = open("results_k-mers_features.txt", "a")
 f.write("Dataset,k,nfeatures,k-mers")
 
