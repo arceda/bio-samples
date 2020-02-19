@@ -296,8 +296,8 @@ def getBestKmersAndFeatures(path, trainingData=None):
     k_max = 30  
     T = 0.99
 
-    range_k_mers = range(k_min, k_max + 1, 2)
-    range_features = range(features_min, features_max + 1, 2)
+    range_k_mers = range(k_min, k_max + 1, 1)
+    range_features = range(features_min, features_max + 1, 1)
     '''
     features_max = 20
     features_min = 5
