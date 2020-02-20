@@ -1,0 +1,188 @@
+language: cpp
+if: tag IS blank
+
+env:
+  global:
+    # COVERITY_SCAN_TOKEN
+    - secure: "CTmTP1abEHGoU5BCV/7hTiRTae9vw4GrsPGKyGjXKOdggLl/PuOidlpUY/tr7fwVuS1vZzwB5bKArpJdoqPMffVE0Gb0uNMqEf9mCUhedBsMCiC8FKr0ROZj2HuHGPi69lVkv3OtKAV/7WSoBkCOKp0OZNY3XVI9SXd2CRLyQdsk03JX0+9jg1uLfY/Qmz/hoID2jRFXzCtbdmtQhpLuPZfLbdbrMZRTou3hWjTit+XboIuE5OxwAkIbnEhaMXcmcaIkTc3tBcsBzOl7eQwGZy5AaHmAvPBbrBD+csO7r4GfUoqpPmtohWB0uv9XP7KwO7aw0GA221peoLnV9DTk+N8Use75OwehqDmwX3M5TROU1VsymbhGOjPEjHI6GWNjppQEK2HcVjL63sCFgov69Lz8oof6skgxnzwHLCTOjHmzQM2W3cPjfEmdgpqzcmXNCqaAaBM8ZjzlT2EWEf1GydvfhI7ZiNSbh3rvfOH8PQaFpZoGBjDwuh+rWGByHVYKO35l0lWOV+VQa6/Pq2j0CwdSl6BDQm99iYOtUhObitnRW+HvLeFqyoZCuSl0GMPhy1G4ifI8PK2YoyoxRv64oZmBmhgDFLyRgwItCiVAliqbhhjWWZ0BeGAIE5oHVqtkJ/7mtlmVran3l6DUkrXVb24JhAgOwA38/5aGrdRsEVQ="
+
+matrix:
+  include:
+    # compile runners
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: JOB='compile'
+      before_install:
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y dpkg
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ artful main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y gcc g++-6 libboost-dev libboost-filesystem-dev libboost-program-options-dev
+        - export CXX="g++-6"
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: JOB='compile'
+      before_install:
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y dpkg
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ artful main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y gcc g++-7 libboost-dev libboost-filesystem-dev libboost-program-options-dev
+        - export CXX="g++-7"
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: JOB='compile'
+      before_install:
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y dpkg
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ artful main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y gcc clang-3.9 libboost-dev libboost-filesystem-dev libboost-program-options-dev
+        - export CXX="clang++-3.9"
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: JOB='compile'
+      before_install:
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y dpkg
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ artful main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y gcc clang-4.0 libboost-dev libboost-filesystem-dev libboost-program-options-dev
+        - export CXX="clang++-4.0"
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: JOB='compile'
+      before_install:
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y dpkg
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ artful main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y gcc clang-5.0 libboost-dev libboost-filesystem-dev libboost-program-options-dev
+        - export CXX="clang++-5.0"
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: JOB='compile'
+      before_install:
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y dpkg
+        - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ artful main universe"
+        - sudo add-apt-repository -y "deb https://apt.llvm.org/artful/ llvm-toolchain-artful-6.0 main"
+        - sudo apt-get update
+        - sudo apt-get install -y gcc clang-6.0 libboost-dev libboost-filesystem-dev libboost-program-options-dev
+        - export CXX="clang++-6.0"
+    - os: osx
+      osx_image: xcode6.4
+      env: JOB='compile'
+      before_install:
+        - brew update
+        - brew uninstall --ignore-dependencies boost
+        - brew install https://raw.githubusercontent.com/Homebrew/homebrew-core/0f446d97ba00a3e9d8e2192c030164f067d3944c/Formula/boost.rb
+    - os: osx
+      osx_image: xcode7.3
+      env: JOB='compile'
+    - os: osx
+      osx_image: xcode8
+      env: JOB='compile'
+    - os: osx
+      osx_image: xcode8.3
+      env: JOB='compile'
+    - os: osx
+      osx_image: xcode9.1
+      env: JOB='compile'
+    - os: osx
+      env: JOB='compile'
+      before_install:
+        - brew update
+        - brew install llvm
+        - CXX="/usr/local/opt/llvm/bin/clang++"
+
+    # lint runners
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: JOB='lint'
+      before_install:
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y dpkg
+        - wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | sudo apt-key add -
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ artful main universe"
+        - sudo add-apt-repository -y "deb https://apt.llvm.org/artful/ llvm-toolchain-artful-6.0 main"
+        - sudo apt-get update
+        - sudo apt-get install -y libboost-dev libboost-filesystem-dev libboost-program-options-dev clang-6.0 clang-format-6.0 clang-tidy-6.0
+        - mkdir -p ~/bin
+        - sudo ln -s /usr/bin/clang-format-6.0 ~/bin/clang-format
+        - sudo ln -s /usr/bin/clang-tidy-6.0 ~/bin/clang-tidy
+        - export CXX="clang++-6.0"
+    - os: osx
+      env: JOB='lint'
+      before_install:
+        - brew update
+        - brew install llvm diffutils clang-format
+        - ln -s /usr/local/opt/llvm/bin/clang-tidy /usr/local/bin/clang-tidy
+        - CXX="/usr/local/opt/llvm/bin/clang++"
+
+    # other integrations
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: JOB='coverity'
+      before_install:
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y dpkg
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ artful main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y gcc clang libboost-dev libboost-filesystem-dev libboost-program-options-dev
+        - export CXX="clang++"
+        - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+        - export COVERITY_SCAN_PROJECT_NAME='stephensolis/kameris-backend'
+        - export COVERITY_SCAN_NOTIFICATION_EMAIL='stephen@nowhere'
+        - export COVERITY_SCAN_BRANCH_PATTERN='master'
+        - export COVERITY_SCAN_BUILD_COMMAND_PREPEND='cov-configure --clang'
+        - export COVERITY_SCAN_BUILD_COMMAND='make'
+    - os: linux
+      dist: trusty
+      sudo: required
+      env: JOB='coverage'
+      before_install:
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ xenial main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y dpkg
+        - sudo add-apt-repository -y "deb http://us.archive.ubuntu.com/ubuntu/ artful main universe"
+        - sudo apt-get update
+        - sudo apt-get install -y gcc g++ libboost-dev libboost-filesystem-dev libboost-program-options-dev lcov
+        - npm install -g coveralls codecov.io
+
+before_script:
+  - $CXX --version
+  - if [[ $JOB = 'lint' ]]; then clang-format --version; fi
+  - if [[ $JOB = 'lint' ]]; then clang-tidy --version; fi
+  - if [[ $JOB = 'coverage' ]]; then gcov --version; fi
+  - if [[ $JOB = 'coverage' ]]; then lcov --version; fi
+script:
+  - mkdir build && cd build
+  - if [[ $JOB != 'coverage' ]]; then cmake ..; fi
+  - if [[ $JOB = 'coverage' ]]; then cmake -DCMAKE_BUILD_TYPE="Coverage" ..; fi
+  - if [[ $JOB = 'compile' ]]; then make; fi
+  - if [[ $JOB = 'compile' ]]; then make check-tests; fi
+  - if [[ $JOB = 'lint' ]]; then ! make check-lint | grep -Ev "(Scanning dependencies of target|Built target)"; fi
+  - if [[ $JOB = 'lint' ]]; then ! make check-format | grep -Ev "(Scanning dependencies of target|Built target)"; fi
+  - if [[ $JOB = 'coverity' ]]; then curl -s 'https://scan.coverity.com/scripts/travisci_build_coverity_scan.sh' | bash || true; fi
+  - if [[ $JOB = 'coverity' ]]; then curl -F "file=@cov-int/build-log.txt" https://file.io; fi
+  - if [[ $JOB = 'coverage' ]]; then make coverage; fi
+  - if [[ $JOB = 'coverage' ]]; then cat coverage.info | coveralls; fi
+  - if [[ $JOB = 'coverage' ]]; then cat coverage.info | codecov; fi

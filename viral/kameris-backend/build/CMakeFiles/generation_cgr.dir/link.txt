@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=gnu++14 -Wall -Wextra -Og -ggdb   CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.o CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.o  -o generation_cgr -rdynamic -Wl,-Bstatic -lboost_filesystem -lboost_program_options -lboost_system -Wl,-Bdynamic -pthread 

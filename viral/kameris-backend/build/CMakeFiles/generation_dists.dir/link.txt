@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=gnu++14 -Wall -Wextra -Og -ggdb   CMakeFiles/generation_dists.dir/src/generation_dists.cpp.o CMakeFiles/generation_dists.dir/src/common/progress_bar.cpp.o  -o generation_dists -rdynamic -Wl,-Bstatic -lboost_filesystem -lboost_program_options -lboost_system -Wl,-Bdynamic -pthread 
