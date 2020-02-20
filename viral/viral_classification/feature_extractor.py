@@ -10,6 +10,8 @@ from sklearn.metrics import f1_score
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.feature_selection import RFE
+from sklearn.decomposition import TruncatedSVD
+from sklearn.decomposition import TruncatedSVD
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import StratifiedKFold
@@ -90,6 +92,9 @@ def generateMatrice(data, K_mer, k):
     X_dict = {}
     for i, e in enumerate(K_mer):  
         X_dict[e] = 0
+
+    #print('K_mer', K_mer)
+    #print('len X_dict', len(X_dict))
 	
 	# Generates X (matrix attributes)
     for d in data:
@@ -172,6 +177,32 @@ def recursiveFeatureElimination(X, y, k_mers, features_max):
     else:
         return X, k_mers    
     
+
+def SVD(X, nfeatures = None):
+    #print('performing SVD')
+    
+    _X = np.matrix(X)
+    print('_X.shape', _X.shape)
+    #print('_X', _X)
+    
+    if nfeatures == None:
+        mayor_zero = np.count_nonzero(_X > 0.0) # count the > 0 entries
+        #print('mayor_zero', mayor_zero)
+        mayor_zero = mayor_zero/len(X) # mean 
+        nfeatures = int(mayor_zero*0.1) # take the 10%
+    
+    print('nfeaturesn SVD', nfeatures)
+    
+    svd =  TruncatedSVD(algorithm='randomized', n_components = nfeatures)
+    #svd =  TruncatedSVD(n_components = 54)
+    X_transf = svd.fit_transform(_X)
+    
+
+    print('X_transf.shape', X_transf.shape)
+    #print('X_transf', X_transf)
+    
+    return X_transf, nfeatures
+        
     
 ###################################################################################################
 ################################################################################################### 
@@ -285,7 +316,8 @@ def getOptimalSolution(scores_list, supports_list, k_mers_range, features_range,
  
 ###################################################################################################
 ###################################################################################################  
-    
+# it return the best k-mers and nfeatures based on the paper Toward an Alignment-Free Method for Feature Extraction
+# and Accurate Classification of Viral Sequences
 def getBestKmersAndFeatures(path, trainingData=None):
     
     
@@ -380,8 +412,9 @@ def train_model(training_data, best_k_mers):
 def evaluation(clf, testing_data, best_k_mers):
 
     # Generate matrices
-    best_k_length = len(best_k_mers[0])
-    X_test, y_test = generateXYMatrice(testing_data, best_k_mers, best_k_length)
+    best_k_length   = len(best_k_mers[0])
+    X_test, y_test  = generateXYMatrice(testing_data, best_k_mers, best_k_length)
+
 
     # Realize prediction
     y_pred = clf.predict(X_test)
@@ -395,6 +428,11 @@ def evaluation(clf, testing_data, best_k_mers):
 
 ###################################################################################################
 ################################################################################################### 
+
+
+
+
+
 
 if __name__ == "__main__" :
     # CMD
