@@ -26,7 +26,7 @@ def cgr(seq, k, order='ACGT'):
     x = pow(2, k-1)
     y = pow(2, k-1)
 
-    print("len seq:", len(seq))
+    #print("len seq:", len(seq))
     for i, c  in enumerate(seq):
     #for i, c  in enumerate(range(20)):
         #print(i, c)
@@ -51,10 +51,11 @@ def cgr(seq, k, order='ACGT'):
     return result
 
 
-data = read_fasta(current_dir + "/hiv1-genomes/A1.fasta")
-result = []
-for d in data:
-    result.append(cgr(d[1], 5)) # the second value save the sequence, the first one is the id
+if __name__ == "__main__" :
+    data = read_fasta(current_dir + "/hiv1-genomes/A1.fasta")
+    result = []
+    for d in data:
+        result.append(cgr(d[1], 5)) # the second value save the sequence, the first one is the id
 
 
 
