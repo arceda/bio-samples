@@ -52,9 +52,10 @@ def cgr(seq, k, order='ACGT'):
 
 
 data = read_fasta(current_dir + "/hiv1-genomes/A1.fasta")
+result = []
 for d in data:
-    result = cgr(d[1], 5) # the second value save the sequence, the first one is the id
-    print(result)
+    result.append(cgr(d[1], 5)) # the second value save the sequence, the first one is the id
+
 
 
 
