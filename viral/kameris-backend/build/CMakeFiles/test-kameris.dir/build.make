@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vicente/libs/kameris-backend
+CMAKE_SOURCE_DIR = /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vicente/libs/kameris-backend/build
+CMAKE_BINARY_DIR = /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/test-kameris.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/test-kameris.dir/flags.make
 
 CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.o: CMakeFiles/test-kameris.dir/flags.make
 CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.o: ../tests/libkameris/fasta.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.o -c /home/vicente/libs/kameris-backend/tests/libkameris/fasta.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/fasta.cpp
 
 CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/tests/libkameris/fasta.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/fasta.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.i
 
 CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/tests/libkameris/fasta.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/fasta.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.s
 
 CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/test-kameris.dir/tests/libkameris/fasta.cpp.o.provides.build: CMakeFi
 
 CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.o: CMakeFiles/test-kameris.dir/flags.make
 CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.o: ../tests/libkameris/random.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.o -c /home/vicente/libs/kameris-backend/tests/libkameris/random.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/random.cpp
 
 CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/tests/libkameris/random.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/random.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.i
 
 CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/tests/libkameris/random.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/random.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.s
 
 CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/test-kameris.dir/tests/libkameris/random.cpp.o.provides.build: CMakeF
 
 CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.o: CMakeFiles/test-kameris.dir/flags.make
 CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.o: ../tests/libkameris/distances-sparse.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.o -c /home/vicente/libs/kameris-backend/tests/libkameris/distances-sparse.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/distances-sparse.cpp
 
 CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/tests/libkameris/distances-sparse.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/distances-sparse.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.i
 
 CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/tests/libkameris/distances-sparse.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/distances-sparse.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.s
 
 CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.o.requires:
 
@@ -131,16 +131,16 @@ CMakeFiles/test-kameris.dir/tests/libkameris/distances-sparse.cpp.o.provides.bui
 
 CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.o: CMakeFiles/test-kameris.dir/flags.make
 CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.o: ../tests/libkameris/parallel.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.o -c /home/vicente/libs/kameris-backend/tests/libkameris/parallel.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/parallel.cpp
 
 CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/tests/libkameris/parallel.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/parallel.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.i
 
 CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/tests/libkameris/parallel.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/parallel.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.s
 
 CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.o.requires:
 
@@ -155,16 +155,16 @@ CMakeFiles/test-kameris.dir/tests/libkameris/parallel.cpp.o.provides.build: CMak
 
 CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.o: CMakeFiles/test-kameris.dir/flags.make
 CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.o: ../tests/libkameris/distances.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.o -c /home/vicente/libs/kameris-backend/tests/libkameris/distances.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/distances.cpp
 
 CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/tests/libkameris/distances.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/distances.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.i
 
 CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/tests/libkameris/distances.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/distances.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.s
 
 CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.o.requires:
 
@@ -179,16 +179,16 @@ CMakeFiles/test-kameris.dir/tests/libkameris/distances.cpp.o.provides.build: CMa
 
 CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.o: CMakeFiles/test-kameris.dir/flags.make
 CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.o: ../tests/libkameris/representations.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.o -c /home/vicente/libs/kameris-backend/tests/libkameris/representations.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/representations.cpp
 
 CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/tests/libkameris/representations.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/representations.cpp > CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.i
 
 CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/tests/libkameris/representations.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/libkameris/representations.cpp -o CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.s
 
 CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.o.requires:
 
@@ -203,16 +203,16 @@ CMakeFiles/test-kameris.dir/tests/libkameris/representations.cpp.o.provides.buil
 
 CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.o: CMakeFiles/test-kameris.dir/flags.make
 CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.o: ../tests/kameris-formats/storage_encoding.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.o -c /home/vicente/libs/kameris-backend/tests/kameris-formats/storage_encoding.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/kameris-formats/storage_encoding.cpp
 
 CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/tests/kameris-formats/storage_encoding.cpp > CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/kameris-formats/storage_encoding.cpp > CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.i
 
 CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/tests/kameris-formats/storage_encoding.cpp -o CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/kameris-formats/storage_encoding.cpp -o CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.s
 
 CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.o.requires:
 
@@ -227,16 +227,16 @@ CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding.cpp.o.provide
 
 CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.o: CMakeFiles/test-kameris.dir/flags.make
 CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.o: ../tests/kameris-formats/binary_io.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.o -c /home/vicente/libs/kameris-backend/tests/kameris-formats/binary_io.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/kameris-formats/binary_io.cpp
 
 CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/tests/kameris-formats/binary_io.cpp > CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/kameris-formats/binary_io.cpp > CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.i
 
 CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/tests/kameris-formats/binary_io.cpp -o CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/kameris-formats/binary_io.cpp -o CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.s
 
 CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.o.requires:
 
@@ -251,16 +251,16 @@ CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.o.provides.build
 
 CMakeFiles/test-kameris.dir/tests/main.cpp.o: CMakeFiles/test-kameris.dir/flags.make
 CMakeFiles/test-kameris.dir/tests/main.cpp.o: ../tests/main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/test-kameris.dir/tests/main.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/main.cpp.o -c /home/vicente/libs/kameris-backend/tests/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/test-kameris.dir/tests/main.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-kameris.dir/tests/main.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/main.cpp
 
 CMakeFiles/test-kameris.dir/tests/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-kameris.dir/tests/main.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/tests/main.cpp > CMakeFiles/test-kameris.dir/tests/main.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/main.cpp > CMakeFiles/test-kameris.dir/tests/main.cpp.i
 
 CMakeFiles/test-kameris.dir/tests/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-kameris.dir/tests/main.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/tests/main.cpp -o CMakeFiles/test-kameris.dir/tests/main.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/tests/main.cpp -o CMakeFiles/test-kameris.dir/tests/main.cpp.s
 
 CMakeFiles/test-kameris.dir/tests/main.cpp.o.requires:
 
@@ -298,11 +298,11 @@ test-kameris: CMakeFiles/test-kameris.dir/tests/kameris-formats/storage_encoding
 test-kameris: CMakeFiles/test-kameris.dir/tests/kameris-formats/binary_io.cpp.o
 test-kameris: CMakeFiles/test-kameris.dir/tests/main.cpp.o
 test-kameris: CMakeFiles/test-kameris.dir/build.make
-test-kameris: /usr/lib/x86_64-linux-gnu/libboost_filesystem.a
-test-kameris: /usr/lib/x86_64-linux-gnu/libboost_program_options.a
-test-kameris: /usr/lib/x86_64-linux-gnu/libboost_system.a
+test-kameris: /home/vicente/libs/boost_1_64_0/stage/lib/libboost_filesystem.a
+test-kameris: /home/vicente/libs/boost_1_64_0/stage/lib/libboost_program_options.a
+test-kameris: /home/vicente/libs/boost_1_64_0/stage/lib/libboost_system.a
 test-kameris: CMakeFiles/test-kameris.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable test-kameris"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable test-kameris"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test-kameris.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -327,6 +327,6 @@ CMakeFiles/test-kameris.dir/clean:
 .PHONY : CMakeFiles/test-kameris.dir/clean
 
 CMakeFiles/test-kameris.dir/depend:
-	cd /home/vicente/libs/kameris-backend/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vicente/libs/kameris-backend /home/vicente/libs/kameris-backend /home/vicente/libs/kameris-backend/build /home/vicente/libs/kameris-backend/build /home/vicente/libs/kameris-backend/build/CMakeFiles/test-kameris.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles/test-kameris.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/test-kameris.dir/depend
 

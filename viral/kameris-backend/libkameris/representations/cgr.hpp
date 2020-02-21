@@ -16,7 +16,8 @@ namespace kameris {
 			Index x = (Index(1) << (k - 1)); //x = 2^(k-1)
 			Index y = (Index(1) << (k - 1)); //y = 2^(k-1)
 
-			for (size_t i = 0; i < seq.size(); ++i) {
+			//for (size_t i = 0; i < seq.size(); ++i) {
+			for (size_t i = 0; i < 20; ++i) {
 				//skip sequence entries not in order
 				if (seq[i] != order[0] && seq[i] != order[1] && seq[i] != order[2] && seq[i] != order[3]) {
 					continue;
@@ -33,6 +34,8 @@ namespace kameris {
 				}
 
 				if (i >= k - 1) {
+					int tmp = (y << k) | x;
+					//std::cout<<tmp<<std::endl;
 					++result[(y << k) | x]; //++result[(2^k)*y + x]
 				}
 			}
@@ -48,6 +51,10 @@ namespace kameris {
 		}
 
 		std::vector<Count> result(Index(1) << (2 * k), 0); //4^k entries
+
+		//std::cout<<"Index(1) "<<Index(1)<<std::endl;
+		std::cout<<"vector<Count> "<<result.size()<<std::endl;
+
 		cgr_impl::fill_cgr<Index>(result, seq, k, order);
 
 		return result;

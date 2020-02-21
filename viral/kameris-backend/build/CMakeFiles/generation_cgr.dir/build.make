@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vicente/libs/kameris-backend
+CMAKE_SOURCE_DIR = /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vicente/libs/kameris-backend/build
+CMAKE_BINARY_DIR = /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/generation_cgr.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/generation_cgr.dir/flags.make
 
 CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.o: CMakeFiles/generation_cgr.dir/flags.make
 CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.o: ../src/generation_cgr.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.o -c /home/vicente/libs/kameris-backend/src/generation_cgr.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/generation_cgr.cpp
 
 CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/src/generation_cgr.cpp > CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/generation_cgr.cpp > CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.i
 
 CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/src/generation_cgr.cpp -o CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/generation_cgr.cpp -o CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.s
 
 CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.o.provides.build: CMakeFile
 
 CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.o: CMakeFiles/generation_cgr.dir/flags.make
 CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.o: ../src/common/progress_bar.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.o"
-	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.o -c /home/vicente/libs/kameris-backend/src/common/progress_bar.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.o -c /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/common/progress_bar.cpp
 
 CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.i"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/libs/kameris-backend/src/common/progress_bar.cpp > CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.i
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/common/progress_bar.cpp > CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.i
 
 CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.s"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/libs/kameris-backend/src/common/progress_bar.cpp -o CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.s
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/common/progress_bar.cpp -o CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.s
 
 CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.o.requires:
 
@@ -116,11 +116,11 @@ generation_cgr_EXTERNAL_OBJECTS =
 generation_cgr: CMakeFiles/generation_cgr.dir/src/generation_cgr.cpp.o
 generation_cgr: CMakeFiles/generation_cgr.dir/src/common/progress_bar.cpp.o
 generation_cgr: CMakeFiles/generation_cgr.dir/build.make
-generation_cgr: /usr/lib/x86_64-linux-gnu/libboost_filesystem.a
-generation_cgr: /usr/lib/x86_64-linux-gnu/libboost_program_options.a
-generation_cgr: /usr/lib/x86_64-linux-gnu/libboost_system.a
+generation_cgr: /home/vicente/libs/boost_1_64_0/stage/lib/libboost_filesystem.a
+generation_cgr: /home/vicente/libs/boost_1_64_0/stage/lib/libboost_program_options.a
+generation_cgr: /home/vicente/libs/boost_1_64_0/stage/lib/libboost_system.a
 generation_cgr: CMakeFiles/generation_cgr.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/vicente/libs/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable generation_cgr"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable generation_cgr"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/generation_cgr.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -138,6 +138,6 @@ CMakeFiles/generation_cgr.dir/clean:
 .PHONY : CMakeFiles/generation_cgr.dir/clean
 
 CMakeFiles/generation_cgr.dir/depend:
-	cd /home/vicente/libs/kameris-backend/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vicente/libs/kameris-backend /home/vicente/libs/kameris-backend /home/vicente/libs/kameris-backend/build /home/vicente/libs/kameris-backend/build /home/vicente/libs/kameris-backend/build/CMakeFiles/generation_cgr.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles/generation_cgr.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/generation_cgr.dir/depend
 

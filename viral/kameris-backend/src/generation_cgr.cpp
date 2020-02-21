@@ -34,14 +34,14 @@ inline void run(const vector<string> &filenames, const string &output_filename, 
 
 	std::cout<<"start running..."<<endl;
 
-	std::cout<<"ProgressBar..."<<endl;
+	//std::cout<<"ProgressBar..."<<endl;
 	ProgressBar bar(num_seqs);
 
-	std::cout<<"ParallelExecutor..."<<endl;
+	//std::cout<<"ParallelExecutor..."<<endl;
 	ParallelExecutor exec;
 
 
-	std::cout<<"vector<future<void>>..."<<endl;
+	//std::cout<<"vector<future<void>>..."<<endl;
 	vector<future<void>> results;
 	size_t cgr_length = 0;
 
@@ -53,7 +53,12 @@ inline void run(const vector<string> &filenames, const string &output_filename, 
 			cgr_length = size_t(1) << (2 * k);
 			results.push_back(exec.enqueue([&, i](unsigned) {
 				ifstream file(filenames[i]);
+
+				//std::cout<<"reading fasta file.."<<endl;
 				vector<string> seqs = read_fasta(file);
+
+				//std::cout<<seqs.size()<<endl;
+
 				cgrs[i] = cgr<cgr_element_t>(seqs.front(), k);
 			}));
 		} else {
@@ -75,11 +80,15 @@ inline void run(const vector<string> &filenames, const string &output_filename, 
 			/* count */ num_seqs,
 			/* rows */ 1,
 			/* cols */ cgr_length});
+
 	for (size_t i = 0; i < num_seqs; ++i) {
 		results[i].wait();
 		writer.write_matrix(make_vector_adapter(cgrs[i].data(), cgr_length));
 		bar.increment();
+
 	}
+
+
 }
 
 int main(int argc, char *argv[]) {
@@ -111,3 +120,5 @@ int main(int argc, char *argv[]) {
 
 	return 0;
 }
+
+//./generation_cgr cgr "/home/vicente/Descargas/hiv1-genomes/"  "/home/vicente/Descargas/output/cgr-k=9.mm-repr" 6 16

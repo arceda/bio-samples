@@ -11546,7 +11546,7 @@ boost/utility/enable_if.hpp
 
 /home/vicente/libs/boost_1_64_0/boost/version.hpp
 
-/home/vicente/libs/kameris-backend/src/common/progress_bar.cpp
+/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/common/progress_bar.cpp
 algorithm
 -
 chrono
@@ -11556,9 +11556,9 @@ iostream
 string
 -
 progress_bar.hpp
-/home/vicente/libs/kameris-backend/src/common/progress_bar.hpp
+/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/common/progress_bar.hpp
 
-/home/vicente/libs/kameris-backend/src/common/progress_bar.hpp
+/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/common/progress_bar.hpp
 chrono
 -
 cstdint
@@ -11570,9 +11570,9 @@ string
 utility
 -
 
-/home/vicente/libs/kameris-backend/src/common/version.hpp
+/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/common/version.hpp
 
-/home/vicente/libs/kameris-backend/src/generation_cgr.cpp
+/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/generation_cgr.cpp
 algorithm
 -
 cstdlib
@@ -11606,7 +11606,7 @@ libkameris/utils.hpp
 kameris-formats/cpp/repr_writer.hpp
 -
 common/progress_bar.hpp
-/home/vicente/libs/kameris-backend/src/common/progress_bar.hpp
+/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/common/progress_bar.hpp
 common/version.hpp
-/home/vicente/libs/kameris-backend/src/common/version.hpp
+/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/src/common/version.hpp
 

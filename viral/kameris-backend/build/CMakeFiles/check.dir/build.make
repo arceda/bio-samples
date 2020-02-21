@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vicente/libs/kameris-backend
+CMAKE_SOURCE_DIR = /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vicente/libs/kameris-backend/build
+CMAKE_BINARY_DIR = /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build
 
 # Utility rule file for check.
 
@@ -71,6 +71,6 @@ CMakeFiles/check.dir/clean:
 .PHONY : CMakeFiles/check.dir/clean
 
 CMakeFiles/check.dir/depend:
-	cd /home/vicente/libs/kameris-backend/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vicente/libs/kameris-backend /home/vicente/libs/kameris-backend /home/vicente/libs/kameris-backend/build /home/vicente/libs/kameris-backend/build /home/vicente/libs/kameris-backend/build/CMakeFiles/check.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles/check.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/check.dir/depend
 

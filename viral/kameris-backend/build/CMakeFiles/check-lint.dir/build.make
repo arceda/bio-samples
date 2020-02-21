@@ -43,10 +43,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vicente/libs/kameris-backend
+CMAKE_SOURCE_DIR = /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vicente/libs/kameris-backend/build
+CMAKE_BINARY_DIR = /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build
 
 # Utility rule file for check-lint.
 
@@ -54,7 +54,7 @@ CMAKE_BINARY_DIR = /home/vicente/libs/kameris-backend/build
 include CMakeFiles/check-lint.dir/progress.make
 
 CMakeFiles/check-lint:
-	cd /home/vicente/libs/kameris-backend && /usr/bin/cmake -P /home/vicente/libs/kameris-backend/build/cmake-scripts//check-lint.cmake
+	cd /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend && /usr/bin/cmake -P /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/cmake-scripts//check-lint.cmake
 
 check-lint: CMakeFiles/check-lint
 check-lint: CMakeFiles/check-lint.dir/build.make
@@ -71,6 +71,6 @@ CMakeFiles/check-lint.dir/clean:
 .PHONY : CMakeFiles/check-lint.dir/clean
 
 CMakeFiles/check-lint.dir/depend:
-	cd /home/vicente/libs/kameris-backend/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vicente/libs/kameris-backend /home/vicente/libs/kameris-backend /home/vicente/libs/kameris-backend/build /home/vicente/libs/kameris-backend/build /home/vicente/libs/kameris-backend/build/CMakeFiles/check-lint.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build /home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/CMakeFiles/check-lint.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/check-lint.dir/depend
 
