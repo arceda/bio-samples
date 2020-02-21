@@ -61,59 +61,58 @@ if __name__ == "__main__" :
 
 
 
-"""
-#call implementation in c++
+
+    #call implementation in c++
 
 
-output_file = current_dir + "/results/cgr-k=5"
-input_files = current_dir + "/hiv1-genomes/"
-k = 5
-path_cmd = current_dir + "/../kameris-backend/build/generation_cgr_original " 
-cmd = path_cmd + " cgr '" + input_files + "' '" + output_file + "' " + str(k) + " 16 "
-#cmd = "/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/generation_cgr cgr '/home/vicente/Descargas/hiv1-genomes/'  '/home/vicente/Descargas/output/cgr-k=9.mm-repr' 6 16"
-p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-(output, err) = p.communicate()
- 
-## Wait for date to terminate. Get return returncode ##
-p_status = p.wait()
-
-output = str(output).replace('\\n', '\n')
-print("Command output : ", output)
-print("Command exit status/return code : ", p_status)
-
-cgrs = []
-reader = kameris_formats.repr_reader(output_file)
-for i in range(reader.count):                
-    cgr = reader.read_matrix(i)
-    #print("\ni:", i)
-    #print("len(cgr)", len(cgr[0]))
-    #print("cgr", cgr)
-
-    cgrs.append(cgr[0])
-    #cgrs.append(cgr[0]/cgr[0].sum())
-
-
-#############################################################################
-#############################################################################
-    # the both comands return the same
+    output_file = current_dir + "/results/cgr-k=5"
+    input_files = current_dir + "/hiv1-genomes/"
+    k = 5
+    path_cmd = current_dir + "/../kameris-backend/build/generation_cgr_original " 
+    cmd = path_cmd + " cgr '" + input_files + "' '" + output_file + "' " + str(k) + " 16 "
+    #cmd = "/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/kameris-backend/build/generation_cgr cgr '/home/vicente/Descargas/hiv1-genomes/'  '/home/vicente/Descargas/output/cgr-k=9.mm-repr' 6 16"
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    (output, err) = p.communicate()
     
-path_cmd = current_dir + "/../kameris-backend/build/generation_cgr_linux_avx2 "
-cmd = path_cmd + " cgr '" + input_files + "' '" + output_file + "' " + str(k) + " 16 "
-p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
-(output, err) = p.communicate()
-p_status = p.wait()
-output = str(output).replace('\\n', '\n')
-print("Command output : ", output)
-print("Command exit status/return code : ", p_status)
+    ## Wait for date to terminate. Get return returncode ##
+    p_status = p.wait()
 
-cgrs2 = []
-reader2 = kameris_formats.repr_reader(output_file)
-for i in range(reader2.count):                
-    cgr = reader2.read_matrix(i)
-    #print("\ni:", i)
-    #print("len(cgr)", len(cgr[0]))
-    #print("cgr", cgr)
+    output = str(output).replace('\\n', '\n')
+    print("Command output : ", output)
+    print("Command exit status/return code : ", p_status)
 
-    cgrs2.append(cgr[0]/cgr[0].sum())
+    cgrs = []
+    reader = kameris_formats.repr_reader(output_file)
+    for i in range(reader.count):                
+        cgr = reader.read_matrix(i)
+        #print("\ni:", i)
+        #print("len(cgr)", len(cgr[0]))
+        #print("cgr", cgr)
 
-"""
+        cgrs.append(cgr[0])
+        #cgrs.append(cgr[0]/cgr[0].sum())
+
+
+    #############################################################################
+    #############################################################################
+        # the both comands return the same
+        
+    path_cmd = current_dir + "/../kameris-backend/build/generation_cgr_linux_avx2 "
+    cmd = path_cmd + " cgr '" + input_files + "' '" + output_file + "' " + str(k) + " 16 "
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE, shell=True)
+    (output, err) = p.communicate()
+    p_status = p.wait()
+    output = str(output).replace('\\n', '\n')
+    print("Command output : ", output)
+    print("Command exit status/return code : ", p_status)
+
+    cgrs2 = []
+    reader2 = kameris_formats.repr_reader(output_file)
+    for i in range(reader2.count):                
+        cgr = reader2.read_matrix(i)
+        #print("\ni:", i)
+        #print("len(cgr)", len(cgr[0]))
+        #print("cgr", cgr)
+
+        cgrs2.append(cgr[0]/cgr[0].sum())
+

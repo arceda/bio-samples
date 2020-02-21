@@ -34,15 +34,22 @@ if not sys.warnoptions:
 # this funtion return de acc, fcore, .... of the models proposed by
 # An open-source k-mer based machine learning tool for fast and accurate [2]
 def kameris(train, test, k):
+    minMaxScaler = MinMaxScaler(feature_range=(0, 1), copy = False)
+        
+
     X_train = []
     y_train = []
     for sample in train:
         y_train.append(sample[2])
         seq = sample[1]
-        k_mers_frecuencies = kam.cgr(seq, k)
-        k_mers_frecuencies = k_mers_frecuencies/sum(k_mers_frecuencies) #normalize
-        X_train.append(k_mers_frecuencies)  
+        k_mers_frecuencies = kam.cgr(seq, k)        
+        #k_mers_frecuencies = k_mers_frecuencies/sum(k_mers_frecuencies) #normalize
+
+        X_train.append(k_mers_frecuencies) 
+        
     X_train = np.matrix(X_train)
+    #X_train = minMaxScaler.fit_transform(X_train) 
+    #print(X_train.shape)
     #print(X_train.shape, X_train)
     #print(y_train)
 
@@ -55,9 +62,12 @@ def kameris(train, test, k):
         y_test.append(sample[2])
         seq = sample[1]
         k_mers_frecuencies = kam.cgr(seq, k)
-        k_mers_frecuencies = k_mers_frecuencies/sum(k_mers_frecuencies) #normalize
+        #k_mers_frecuencies = k_mers_frecuencies/sum(k_mers_frecuencies) #normalize
         X_test.append(k_mers_frecuencies)
+
     X_test = np.matrix(X_test)
+    #X_test = minMaxScaler.fit_transform(X_test) 
+    #print(X_test.shape)
 
     y_pred = clf.predict(X_test)
         
@@ -148,14 +158,14 @@ for i, dataset in enumerate(datasets):
 
             acc, pre, recall, fscore = castor(data_train, data_test, k, nfeatures)
             metrics_castor.append([acc, pre, recall, fscore])
-            print("k-fold ", i, "metrics_castor: ", acc, pre, recall, fscore)
+            print("k-fold ", i, "metrics_castor:  ", acc, pre, recall, fscore)
 
             i += 1
             
         metrics_kameris = np.matrix(metrics_kameris)
         metrics_castor = np.matrix(metrics_castor)
         print("mean metrics_kameris: ", metrics_kameris.mean(0))
-        print("mean metrics_castor: ", metrics_castor.mean(0))
+        print("mean metrics_castor:  ", metrics_castor.mean(0))
         
     break
 
