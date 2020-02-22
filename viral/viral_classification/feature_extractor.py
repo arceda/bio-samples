@@ -23,6 +23,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.ensemble import RandomForestClassifier
 
 import time
+import kameris
 
 ###################################################################################################
 #################################        READ DATASET            ##################################
@@ -168,7 +169,7 @@ def recursiveFeatureElimination(X, y, k_mers, features_max):
             if value == False: k_mers[i] = None
         new_k_mers = list(filter(lambda a: a != None, k_mers))
 
-        print("reduce features to ", len(new_k_mers))
+        #print("reduce features to ", len(new_k_mers))
 
         return new_X, new_k_mers 
 
