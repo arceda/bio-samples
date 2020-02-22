@@ -127,8 +127,10 @@ def split_data(data, indexs):
 nfeatures = 7
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-datasets = ['POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/POLSPEVP3', 
-            'POLYOMAVIRUS/POLSPEST', 'POLYOMAVIRUS/POLSPELT'] 
+#datasets = ['POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/POLSPEVP3', 
+#            'POLYOMAVIRUS/POLSPEST', 'POLYOMAVIRUS/POLSPELT'] 
+datasets = ['HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL'] 
+
 
 #dataset_path = "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/"
 dataset_path = sys.argv[1]
@@ -175,7 +177,7 @@ for i, dataset in enumerate(datasets):
         metrics_kameris_mean    = metrics_kameris.mean(0)
         metrics_castor_mean     = metrics_kameris.mean(0)
 
-        print(metrics_kameris_mean.shape, metrics_castor_mean.shape)
+        #print(metrics_kameris_mean.shape, metrics_castor_mean.shape)
 
         print("mean metrics_kameris: ", np.array(metrics_kameris_mean)[0])
         print("mean metrics_castor:  ", np.array(metrics_castor_mean)[0])
@@ -186,7 +188,7 @@ for i, dataset in enumerate(datasets):
         
         csv.append(row)
 
-    file_name = current_dir + '/results/' + dataset.split('/')[1] + '_k=5_without_dm.csv'
+    file_name = current_dir + '/results/' + dataset.split('/')[1] + '_without_dm.csv'
     header = "'k', 'k_acc', 'k_presicion', 'k_recall', 'k_fscore', 'c_acc', 'c_presicion', 'c_recall', 'c_fscore'"
     np.savetxt(file_name, np.array(csv), delimiter=',', fmt='%f', header=header)
     print("save file to: ", file_name)
