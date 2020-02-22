@@ -24,6 +24,7 @@ import sys
 import numpy as np
 
 import mykameris as kam
+import os
 
 if not sys.warnoptions:
     import warnings
@@ -43,7 +44,7 @@ def kameris(train, test, k):
         y_train.append(sample[2])
         seq = sample[1]
         k_mers_frecuencies = kam.cgr(seq, k)        
-        #k_mers_frecuencies = k_mers_frecuencies/sum(k_mers_frecuencies) #normalize
+        #k_mers_frecuencies = k_mers_frecuencies/k_mers_frecuencies.sum()
 
         X_train.append(k_mers_frecuencies) 
         
@@ -62,7 +63,10 @@ def kameris(train, test, k):
         y_test.append(sample[2])
         seq = sample[1]
         k_mers_frecuencies = kam.cgr(seq, k)
-        #k_mers_frecuencies = k_mers_frecuencies/sum(k_mers_frecuencies) #normalize
+        #print(k_mers_frecuencies)
+        #k_mers_frecuencies = k_mers_frecuencies/k_mers_frecuencies.sum() #normalize
+        #print(k_mers_frecuencies)
+
         X_test.append(k_mers_frecuencies)
 
     X_test = np.matrix(X_test)
@@ -86,7 +90,7 @@ def castor(train, test, k, nfeatures, rfe = False):
     k_mers              = fe.generate_K_mers(train, k) #list of substring of size k: (if k = 2; k_mers= [AT, CG, AC, ...])    
     _k_mers             = k_mers.copy()
     X_train, y_train    = fe.generateXYMatrice(train, k_mers, k) # OCURRENCE MATRIX
-    X_train             = fe.maxMinNormalization(X_train)
+    #X_train             = fe.maxMinNormalization(X_train)
 
     if rfe:
         X_train, k_mers   = fe.recursiveFeatureElimination(X_train, y_train, k_mers, nfeatures)
@@ -97,7 +101,7 @@ def castor(train, test, k, nfeatures, rfe = False):
 
     # test
     X_test, y_test      = fe.generateXYMatrice(test, k_mers, k) # OCURRENCE MATRIX
-    X_test              = fe.maxMinNormalization(X_test)
+    #X_test              = fe.maxMinNormalization(X_test)
 
     y_pred = clf.predict(X_test)
         
@@ -122,11 +126,12 @@ def split_data(data, indexs):
 #k = 7
 nfeatures = 7
 
+current_dir = os.path.dirname(os.path.abspath(__file__))
 datasets = ['POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/POLSPEVP3', 
             'POLYOMAVIRUS/POLSPEST', 'POLYOMAVIRUS/POLSPELT'] 
 
-dataset_path = "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/"
-#dataset_path = sys.argv[1]
+#dataset_path = "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/"
+dataset_path = sys.argv[1]
 
 clf = SVC(kernel = "linear", C = 1)  
 
@@ -137,12 +142,14 @@ for i, dataset in enumerate(datasets):
     print('===========================================================')
     print('===========================================================') 
 
+    csv = []
+
     for k in range(1,11):
         print("\n\nEvaluating with k-mer:", k, " ==========================")
 
         data = fe.generateLabeledData(dataset_path + dataset + "/data.fa", dataset_path  + dataset + "/class.csv")         
         
-        kf = KFold(n_splits=5, shuffle=True, random_state=1)
+        kf = KFold(n_splits = 5, shuffle = True, random_state=1)
         i = 0
 
         metrics_castor = []
@@ -162,10 +169,27 @@ for i, dataset in enumerate(datasets):
 
             i += 1
             
-        metrics_kameris = np.matrix(metrics_kameris)
-        metrics_castor = np.matrix(metrics_castor)
-        print("mean metrics_kameris: ", metrics_kameris.mean(0))
-        print("mean metrics_castor:  ", metrics_castor.mean(0))
+        metrics_kameris         = np.matrix(metrics_kameris)
+        metrics_castor          = np.matrix(metrics_castor)
+
+        metrics_kameris_mean    = metrics_kameris.mean(0)
+        metrics_castor_mean     = metrics_kameris.mean(0)
+
+        print(metrics_kameris_mean.shape, metrics_castor_mean.shape)
+
+        print("mean metrics_kameris: ", np.array(metrics_kameris_mean)[0])
+        print("mean metrics_castor:  ", np.array(metrics_castor_mean)[0])
+        #print(np.append(np.array(metrics_kameris_mean)[0], np.array(metrics_castor_mean)[0]) )
+
+        row = np.append( np.array([k]), np.array(metrics_kameris_mean)[0]  )
+        row = np.append( row , np.array(metrics_castor_mean)[0] )
         
-    break
+        csv.append(row)
+
+    file_name = current_dir + '/results/' + dataset.split('/')[1] + '_k=5_without_dm.csv'
+    header = "'k', 'k_acc', 'k_presicion', 'k_recall', 'k_fscore', 'c_acc', 'c_presicion', 'c_recall', 'c_fscore'"
+    np.savetxt(file_name, np.array(csv), delimiter=',', fmt='%f', header=header)
+    print("save file to: ", file_name)
+        
+    
 
