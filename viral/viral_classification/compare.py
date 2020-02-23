@@ -141,9 +141,10 @@ def castor(train, test, k, dimention_reduction, nfeatures):
     if dimention_reduction == 1:
         #print(k_mers)
 
-        X_train, k_mers   = fe.recursiveFeatureElimination(X_train, y_train, k_mers, nfeatures)
-        #k_mers, best_k_length = fe.getBestKmersAndFeaturesMini(train, k, range(1,15), 0.99)
-        print("reduce fetures ", k, len(k_mers), k_mers)
+        #X_train, k_mers   = fe.recursiveFeatureElimination(X_train, y_train, k_mers, nfeatures)
+        len_kamers_before_rfe = len(k_mers)
+        k_mers, best_k_length = fe.getBestKmersAndFeaturesMini(train, k, range(1,15), 0.99)
+        print("len_kamers_before_rfe ", len_kamers_before_rfe, " reduce fetures ", len(k_mers), k_mers)
         X_train, y_train    = fe.generateXYMatrice(train, k_mers, k)
 
    
