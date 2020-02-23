@@ -394,6 +394,37 @@ def getBestKmersAndFeatures(path, trainingData=None):
     t_0 = time.clock() - start_time_t
 
     return best_k_mers, best_k_length, [t_0, t_1, t_2, t_3, t_4, t_5, t_6]
+
+
+
+# The same that getBestKmersAndFeatures, but it is used for comapare.py 
+def getBestKmersAndFeaturesMini(trainingData, k, range_features, T):
+    n_splits = 5
+    T = 0.99
+
+    range_k_mers = range(k, k + 1)
+
+    scores_list = []
+    supports_list = []
+    
+    for k in range_k_mers: 
+        k_mers      = generate_K_mers(trainingData, k) #list of substring of size k: (if k = 2; k_mers= [AT, CG, AC, ...])          
+        X, y        = generateXYMatrice(trainingData, k_mers, k) # OCURERNCE MATRIX        
+        X           = maxMinNormalization(X)
+
+        X, k_mers   = recursiveFeatureElimination(X, y, k_mers, range_features[len(range_features)-1])                           
+    
+        labelEncodel = LabelEncoder()
+        y = labelEncodel.fit_transform(y)    
+        
+        scores, supports =  evaluateFeatureSizes(X, y, k_mers, range_features, range_features[len(range_features)-1], n_splits)
+        
+        scores_list.append(scores)
+        supports_list.append(supports) 
+
+    best_k_mers, best_k_length = getOptimalSolution(scores_list, supports_list, range_k_mers, range_features, T)
+    
+    return best_k_mers, best_k_length
    
 ###################################################################################################
 #############################               TRAINING                ###############################
@@ -426,6 +457,41 @@ def evaluation(clf, testing_data, best_k_mers):
 
     print('metrics: acc, precision, recall, fscore ', acc, metrics)
     return acc, metrics[0], metrics[1], metrics[2]
+   
+###################################################################################################
+#############################               TRAINING                ###############################
+
+def train_model(training_data, best_k_mers):
+
+    # Generate  matrices
+    best_k_length = len(best_k_mers[0])
+    X_train, y_train = generateXYMatrice(training_data, best_k_mers, best_k_length)
+
+    # Implement and fit classifier
+    clf = SVC(kernel = "linear", C = 1) 
+    clf.fit(X_train, y_train)
+    
+    return clf
+
+def evaluation(clf, testing_data, best_k_mers):
+
+    # Generate matrices
+    best_k_length   = len(best_k_mers[0])
+    X_test, y_test  = generateXYMatrice(testing_data, best_k_mers, best_k_length)
+
+
+    # Realize prediction
+    y_pred = clf.predict(X_test)
+        
+    # Calcul metric scores
+    metrics = precision_recall_fscore_support(y_test, y_pred, average='weighted')
+    acc = accuracy_score(y_test, y_pred)
+
+    print('metrics: acc, precision, recall, fscore ', acc, metrics)
+    return acc, metrics[0], metrics[1], metrics[2]
+
+
+
 
 ###################################################################################################
 ################################################################################################### 

@@ -12,6 +12,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import precision_recall_fscore_support
 from sklearn.preprocessing import StandardScaler
 
+from sklearn.decomposition import TruncatedSVD
 from sklearn.svm import SVC
 from sklearn.decomposition import PCA
 from sklearn.naive_bayes import MultinomialNB
@@ -39,7 +40,7 @@ if not sys.warnoptions:
 def kameris(train, test, k, dimention_reduction):
     minMaxScaler = MinMaxScaler(feature_range=(0, 1), copy = False)
     scaler1 = StandardScaler()
-    pca1 = PCA(n_components=50)
+    
 
     #############################################
     # compute k-mer frecuences 
@@ -54,18 +55,35 @@ def kameris(train, test, k, dimention_reduction):
     X_train = np.matrix(X_train)
 
     #############################################
-    # scaling 
-    #X_train = minMaxScaler.fit_transform(X_train)  # this lose variance
+    # scaling     
+    #X_train = minMaxScaler.fit_transform(X_train)  # this lose variance   
+
     scaler1.fit(X_train)
     X_train = scaler1.transform(X_train)
-
+    #print(X_train)
+    #print("STD: ", X_train.std(axis=0))
+    #print("X_train > 0: ", np.count_nonzero(X_train > 0))
+    #print("nfeatures: ",  np.count_nonzero(X_train > 0)*0.1  )
+    #print("nfeatures: ",  (np.count_nonzero(X_train > 0)*0.1) /len(X_train) )
+    #print("real nfeatues: ", X_train.shape)
+    
     #############################################
-    # dimention reduction    
-    if dimention_reduction == 1 and pow(4, k) > 50:
+    # dimention reduction   
+    number_features = int((np.count_nonzero(X_train > 0)*0.1) /len(X_train) )
+    if dimention_reduction == 1 and pow(4, k) > number_features and number_features > 4:
         #PCA
-        pca1.fit(X_train)
-        X_train = pca1.transform(X_train)
-        #print("Dimentionality reduction computed X_train.shape: ", X_train.shape)
+        #print("before PCA: ", X_train.shape)
+        #pca1 = PCA(n_components = number_features, svd_solver= "arpack")
+        #pca1.fit(X_train)
+        #X_train = pca1.transform(X_train)
+        #print("PCA X_train.shape: ", X_train.shape)
+
+        #SVD
+        svd = TruncatedSVD(n_components=number_features)
+        rows, cols = X_train.shape
+        svd.fit(X_train)
+        X_train = svd.transform(X_train)
+        print("SVD aplied ... X_train.shape: ", [rows, cols], X_train.shape)
 
     #############################################
     # train  
@@ -91,8 +109,9 @@ def kameris(train, test, k, dimention_reduction):
 
     #############################################
     # dimention reduction 
-    if dimention_reduction == 1 and pow(4, k) > 50:
-        X_test = pca1.transform(X_test)
+    if dimention_reduction == 1 and pow(4, k) > number_features and number_features > 4:
+        #X_test = pca1.transform(X_test)
+        X_test = svd.transform(X_test)
 
     #############################################
     # predict
@@ -121,10 +140,13 @@ def castor(train, test, k, dimention_reduction, nfeatures):
     # dimention reduction
     if dimention_reduction == 1:
         #print(k_mers)
+
         X_train, k_mers   = fe.recursiveFeatureElimination(X_train, y_train, k_mers, nfeatures)
-        #print("feature elimination computed, len(k_mers): ", len(k_mers), " X_train ", len(X_train[0]))
-        #print(k_mers)
-        #print(X_train)
+        #k_mers, best_k_length = fe.getBestKmersAndFeaturesMini(train, k, range(1,15), 0.99)
+        print("reduce fetures ", k, len(k_mers), k_mers)
+        X_train, y_train    = fe.generateXYMatrice(train, k_mers, k)
+
+   
         
     
     #############################################
@@ -173,7 +195,8 @@ if dataset_type  == 'POL':
     datasets = ['POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/POLSPEVP3', 
                 'POLYOMAVIRUS/POLSPEST', 'POLYOMAVIRUS/POLSPELT'] 
 elif dataset_type  == 'HIV':
-    datasets = ['HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL'] 
+    #datasets = ['HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL'] 
+    datasets = ['HIV/HIVSUBPOL'] 
 else:
     datasets = ['POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/POLSPEVP3', 
                 'POLYOMAVIRUS/POLSPEST', 'POLYOMAVIRUS/POLSPELT', 'HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL']
@@ -221,11 +244,8 @@ for i, dataset in enumerate(datasets):
         metrics_kameris_mean    = metrics_kameris.mean(0)
         metrics_castor_mean     = metrics_castor.mean(0)
 
-        #print(metrics_kameris_mean.shape, metrics_castor_mean.shape)
-
         print("mean metrics_kameris: ", np.array(metrics_kameris_mean)[0])
         print("mean metrics_castor:  ", np.array(metrics_castor_mean)[0])
-        #print(np.append(np.array(metrics_kameris_mean)[0], np.array(metrics_castor_mean)[0]) )
 
         row = np.append( np.array([k]), np.array(metrics_kameris_mean)[0]  )
         row = np.append( row , np.array(metrics_castor_mean)[0] )
