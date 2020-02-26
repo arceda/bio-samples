@@ -121,14 +121,14 @@ def kameris(train, test, k, dimention_reduction):
     acc = accuracy_score(y_test, y_pred)
 
     #print('metrics: acc, precision, recall, fscore ', acc, metrics)
-    return acc, metrics[0], metrics[1], metrics[2]
+    return acc, metrics[0], metrics[1], metrics[2], number_features
 
 
 ###################################################################################################
 #############################               castor                  ###############################
 # this funtion return de acc, fcore, .... of the models proposed by
 # Toward an Alignment-Free Method for Feature Extraction [1]
-def castor(train, test, k, dimention_reduction, nfeatures):
+def castor(train, test, k, dimention_reduction):
     scaler1 = StandardScaler()
 
     k_mers              = fe.generate_K_mers(train, k) #list of substring of size k: (if k = 2; k_mers= [AT, CG, AC, ...])    
@@ -143,7 +143,7 @@ def castor(train, test, k, dimention_reduction, nfeatures):
 
         #X_train, k_mers   = fe.recursiveFeatureElimination(X_train, y_train, k_mers, nfeatures)
         len_kamers_before_rfe = len(k_mers)
-        k_mers, best_k_length = fe.getBestKmersAndFeaturesMini(train, k, range(1,15), 0.99)
+        k_mers, best_k_length = fe.getBestKmersAndFeaturesMini(train, k, range(1,100), 0.99)
         print("len_kamers_before_rfe ", len_kamers_before_rfe, " reduce fetures ", len(k_mers), k_mers)
         X_train, y_train    = fe.generateXYMatrice(train, k_mers, k)
 
@@ -170,7 +170,7 @@ def castor(train, test, k, dimention_reduction, nfeatures):
     acc = accuracy_score(y_test, y_pred)
 
     #print('metrics: acc, precision, recall, fscore ', acc, metrics)
-    return acc, metrics[0], metrics[1], metrics[2]
+    return acc, metrics[0], metrics[1], metrics[2], len(k_mers)
 
     
 
@@ -185,7 +185,6 @@ def split_data(data, indexs):
     return k_fold
 
 #k = 7
-nfeatures = 7
 
 #dataset_path = "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/"
 dataset_path = sys.argv[1]
@@ -214,7 +213,7 @@ for i, dataset in enumerate(datasets):
 
     csv = []
 
-    for k in range(1,11):
+    for k in range(1,10):
         print("\n\nEvaluating with k-mer:", k, " ==========================")
 
         data = fe.generateLabeledData(dataset_path + dataset + "/data.fa", dataset_path  + dataset + "/class.csv")         
@@ -229,12 +228,12 @@ for i, dataset in enumerate(datasets):
             data_train = split_data(data, train_index)
             data_test = split_data(data, test_index)                       
 
-            acc, pre, recall, fscore = kameris(data_train, data_test, k, dimention_reduction)
-            metrics_kameris.append([acc, pre, recall, fscore])
+            acc, pre, recall, fscore, number_features = kameris(data_train, data_test, k, dimention_reduction)
+            metrics_kameris.append([acc, pre, recall, fscore, number_features])
             print("k-fold ", i, "metrics_kameris: ", acc, pre, recall, fscore)
 
-            acc, pre, recall, fscore = castor(data_train, data_test, k, dimention_reduction, nfeatures)
-            metrics_castor.append([acc, pre, recall, fscore])
+            acc, pre, recall, fscore, number_features = castor(data_train, data_test, k, dimention_reduction)
+            metrics_castor.append([acc, pre, recall, fscore, number_features])
             print("k-fold ", i, "metrics_castor:  ", acc, pre, recall, fscore)
 
             i += 1
@@ -253,8 +252,8 @@ for i, dataset in enumerate(datasets):
         
         csv.append(row)
 
-    file_name = current_dir + '/results/' + dataset.split('/')[1] + '_dr=' + str(dimention_reduction) + ".csv"
-    header = "'k', 'k_acc', 'k_presicion', 'k_recall', 'k_fscore', 'c_acc', 'c_presicion', 'c_recall', 'c_fscore'"
+    file_name = current_dir + '/results/' + dataset.split('/')[1] + '_dr=' + str(dimention_reduction) + "_nfeatures.csv"
+    header = "'k', 'k_acc', 'k_presicion', 'k_recall', 'k_fscore', 'k_nfeatures', 'c_acc', 'c_presicion', 'c_recall', 'c_fscore', 'c_nfeatures'"
     np.savetxt(file_name, np.array(csv), delimiter=',', fmt='%f', header=header)
     print("save file to: ", file_name)
         

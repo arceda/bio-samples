@@ -11,7 +11,7 @@ import pandas as pd
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 #datasets = ['POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST', 'POLSPELT'] 
-datasets = ['HIVGRPCG', 'HIVSUBCG', 'HIVSUBPOL'] 
+#datasets = ['HIVGRPCG', 'HIVSUBCG', 'HIVSUBPOL'] 
 
 datasets = ['POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST', 'POLSPELT', 'HIVGRPCG', 'HIVSUBCG', 'HIVSUBPOL'] 
 
@@ -62,6 +62,7 @@ POLSPEVP3_dr = np.genfromtxt(current_dir + '/results/POLSPEVP3_dr=1.csv', delimi
 POLSPEST_dr = np.genfromtxt(current_dir + '/results/POLSPEST_dr=1.csv', delimiter=',')
 
 POLSPELT_dr = np.genfromtxt(current_dir + '/results/POLSPELT_dr=1.csv', delimiter=',')
+
 
 ############################################################################################
 # comparison between 'POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST' without dimentionality reduction
@@ -206,38 +207,71 @@ plt.savefig(current_dir + '/results/' + 'comparison5_castor_dr=0_1.png')
 #castor_min_k = min(indices[0])
 
 castor_metrics = []
+castor_metrics_dr = []
 kameris_metrics = []
+kameris_metrics_dr = []
 for i, dataset in enumerate(datasets):
+    
     file_name = current_dir + '/results/' + dataset + '_dr=0.csv'
     data = np.genfromtxt(file_name, delimiter=',')
 
     kameris_max_fscore = max(data[:, 4])
     indices = np.where(data[:, 4] == kameris_max_fscore)
-    kameris_min_k = min(indices[0])
+    kameris_min_k_index = min(indices[0])
+    kameris_min_k = data[kameris_min_k_index, 0] # in this column is k value
 
     kameris_metrics.append([kameris_max_fscore, kameris_min_k])
 
     castor_max_fscore = max(data[:, 8])
     indices = np.where(data[:, 8] == castor_max_fscore)
-    castor_min_k = min(indices[0])
+    castor_min_k_index = min(indices[0])
+    castor_min_k = data[castor_min_k_index, 0] # in this column is k value
 
     castor_metrics.append([castor_max_fscore, castor_min_k])
 
+
+
+    file_name = current_dir + '/results/' + dataset + '_dr=1.csv'
+    data = np.genfromtxt(file_name, delimiter=',')
+
+    kameris_max_fscore = max(data[:, 4])
+    indices = np.where(data[:, 4] == kameris_max_fscore)
+    kameris_min_k_index = min(indices[0])
+    kameris_min_k = data[kameris_min_k_index, 0] # in this column is k value
+
+    kameris_metrics_dr.append([kameris_max_fscore, kameris_min_k])
+
+    castor_max_fscore = max(data[:, 8])
+    indices = np.where(data[:, 8] == castor_max_fscore)
+    castor_min_k_index = min(indices[0])
+    castor_min_k = data[castor_min_k_index, 0] # in this column is k value
+
+    castor_metrics_dr.append([castor_max_fscore, castor_min_k])
+
 castor_metrics = np.array(castor_metrics)
 kameris_metrics = np.array(kameris_metrics)
+castor_metrics_dr = np.array(castor_metrics_dr)
+kameris_metrics_dr = np.array(kameris_metrics_dr)
 
-print(kameris_metrics[:, 0])
-print(range(0, 8))
+
 
 fig, (ax1, ax2) = plt.subplots(2, sharex=True)
-ax1.plot(datasets, kameris_metrics[:, 0], 'r', label='kameris fscore')
-ax1.legend(loc='lower right')
+ax1.plot(datasets, kameris_metrics[:, 0], 'r', label='kameris')
+ax1.plot(datasets, castor_metrics[:, 0], 'b--', label='castor')
+ax1.plot(datasets, kameris_metrics_dr[:, 0], 'g--', label='kameris-dr')
+ax1.plot(datasets, castor_metrics_dr[:, 0], 'm:', label='castor-dr')
+ax1.legend(loc='lower left', fontsize=8)
 ax1.set(xlabel='datasets', ylabel='max fscore')
+ax1.label_outer()
 
 #ax1.set_title('POLSPEVP1')
-ax2.plot(datasets, kameris_metrics[:, 1], 'r', label='kameris k-mer')
-ax2.legend(loc='lower right')
+ax2.plot(datasets, kameris_metrics[:, 1], 'r', label='kameris')
+ax2.plot(datasets, castor_metrics[:, 1], 'b--', label='castor')
+ax2.plot(datasets, kameris_metrics_dr[:, 1], 'g--', label='kameris-dr')
+ax2.plot(datasets, castor_metrics_dr[:, 1], 'm:', label='castor-dr')
+ax2.legend(loc='upper left', fontsize=8)
 ax2.set(xlabel='datasets', ylabel='k')
+ax1.label_outer()
 #ax2.set_xticklabels(['POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST', 'POLSPELT'])
 #ax2.set_title('POLSPEVP1')
 #axs[0, 1].plot(range(1, 9), kameris_metrics[:, 1], 'r', label='kameris k-mer')
@@ -245,9 +279,9 @@ ax2.set(xlabel='datasets', ylabel='k')
 #axs[0, 1].set(xlabel='datasets', ylabel='k')
 #axs[0, 1].set_title('POLSPEVP1')
 
-plt.xticks(rotation=45)
+plt.xticks(rotation=45, fontsize=6)
 # Hide x labels and tick labels for top plots and y ticks for right plots.
-for ax in axs.flat:
-    ax.label_outer()
+#for ax in axs.flat:
+#    ax.label_outer()
 
 plt.savefig(current_dir + '/results/' + 'comparison_max_fscore.png')
