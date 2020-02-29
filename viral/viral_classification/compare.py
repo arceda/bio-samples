@@ -38,6 +38,9 @@ if not sys.warnoptions:
 # this funtion return de acc, fcore, .... of the models proposed by
 # An open-source k-mer based machine learning tool for fast and accurate [2]
 def kameris(train, test, k, dimention_reduction):
+
+
+
     minMaxScaler = MinMaxScaler(feature_range=(0, 1), copy = False)
     scaler1 = StandardScaler()
     
@@ -89,6 +92,8 @@ def kameris(train, test, k, dimention_reduction):
     # train  
     clf = SVC(kernel = "linear", C = 1) 
     clf.fit(X_train, y_train)
+
+
 
     #############################################
     # compute k-mer frecuences 

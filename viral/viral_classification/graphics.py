@@ -62,26 +62,41 @@ POLSPEVP3_dr = np.genfromtxt(current_dir + '/results/POLSPEVP3_dr=1.csv', delimi
 POLSPEST_dr = np.genfromtxt(current_dir + '/results/POLSPEST_dr=1.csv', delimiter=',')
 
 POLSPELT_dr = np.genfromtxt(current_dir + '/results/POLSPELT_dr=1.csv', delimiter=',')
+HIVGRPCG_dr = np.genfromtxt(current_dir + '/results/HIVGRPCG_dr=1.csv', delimiter=',')
+HIVSUBCG_dr = np.genfromtxt(current_dir + '/results/HIVSUBCG_dr=1.csv', delimiter=',')
+HIVSUBPOL_dr = np.genfromtxt(current_dir + '/results/HIVSUBPOL_dr=1.csv', delimiter=',')
+
+fscore_kameris_pos = 4
+fscore_castor_pos = 8
+k_pos = 0
 
 
 ############################################################################################
 # comparison between 'POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST' without dimentionality reduction
 fig, axs = plt.subplots(2, 2)
-axs[0, 0].plot(POLSPEVP1[:, 0], POLSPEVP1[:, 4], 'r', label='kameris')
-axs[0, 0].plot(POLSPEVP1[:, 0], POLSPEVP1[:, 8], 'b--', label='castor')
-axs[0, 0].legend(loc='lower right')
+axs[0, 0].plot(POLSPEVP1[:, k_pos], POLSPEVP1[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs[0, 0].plot(POLSPEVP1[:, k_pos], POLSPEVP1[:, fscore_castor_pos], 'b', label='castor')
+axs[0, 0].plot(POLSPEVP1_dr[:, k_pos], POLSPEVP1_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
+axs[0, 0].plot(POLSPEVP1_dr[:, k_pos], POLSPEVP1_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[0, 0].legend(loc='lower right', fontsize=8)
 axs[0, 0].set_title('POLSPEVP1')
-axs[0, 1].plot(POLSPEVP2[:, 0], POLSPEVP2[:, 4], 'r', label='kameris')
-axs[0, 1].plot(POLSPEVP2[:, 0], POLSPEVP2[:, 8], 'b--', label='castor')
-axs[0, 1].legend(loc='lower right')
+axs[0, 1].plot(POLSPEVP2[:, k_pos], POLSPEVP2[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs[0, 1].plot(POLSPEVP2[:, k_pos], POLSPEVP2[:, fscore_castor_pos], 'b', label='castor')
+axs[0, 1].plot(POLSPEVP2_dr[:, k_pos], POLSPEVP2_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
+axs[0, 1].plot(POLSPEVP2_dr[:, k_pos], POLSPEVP2_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[0, 1].legend(loc='lower right', fontsize=8)
 axs[0, 1].set_title('POLSPEVP2')
-axs[1, 0].plot(POLSPEVP3[:, 0], POLSPEVP3[:, 4], 'r', label='kameris')
-axs[1, 0].plot(POLSPEVP3[:, 0], POLSPEVP3[:, 8], 'b--', label='castor')
-axs[1, 0].legend(loc='lower right')
+axs[1, 0].plot(POLSPEVP3[:, k_pos], POLSPEVP3[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs[1, 0].plot(POLSPEVP3[:, k_pos], POLSPEVP3[:, fscore_castor_pos], 'b', label='castor')
+axs[1, 0].plot(POLSPEVP3_dr[:, k_pos], POLSPEVP3_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
+axs[1, 0].plot(POLSPEVP3_dr[:, k_pos], POLSPEVP3_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[1, 0].legend(loc='lower right', fontsize=8)
 axs[1, 0].set_title('POLSPEVP3')
-axs[1, 1].plot(POLSPEST[:, 0], POLSPEST[:, 4], 'r', label='kameris')
-axs[1, 1].plot(POLSPEST[:, 0], POLSPEST[:, 8], 'b--', label='castor')
-axs[1, 1].legend(loc='lower right')
+axs[1, 1].plot(POLSPEST[:, k_pos], POLSPEST[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs[1, 1].plot(POLSPEST[:, k_pos], POLSPEST[:, fscore_castor_pos], 'b', label='castor')
+axs[1, 1].plot(POLSPEST_dr[:, k_pos], POLSPEST_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
+axs[1, 1].plot(POLSPEST_dr[:, k_pos], POLSPEST_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[1, 1].legend(loc='lower right', fontsize=8)
 axs[1, 1].set_title('POLSPEST')
 
 for ax in axs.flat:
@@ -92,28 +107,36 @@ for ax in axs.flat:
     ax.label_outer()
 
 #plt.show()
-plt.savefig(current_dir + '/results/' + 'comparison1_kameris_castor_dr=0.png')
+plt.savefig(current_dir + '/results/' + 'comparison1_kameris_castor_dr=0_1.png', dpi = 300)
 #############################################################################################
 
 
 ############################################################################################
 # comparison between 'POLSPELT', 'HIVGRPCG', 'HIVSUBCG', 'HIVSUBPOL' without dimentionality reduction
 fig, axs = plt.subplots(2, 2)
-axs[0, 0].plot(POLSPELT[:, 0], POLSPELT[:, 4], 'r', label='kameris')
-axs[0, 0].plot(POLSPELT[:, 0], POLSPELT[:, 8], 'b--', label='castor')
-axs[0, 0].legend(loc='lower right')
+axs[0, 0].plot(POLSPELT[:, k_pos], POLSPELT[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs[0, 0].plot(POLSPELT[:, k_pos], POLSPELT[:, fscore_castor_pos], 'b', label='castor')
+axs[0, 0].plot(POLSPELT_dr[:, k_pos], POLSPELT_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
+axs[0, 0].plot(POLSPELT_dr[:, k_pos], POLSPELT_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[0, 0].legend(loc='lower right', fontsize=8)
 axs[0, 0].set_title('POLSPELT')
-axs[0, 1].plot(HIVGRPCG[:, 0], HIVGRPCG[:, 4], 'r', label='kameris')
-axs[0, 1].plot(HIVGRPCG[:, 0], HIVGRPCG[:, 8], 'b--', label='castor')
-axs[0, 1].legend(loc='lower right')
+axs[0, 1].plot(HIVGRPCG[:, k_pos], HIVGRPCG[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs[0, 1].plot(HIVGRPCG[:, k_pos], HIVGRPCG[:, fscore_castor_pos], 'b', label='castor')
+axs[0, 1].plot(HIVGRPCG_dr[:, k_pos], HIVGRPCG_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
+axs[0, 1].plot(HIVGRPCG_dr[:, k_pos], HIVGRPCG_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[0, 1].legend(loc='lower right', fontsize=8)
 axs[0, 1].set_title('HIVGRPCG')
-axs[1, 0].plot(HIVSUBCG[:, 0], HIVSUBCG[:, 4], 'r', label='kameris')
-axs[1, 0].plot(HIVSUBCG[:, 0], HIVSUBCG[:, 8], 'b--', label='castor')
-axs[1, 0].legend(loc='lower right')
+axs[1, 0].plot(HIVSUBCG[:, k_pos], HIVSUBCG[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs[1, 0].plot(HIVSUBCG[:, k_pos], HIVSUBCG[:, fscore_castor_pos], 'b', label='castor')
+axs[1, 0].plot(HIVSUBCG_dr[:, k_pos], HIVSUBCG_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
+axs[1, 0].plot(HIVSUBCG_dr[:, k_pos], HIVSUBCG_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[1, 0].legend(loc='lower right', fontsize=8)
 axs[1, 0].set_title('HIVSUBCG')
-axs[1, 1].plot(HIVSUBPOL[:, 0], HIVSUBPOL[:, 4], 'r', label='kameris')
-axs[1, 1].plot(HIVSUBPOL[:, 0], HIVSUBPOL[:, 8], 'b--', label='castor')
-axs[1, 1].legend(loc='lower right')
+axs[1, 1].plot(HIVSUBPOL[:, k_pos], HIVSUBPOL[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs[1, 1].plot(HIVSUBPOL[:, k_pos], HIVSUBPOL[:, fscore_castor_pos], 'b', label='castor')
+axs[1, 1].plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
+axs[1, 1].plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[1, 1].legend(loc='lower right', fontsize=8)
 axs[1, 1].set_title('HIVSUBPOL')
 
 for ax in axs.flat:
@@ -124,10 +147,10 @@ for ax in axs.flat:
     ax.label_outer()
 
 #plt.show()
-plt.savefig(current_dir + '/results/' + 'comparison2_kameris_castor_dr=0.png')
+plt.savefig(current_dir + '/results/' + 'comparison2_kameris_castor_dr=0_1.png', dpi = 300)
 #############################################################################################
 
-
+'''
 ############################################################################################
 # comparison between kameris with and with SVD 'POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST' 
 fig, axs = plt.subplots(2, 2)
@@ -192,7 +215,7 @@ for ax in axs.flat:
 plt.savefig(current_dir + '/results/' + 'comparison5_castor_dr=0_1.png')
 #############################################################################################
 
-
+'''
 
 
 
