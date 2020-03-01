@@ -45,7 +45,7 @@ for i, dataset in enumerate(datasets):
 '''
 ############################################################################################
 
-
+'''
 POLSPEVP1 = np.genfromtxt(current_dir + '/results/POLSPEVP1_dr=0.csv', delimiter=',')
 POLSPEVP2 = np.genfromtxt(current_dir + '/results/POLSPEVP2_dr=0.csv', delimiter=',')
 POLSPEVP3 = np.genfromtxt(current_dir + '/results/POLSPEVP3_dr=0.csv', delimiter=',')
@@ -69,7 +69,31 @@ HIVSUBPOL_dr = np.genfromtxt(current_dir + '/results/HIVSUBPOL_dr=1.csv', delimi
 fscore_kameris_pos = 4
 fscore_castor_pos = 8
 k_pos = 0
+'''
 
+POLSPEVP1 = np.genfromtxt(current_dir + '/results/POLSPEVP1_dr=0_nfeatures.csv', delimiter=',')
+POLSPEVP2 = np.genfromtxt(current_dir + '/results/POLSPEVP2_dr=0_nfeatures.csv', delimiter=',')
+POLSPEVP3 = np.genfromtxt(current_dir + '/results/POLSPEVP3_dr=0_nfeatures.csv', delimiter=',')
+POLSPEST = np.genfromtxt(current_dir + '/results/POLSPEST_dr=0_nfeatures.csv', delimiter=',')
+
+POLSPELT = np.genfromtxt(current_dir + '/results/POLSPELT_dr=0_nfeatures.csv', delimiter=',')
+HIVGRPCG = np.genfromtxt(current_dir + '/results/HIVGRPCG_dr=0_nfeatures.csv', delimiter=',')
+HIVSUBCG = np.genfromtxt(current_dir + '/results/HIVSUBCG_dr=0_nfeatures.csv', delimiter=',')
+HIVSUBPOL = np.genfromtxt(current_dir + '/results/HIVSUBPOL_dr=0_nfeatures.csv', delimiter=',')
+
+POLSPEVP1_dr = np.genfromtxt(current_dir + '/results/POLSPEVP1_dr=1_nfeatures.csv', delimiter=',')
+POLSPEVP2_dr = np.genfromtxt(current_dir + '/results/POLSPEVP2_dr=1_nfeatures.csv', delimiter=',')
+POLSPEVP3_dr = np.genfromtxt(current_dir + '/results/POLSPEVP3_dr=1_nfeatures.csv', delimiter=',')
+POLSPEST_dr = np.genfromtxt(current_dir + '/results/POLSPEST_dr=1_nfeatures.csv', delimiter=',')
+
+POLSPELT_dr = np.genfromtxt(current_dir + '/results/POLSPELT_dr=1_nfeatures.csv', delimiter=',')
+HIVGRPCG_dr = np.genfromtxt(current_dir + '/results/HIVGRPCG_dr=1_nfeatures.csv', delimiter=',')
+HIVSUBCG_dr = np.genfromtxt(current_dir + '/results/HIVSUBCG_dr=1_nfeatures.csv', delimiter=',')
+HIVSUBPOL_dr = np.genfromtxt(current_dir + '/results/HIVSUBPOL_dr=1_nfeatures.csv', delimiter=',')
+
+fscore_kameris_pos = 4
+fscore_castor_pos = 9
+k_pos = 0
 
 ############################################################################################
 # comparison between 'POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST' without dimentionality reduction
@@ -107,7 +131,7 @@ for ax in axs.flat:
     ax.label_outer()
 
 #plt.show()
-plt.savefig(current_dir + '/results/' + 'comparison1_kameris_castor_dr=0_1.png', dpi = 300)
+plt.savefig(current_dir + '/results/' + 'comparison3_kameris_castor_dr=0_1.png', dpi = 300)
 #############################################################################################
 
 
@@ -147,7 +171,7 @@ for ax in axs.flat:
     ax.label_outer()
 
 #plt.show()
-plt.savefig(current_dir + '/results/' + 'comparison2_kameris_castor_dr=0_1.png', dpi = 300)
+plt.savefig(current_dir + '/results/' + 'comparison4_kameris_castor_dr=0_1.png', dpi = 300)
 #############################################################################################
 
 '''

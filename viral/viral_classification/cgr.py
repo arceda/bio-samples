@@ -10,10 +10,7 @@ import pylab
 import math
 import os
  
-current_dir = os.path.dirname(os.path.abspath(__file__))
-f = open(current_dir + "/hiv1-genomes/A1.fasta")
-s1 = f.read()
-data = "".join(s1.split("\n")[1:])
+
  
 def count_kmers(sequence, k):
     d = collections.defaultdict(int)
@@ -60,6 +57,13 @@ def chaos_game_representation(probabilities, k):
  
     return chaos
  
+
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+f = open(current_dir + "/hiv1-genomes/A1.fasta")
+s1 = f.read()
+data = "".join(s1.split("\n")[1:])
+
 f3 = count_kmers(data, 3)
 f4 = count_kmers(data, 4)
  
