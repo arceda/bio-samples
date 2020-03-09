@@ -259,7 +259,7 @@ kameris_metrics = []
 kameris_metrics_dr = []
 for i, dataset in enumerate(datasets):
     
-    file_name = current_dir + '/results/' + dataset + '_dr=0.csv'
+    file_name = current_dir + '/results/' + dataset + '_dr=0_nfeatures.csv'
     data = np.genfromtxt(file_name, delimiter=',')
 
     kameris_max_fscore = max(data[:, 4])
@@ -278,7 +278,7 @@ for i, dataset in enumerate(datasets):
 
 
 
-    file_name = current_dir + '/results/' + dataset + '_dr=1.csv'
+    file_name = current_dir + '/results/' + dataset + '_dr=1_nfeatures.csv'
     data = np.genfromtxt(file_name, delimiter=',')
 
     kameris_max_fscore = max(data[:, 4])
@@ -303,19 +303,19 @@ kameris_metrics_dr = np.array(kameris_metrics_dr)
 
 
 fig, (ax1, ax2) = plt.subplots(2, sharex=True)
-ax1.plot(datasets, kameris_metrics[:, 0], 'r', label='kameris')
-ax1.plot(datasets, castor_metrics[:, 0], 'b--', label='castor')
-ax1.plot(datasets, kameris_metrics_dr[:, 0], 'g--', label='kameris-dr')
-ax1.plot(datasets, castor_metrics_dr[:, 0], 'm:', label='castor-dr')
+ax1.plot(datasets, kameris_metrics[:, 0], 'r.-', label='kameris')
+ax1.plot(datasets, castor_metrics[:, 0], 'b', label='castor')
+ax1.plot(datasets, kameris_metrics_dr[:, 0], 'g--', label='kameris-svd')
+ax1.plot(datasets, castor_metrics_dr[:, 0], 'm-.', label='castor-rfe')
 ax1.legend(loc='lower left', fontsize=8)
 ax1.set(xlabel='datasets', ylabel='max fscore')
 ax1.label_outer()
 
 #ax1.set_title('POLSPEVP1')
-ax2.plot(datasets, kameris_metrics[:, 1], 'r', label='kameris')
-ax2.plot(datasets, castor_metrics[:, 1], 'b--', label='castor')
-ax2.plot(datasets, kameris_metrics_dr[:, 1], 'g--', label='kameris-dr')
-ax2.plot(datasets, castor_metrics_dr[:, 1], 'm:', label='castor-dr')
+ax2.plot(datasets, kameris_metrics[:, 1], 'r.-', label='kameris')
+ax2.plot(datasets, castor_metrics[:, 1], 'b', label='castor')
+ax2.plot(datasets, kameris_metrics_dr[:, 1], 'g--', label='kameris-svd')
+ax2.plot(datasets, castor_metrics_dr[:, 1], 'm-.', label='castor-rfe')
 ax2.legend(loc='upper left', fontsize=8)
 ax2.set(xlabel='datasets', ylabel='k')
 ax1.label_outer()
