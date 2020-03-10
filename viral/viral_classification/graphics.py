@@ -335,13 +335,60 @@ plt.savefig(current_dir + '/results/' + 'comparison_max_fscore.png')
 
 
 
+#################################################################################################
+############## n features ########################################################################
+#################################################################################################
+nfeatures_kameris_pos = 5
+nfeatures_castor_pos = 10
+k_pos = 0
+
+############################################################################################
+# comparison between 'POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST' without dimentionality reduction
+fig, axs = plt.subplots(2, 2)
+axs[0, 0].plot(POLSPEVP1_dr[:, k_pos], POLSPEVP1_dr[:, nfeatures_kameris_pos], 'g--', label='kameris-sdv')
+axs[0, 0].plot(POLSPEVP1_dr[:, k_pos], POLSPEVP1_dr[:, nfeatures_castor_pos], 'm-.', label='castor-krfe')
+axs[0, 0].legend(loc='upper left', fontsize=8)
+axs[0, 0].set_title('POLSPEVP1')
+axs[0, 1].plot(POLSPEVP2_dr[:, k_pos], POLSPEVP2_dr[:, nfeatures_kameris_pos], 'g--', label='kameris-sdv')
+axs[0, 1].plot(POLSPEVP2_dr[:, k_pos], POLSPEVP2_dr[:, nfeatures_castor_pos], 'm-.', label='castor-krfe')
+axs[0, 1].legend(loc='upper left', fontsize=8)
+axs[0, 1].set_title('POLSPEVP2')
+axs[1, 0].plot(POLSPEVP3_dr[:, k_pos], POLSPEVP3_dr[:, nfeatures_kameris_pos], 'g--', label='kameris-sdv')
+axs[1, 0].plot(POLSPEVP3_dr[:, k_pos], POLSPEVP3_dr[:, nfeatures_castor_pos], 'm-.', label='castor-krfe')
+axs[1, 0].legend(loc='upper left', fontsize=8)
+axs[1, 0].set_title('POLSPEVP3')
+axs[1, 1].plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, nfeatures_kameris_pos], 'g--', label='kameris-sdv')
+axs[1, 1].plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, nfeatures_castor_pos], 'm-.', label='castor-krfe')
+axs[1, 1].legend(loc='upper left', fontsize=8)
+axs[1, 1].set_title('HIVSUBPOL')
+
+for ax in axs.flat:
+    ax.set(xlabel='k', ylabel='nfeatures')
+
+# Hide x labels and tick labels for top plots and y ticks for right plots.
+for ax in axs.flat:
+    ax.label_outer()
+
+#plt.show()
+plt.savefig(current_dir + '/results/' + 'comparison5_kameris_castor_dr=0_1.png', dpi = 300)
+#############################################################################################
 
 
+nfeatures_kameris_sizes = []
+for index in range(1, 9):
+        nfeatures_kameris_sizes.append(pow(4, index))
 
+fig, ax = plt.subplots()
+#axs[0, 0].plot(POLSPEVP1[:, k_pos], POLSPEVP1[:, nfeatures_kameris_pos], 'r.-', label='kameris')
+#axs[0, 0].plot(POLSPEVP1[:, k_pos], POLSPEVP1[:, nfeatures_castor_pos], 'b', label='castor')
+ax.plot(range(1, 9), nfeatures_kameris_sizes, 'g--', label='kameris')
+ax.plot(HIVSUBPOL[:, k_pos], HIVSUBPOL[:, nfeatures_castor_pos], 'm-.', label='castor')
+ax.legend(loc='upper left', fontsize=8)
+ax.set(xlabel='k', ylabel='nfeatures')
+ax.set_title('HIVSUBPOL')
 
-
-
-
+#plt.show()
+plt.savefig(current_dir + '/results/' + 'comparison6_kameris_castor_dr=0.png', dpi = 300)
 
 #################################################################################################
 ############## bar ##############################################################################
