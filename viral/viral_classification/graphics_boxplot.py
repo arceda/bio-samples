@@ -36,8 +36,8 @@ def plot_box_plot(data, ylabel):
     #ax.set_xticklabels(['POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST', 'POLSPELT', 'HBVGENCG'], rotation=45, fontsize=8)
     ax.set_xticklabels(['POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST', 'POLSPELT'])
     # Save the figure
-    #fig.savefig('viral/viral_classification/results/' + ylabel + '.png', bbox_inches='tight')
-    plt.show()
+    fig.savefig('viral/viral_classification/results/' + ylabel + '.png', bbox_inches='tight', dpi = 300)
+    #plt.show()
     ax.clear()
 
 total_acc = []

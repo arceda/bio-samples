@@ -101,25 +101,25 @@ fig, axs = plt.subplots(2, 2)
 axs[0, 0].plot(POLSPEVP1[:, k_pos], POLSPEVP1[:, fscore_kameris_pos], 'r.-', label='kameris')
 axs[0, 0].plot(POLSPEVP1[:, k_pos], POLSPEVP1[:, fscore_castor_pos], 'b', label='castor')
 axs[0, 0].plot(POLSPEVP1_dr[:, k_pos], POLSPEVP1_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
-axs[0, 0].plot(POLSPEVP1_dr[:, k_pos], POLSPEVP1_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[0, 0].plot(POLSPEVP1_dr[:, k_pos], POLSPEVP1_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
 axs[0, 0].legend(loc='lower right', fontsize=8)
 axs[0, 0].set_title('POLSPEVP1')
 axs[0, 1].plot(POLSPEVP2[:, k_pos], POLSPEVP2[:, fscore_kameris_pos], 'r.-', label='kameris')
 axs[0, 1].plot(POLSPEVP2[:, k_pos], POLSPEVP2[:, fscore_castor_pos], 'b', label='castor')
 axs[0, 1].plot(POLSPEVP2_dr[:, k_pos], POLSPEVP2_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
-axs[0, 1].plot(POLSPEVP2_dr[:, k_pos], POLSPEVP2_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[0, 1].plot(POLSPEVP2_dr[:, k_pos], POLSPEVP2_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
 axs[0, 1].legend(loc='lower right', fontsize=8)
 axs[0, 1].set_title('POLSPEVP2')
 axs[1, 0].plot(POLSPEVP3[:, k_pos], POLSPEVP3[:, fscore_kameris_pos], 'r.-', label='kameris')
 axs[1, 0].plot(POLSPEVP3[:, k_pos], POLSPEVP3[:, fscore_castor_pos], 'b', label='castor')
 axs[1, 0].plot(POLSPEVP3_dr[:, k_pos], POLSPEVP3_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
-axs[1, 0].plot(POLSPEVP3_dr[:, k_pos], POLSPEVP3_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[1, 0].plot(POLSPEVP3_dr[:, k_pos], POLSPEVP3_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
 axs[1, 0].legend(loc='lower right', fontsize=8)
 axs[1, 0].set_title('POLSPEVP3')
 axs[1, 1].plot(POLSPEST[:, k_pos], POLSPEST[:, fscore_kameris_pos], 'r.-', label='kameris')
 axs[1, 1].plot(POLSPEST[:, k_pos], POLSPEST[:, fscore_castor_pos], 'b', label='castor')
 axs[1, 1].plot(POLSPEST_dr[:, k_pos], POLSPEST_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
-axs[1, 1].plot(POLSPEST_dr[:, k_pos], POLSPEST_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[1, 1].plot(POLSPEST_dr[:, k_pos], POLSPEST_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
 axs[1, 1].legend(loc='lower right', fontsize=8)
 axs[1, 1].set_title('POLSPEST')
 
@@ -141,25 +141,25 @@ fig, axs = plt.subplots(2, 2)
 axs[0, 0].plot(POLSPELT[:, k_pos], POLSPELT[:, fscore_kameris_pos], 'r.-', label='kameris')
 axs[0, 0].plot(POLSPELT[:, k_pos], POLSPELT[:, fscore_castor_pos], 'b', label='castor')
 axs[0, 0].plot(POLSPELT_dr[:, k_pos], POLSPELT_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
-axs[0, 0].plot(POLSPELT_dr[:, k_pos], POLSPELT_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[0, 0].plot(POLSPELT_dr[:, k_pos], POLSPELT_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
 axs[0, 0].legend(loc='lower right', fontsize=8)
 axs[0, 0].set_title('POLSPELT')
 axs[0, 1].plot(HIVGRPCG[:, k_pos], HIVGRPCG[:, fscore_kameris_pos], 'r.-', label='kameris')
 axs[0, 1].plot(HIVGRPCG[:, k_pos], HIVGRPCG[:, fscore_castor_pos], 'b', label='castor')
 axs[0, 1].plot(HIVGRPCG_dr[:, k_pos], HIVGRPCG_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
-axs[0, 1].plot(HIVGRPCG_dr[:, k_pos], HIVGRPCG_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[0, 1].plot(HIVGRPCG_dr[:, k_pos], HIVGRPCG_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
 axs[0, 1].legend(loc='lower right', fontsize=8)
 axs[0, 1].set_title('HIVGRPCG')
 axs[1, 0].plot(HIVSUBCG[:, k_pos], HIVSUBCG[:, fscore_kameris_pos], 'r.-', label='kameris')
 axs[1, 0].plot(HIVSUBCG[:, k_pos], HIVSUBCG[:, fscore_castor_pos], 'b', label='castor')
 axs[1, 0].plot(HIVSUBCG_dr[:, k_pos], HIVSUBCG_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
-axs[1, 0].plot(HIVSUBCG_dr[:, k_pos], HIVSUBCG_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[1, 0].plot(HIVSUBCG_dr[:, k_pos], HIVSUBCG_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
 axs[1, 0].legend(loc='lower right', fontsize=8)
 axs[1, 0].set_title('HIVSUBCG')
 axs[1, 1].plot(HIVSUBPOL[:, k_pos], HIVSUBPOL[:, fscore_kameris_pos], 'r.-', label='kameris')
 axs[1, 1].plot(HIVSUBPOL[:, k_pos], HIVSUBPOL[:, fscore_castor_pos], 'b', label='castor')
 axs[1, 1].plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, fscore_kameris_pos], 'g--', label='kameris-sdv')
-axs[1, 1].plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, fscore_castor_pos], 'm-.', label='castor-rfe')
+axs[1, 1].plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
 axs[1, 1].legend(loc='lower right', fontsize=8)
 axs[1, 1].set_title('HIVSUBPOL')
 
@@ -269,8 +269,8 @@ for i, dataset in enumerate(datasets):
 
     kameris_metrics.append([kameris_max_fscore, kameris_min_k])
 
-    castor_max_fscore = max(data[:, 8])
-    indices = np.where(data[:, 8] == castor_max_fscore)
+    castor_max_fscore = max(data[:, 9])
+    indices = np.where(data[:, 9] == castor_max_fscore)
     castor_min_k_index = min(indices[0])
     castor_min_k = data[castor_min_k_index, 0] # in this column is k value
 
@@ -288,8 +288,8 @@ for i, dataset in enumerate(datasets):
 
     kameris_metrics_dr.append([kameris_max_fscore, kameris_min_k])
 
-    castor_max_fscore = max(data[:, 8])
-    indices = np.where(data[:, 8] == castor_max_fscore)
+    castor_max_fscore = max(data[:, 9])
+    indices = np.where(data[:, 9] == castor_max_fscore)
     castor_min_k_index = min(indices[0])
     castor_min_k = data[castor_min_k_index, 0] # in this column is k value
 
@@ -332,3 +332,76 @@ plt.xticks(rotation=45, fontsize=6)
 #    ax.label_outer()
 
 plt.savefig(current_dir + '/results/' + 'comparison_max_fscore.png')
+
+
+
+
+
+
+
+
+
+
+
+#################################################################################################
+############## bar ##############################################################################
+#################################################################################################
+'''
+datasets = ['POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST', 'POLSPELT'] 
+kameris_nfeatures_list = []
+castor_nfeatures_list = []
+
+for i, dataset in enumerate(datasets):
+    file_name = current_dir + '/results/' + dataset + '_dr=0_nfeatures.csv'
+    data = np.genfromtxt(file_name, delimiter=',')
+
+    kameris_nfeatures = data[:, 5]
+    castor_nfeatures = data[:, 10]
+
+    kameris_nfeatures_list.append(kameris_nfeatures)
+    castor_nfeatures_list.append(castor_nfeatures)
+
+    
+
+x = np.arange(len(datasets))  # the label locations
+width = 0.35  # the width of the bars
+
+fig, ax = plt.subplots()
+rects1 = ax.bar(x - width/2, kameris_nfeatures_list, width, label='kameris')
+rects2 = ax.bar(x + width/2, castor_nfeatures_list, width, label='castor')
+
+# Add some text for labels, title and custom x-axis tick labels, etc.
+ax.set_ylabel('nfeatures')
+#ax.set_title('Scores by group and gender')
+ax.set_xticks(x)
+ax.set_xticklabels(datasets)
+ax.legend()
+
+
+def autolabel(rects):
+    """Attach a text label above each bar in *rects*, displaying its height."""
+    for rect in rects:
+        height = rect.get_height()
+        ax.annotate('{}'.format(height),
+                    xy=(rect.get_x() + rect.get_width() / 2, height),
+                    xytext=(0, 3),  # 3 points vertical offset
+                    textcoords="offset points",
+                    ha='center', va='bottom')
+
+
+autolabel(rects1)
+autolabel(rects2)
+
+fig.tight_layout()
+
+plt.savefig(current_dir + '/results/' + 'comparison_nfeatures.png')
+
+'''
+
+
+
+
+
+
+
+
