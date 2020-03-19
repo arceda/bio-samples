@@ -4,9 +4,9 @@ Author: MSC. Vicente Machaca Arceda
 Kameris and Castor-KRFE are methods based on k-mer frequencies for viral subtypying classification. Kameris was proposed by Solis-Reyes et al. (2018), they compute the k-mer frequencies using a Frequency Chaos Game Representation (FCGR) mean while Castor-KRFE,
 proposed by Lebatteux, Remita, and Diallo (2019), compute the k-mer frequencies from the whole training datasets.
 
-# Files and folders descripción:
+# Files and folders descriptión:
 - chaos_game.- Compute the CGR of a viral genome. The implementation is in Javascript.
-- hiv1-genomes.- Some genome samples of HIV-1.
+- sample_genomes.- Some genome samples of HIV-1 and Polyomavirus.
 - results.- Here, there are CSVs and images computed with the comparison of Kameris and Castor-KRFE.
 - feature_extractor.py.- Implementation of Castor-KRFE [1].
 - mykameris.py.- Implementation of Kameris [2]. The implementation is in cgr() function.
