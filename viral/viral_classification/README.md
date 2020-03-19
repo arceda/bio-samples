@@ -1,6 +1,8 @@
 # A COMPARISON OF KAMERIS AND CASTOR-KRFE
 Author: MSC. Vicente Machaca Arceda
 
+Online version for testing Kameris algorithm and see the CGR: http://134.209.44.160/viral/viral.html
+
 Kameris and Castor-KRFE are methods based on k-mer frequencies for viral subtypying classification. Kameris was proposed by Solis-Reyes et al. (2018), they compute the k-mer frequencies using a Frequency Chaos Game Representation (FCGR) mean while Castor-KRFE,
 proposed by Lebatteux, Remita, and Diallo (2019), compute the k-mer frequencies from the whole training datasets.
 
