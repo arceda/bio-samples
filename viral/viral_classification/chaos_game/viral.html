@@ -1,0 +1,142 @@
+<html>
+
+<head>
+<title>Viral subtype classification</title>
+<script src="p5.min.js"></script>
+<script src="jquery-3.4.1.min.js"></script> 
+<script>
+
+    let points = []
+    let current;
+    let n_vertex = 4;
+    var dna = "";
+    var started = false;
+
+    function setup(){
+
+        var canvas = createCanvas(600,600);
+        canvas.parent('sketch-holder');
+        noLoop();
+
+        
+
+    }
+
+    function reset(){     
+        background(0);
+        stroke(255);
+        strokeWeight(8);
+
+        //for (let p of points){
+        //    point(p.x, p.y)
+        //}    
+    }
+
+    function draw(){    
+        if(started){           
+
+            points = [];   
+            points.push(createVector(0,0)); //C
+            points.push(createVector(0,height)); // A
+            points.push(createVector(width,0)); // G
+            points.push(createVector(width,height)); //T 
+
+            dict = {'C':0, 'A':1, 'G':2, 'T': 3};
+
+            current = createVector(width/2, height/2)
+
+            reset()
+
+            strokeWeight(2);
+            stroke(255,0,255);
+
+            point(current.x, current.y)
+
+            for (nucleotide of dna){
+                if (nucleotide == 'A' || nucleotide == 'C' || nucleotide == 'G' || nucleotide == 'T'){
+                    current.x = lerp(current.x, points[dict[nucleotide]].x, 0.5);
+                    current.y = lerp(current.y, points[dict[nucleotide]].y, 0.5);
+                    point(current.x, current.y);       
+                }
+                
+            }
+
+            noLoop();
+        }
+        
+        
+    }
+</script>
+
+</head> 
+<body>
+
+        <center>
+                <h1>Viral Classification using k-mer frequencies</h1>
+                <h5>(Author: MSc. Vicente Machaca Arceda)</h5>
+                
+                <br>
+                <label for="file">Open FASTA file:</label>
+                <input type="file" id="file" name="file">
+                
+                <label for="models">Model:</label>
+                <select id="models" name="models">
+                  <option value="HIVGRPCG">HIVGRPCG</option>
+                  <option value="HIVSUBCG">HIVSUBCG</option>
+                  <option value="HIVSUBPOL">HIVSUBPOL</option>
+                  <option value="POLSPEVP1">POLSPEVP1</option>
+                  <option value="POLSPEVP2">POLSPEVP2</option>
+                  <option value="POLSPEVP3">POLSPEVP3</option>
+                  <option value="POLSPEST">POLSPEST</option>
+                  <option value="POLSPELT">POLSPELT</option>
+                </select> 
+
+                <button type='button' id="myButton">Classify</button>
+
+                <br>
+                <div id='ajaxResponse'></div>
+
+
+                <div id="sketch-holder">
+                <!-- Our sketch will go here! -->
+                </div>
+        </center>
+
+
+<script> 
+        //AJAX con JSON
+        $("#myButton" ).click(function() {
+            //alert($('#models').find('option:selected').val());
+            var formData = new FormData();
+            formData.append('file', $('#file')[0].files[0]);
+            formData.append('model', $('#models').find('option:selected').val());
+
+            $.ajax({
+                    url: "http://localhost/viral/viral.php",
+                    type: 'POST',
+                    data : formData,
+                    dataType: 'json',     //the server return json
+                    processData: false,  // tell jQuery not to process the data
+                    contentType: false,  // tell jQuery not to set contentType
+                    success : function(data) {  
+                        console.log(data);     
+                        var type = data.message;
+                        dna = data.seq;
+                        $('#ajaxResponse').html("<h3>Virus subtype: " + type + "</h3>  <h3>Chaos Game Representation</h3>");
+
+                        //call p5 draw
+                        started = true;
+                        loop();
+                    }
+                    
+                    
+            });
+        });
+        
+
+</script>
+
+
+</body>       
+
+</html>

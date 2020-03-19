@@ -41,7 +41,7 @@ for record in sequences:
 
 X_test = []
 for seq in data:
-    print("processing seq: ", seq[0])
+    #print("processing seq: ", seq[0])
     k_mers_frecuencies = kam.cgr(seq[1], k)  
     X_test.append(k_mers_frecuencies)
 
