@@ -27,13 +27,19 @@ proposed by Lebatteux, Remita, and Diallo (2019), compute the k-mer frequencies 
 - scikit_learn==0.22.2.post1
 
 # Training
-First download the datasets from: https://drive.google.com/drive/folders/17xcPSTebwBriZCxhTA26fHF098AY0H7k?usp=sharing  .For training you must run the script: 
+First download the datasets from: 
+https://drive.google.com/drive/folders/17xcPSTebwBriZCxhTA26fHF098AY0H7k?usp=sharing  .
+
+For training you must run the script: 
+
 compare.py $path_to_dataset $virus_type $dimentionality_reduction 
 
 For example in my case is:
+
 compare.py "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/" HIV 1
 
 If we need a comparison without dimentionality reduction:
+
 compare.py "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/" HIV 0
 
 The virus types could be:
