@@ -6,7 +6,7 @@ proposed by Lebatteux, Remita, and Diallo (2019), compute the k-mer frequencies 
 
 # Files and folders descripción:
 - chaos_game.- Compute the CGR of a viral genome. The implementation is in Javascript.
-- hiv1-genomes.- Some genome samples of HIV-1.
+- sample_genomes.- Some genome samples of HIV-1 and Polyomavirus.
 - results.- Here, there are CSVs and images computed with the comparison of Kameris and Castor-KRFE.
 - feature_extractor.py.- Implementation of Castor-KRFE [1].
 - mykameris.py.- Implementation of Kameris [2]. The implementation is in cgr() function.
