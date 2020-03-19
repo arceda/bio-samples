@@ -1,0 +1,10 @@
+matplotlib==3.0.3
+pandas==0.24.2
+kameris_formats==1.0.6
+tqdm==4.43.0
+iteration_utilities==0.10.1
+kameris==1.2.3
+numpy==1.11.0
+seaborn==0.9.1
+Bio==0.1.0
+scikit_learn==0.22.2.post1
