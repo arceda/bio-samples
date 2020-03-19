@@ -27,8 +27,7 @@ proposed by Lebatteux, Remita, and Diallo (2019), compute the k-mer frequencies 
 - scikit_learn==0.22.2.post1
 
 # Training
-First download the datasets from: 
-https://drive.google.com/drive/folders/17xcPSTebwBriZCxhTA26fHF098AY0H7k?usp=sharing  .
+First download the datasets from: https://drive.google.com/drive/folders/17xcPSTebwBriZCxhTA26fHF098AY0H7k?usp=sharing.
 
 For training you must run the script: 
 
