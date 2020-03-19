@@ -46,6 +46,7 @@ The virus types could be:
 - HIV
 - DENGE
 
+The compare.py script will generate CSVs files named for example as: "HIVGRPCG_dr=0_nfeatures.csv" this file correspond to HIVGRPCG dataset without dimentionality reduction. 
 
 # References
 
