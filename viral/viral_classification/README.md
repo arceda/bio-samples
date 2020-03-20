@@ -68,7 +68,7 @@ $fasta_file is the full path to a sequence in Fasta format. The $model could be:
 - POLSPEVP1, POLSPEVP2, POLSPEVP3, POLSPEST, POLSPELT
 - HIVGRPCG, HIVSUBCG, HIVSUBPOL
 
-The $model is associated with the models save in train.py, for each dataset we save a model.
+The $model is associated with the models save in train.py, we save a model for each dataset.
 
 Moreover, an online version of test.py is here: http://134.209.44.160/viral/viral.html. In a similar way to the script, you need to send a Fasta file and choose an appropriate model. Also, the Chaos Game Representation of the genome is presented.
 
