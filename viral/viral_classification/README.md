@@ -33,7 +33,7 @@ proposed by Lebatteux, Remita, and Diallo (2019), compute the k-mer frequencies 
 # Training
 First download the datasets from: https://drive.google.com/drive/folders/17xcPSTebwBriZCxhTA26fHF098AY0H7k?usp=sharing.
 
-For training you must run the script: 
+The compare.py script executes 5-fold validation and compares the performance of Kameris and Castor-KRFE in terms of accuracy, precision, recall, f-score and number of features. All of them for different k-mers (ranging from 1 to 9). The compare.py script will generate CSVs files named for example: "HIVGRPCG_dr=0_nfeatures.csv" this file correspond to HIVGRPCG dataset without dimensionality reduction. Also, the file "POLSPELT_dr=1_nfeatures" corresponds to the POLSPELT dataset with dimensionality reduction. For running: 
 
 - compare.py  $path_to_dataset  $virus_type  $dimentionality_reduction 
 
@@ -54,14 +54,13 @@ The $dimentionality_reduction could be:
 - 0
 - 1
 
-The compare.py script will generate CSVs files named for example as: "HIVGRPCG_dr=0_nfeatures.csv" this file correspond to HIVGRPCG dataset without dimensionality reduction. Also, the file "POLSPELT_dr=1_nfeatures" corresponds to the POLSPELT dataset with dimensionality reduction. 
-
 Also, you could run train.py in order to train the datasets with all samples, the models are saved in /models/ directory. We save a model for each dataset.
+
 - train.py $path_to_dataset $virus_type $dimentionality_reduction
 
 # Testing
 
-For testing you must run the script test.py as follows:
+For testing, there is a script test.py that receives a Fasta file and a model as parameters and returns the virus subtype:
 
 - test.py  $fasta_file  $model
 
