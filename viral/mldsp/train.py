@@ -100,76 +100,77 @@ def descriptor(seq, median_len):
     return  ns_new, fourier_transform, magnitud_spectra
 
 
-sequences, number_of_clases, cluster_names, points_per_cluster = readFasta(database_name)
+if __name__ == "__main__" :
+    sequences, number_of_clases, cluster_names, points_per_cluster = readFasta(database_name)
 
-#calculate length stats
-sequences_size  = list(map(len, sequences[:, 1]))
-total_seq       = len(sequences_size)
+    #calculate length stats
+    sequences_size  = list(map(len, sequences[:, 1]))
+    total_seq       = len(sequences_size)
 
-max_len     = max(sequences_size)
-min_len     = min(sequences_size)
-mean_len    = int(statistics.mean(sequences_size))
-median_len  = int(statistics.median(sequences_size))
-#print("max_len, min_len, mean_len, median_len ", max_len, min_len, mean_len, median_len)
+    max_len     = max(sequences_size)
+    min_len     = min(sequences_size)
+    mean_len    = int(statistics.mean(sequences_size))
+    median_len  = int(statistics.median(sequences_size))
+    #print("max_len, min_len, mean_len, median_len ", max_len, min_len, mean_len, median_len)
 
-nm_val_SH     = []
-f           = []
-lg          = []
+    nm_val_SH     = []
+    f           = []
+    lg          = []
 
-print('Generating numerical sequences, applying DFT, computing magnitude spectra ...')
+    print('Generating numerical sequences, applying DFT, computing magnitude spectra ...')
 
-for seq in sequences[:, 1]:
-    ns_new, fourier_transform, magnitud_spectra = descriptor(seq, median_len)
+    for seq in sequences[:, 1]:
+        ns_new, fourier_transform, magnitud_spectra = descriptor(seq, median_len)
+        
+        nm_val_SH.append(ns_new)
+        f.append(fft(fourier_transform))
+        lg.append(magnitud_spectra)
+        
+
+    #################################################################################################
+    # distance calculation by Pearson correlation coefficient
+    print('Computing Distance matrix .... ...')
+
+    lg_df = pd.DataFrame(np.transpose(lg)) # transpose in order to compute PCC by observation
+    pearsoncorr = lg_df.corr(method='pearson')  #Pearson correlation coefficient [-1 1]
+    dist_mat = (1 - pearsoncorr)/2  #  normalize between 0 and 1
+
+
+    # testing Pearson Correlation Distance
+    #X = [[1460, 517.201, 230.163, 453.649, 266.169, 267.257], [1340, 569.351, 219.907, 473.615, 239.587, 229.557], [1462, 622.617, 324.276, 503.927, 214.432,223.652], [1994, 672.012, 456.685, 412.211, 219.068, 131.52]]
+    #X_pd = pd.DataFrame(np.transpose(np.matrix(X)))
+    #X_corr = X_pd.corr(method='pearson')
+    #X_corr_norm = (1 - X_corr)/2
+
+
+    ##################################################################################################
+    # train
+
+    kf = KFold(n_splits=5)
+    X = dist_mat
+    y = sequences[:, 2]
+
+    clf = svm.SVC(kernel='linear', C=1)
+    scores = cross_val_score(clf, X, y, cv=5)
+    print("scores cv=5", scores)
+    print("mean score", statistics.mean(scores))
+
+    # thain the whole database
+    clf = svm.SVC(kernel='linear', C=1)
+    clf.fit(X, y)
+
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    file_name = current_dir + '/models/' + database_name
+    joblib.dump(clf, file_name + ".sav")
+    np.savetxt(file_name + "_magnitud_spectrum.csv", lg, delimiter=',', fmt='%f')
+
+    print(len(lg), " features")
+
+    '''
+    for train_index, test_index in kf.split(dist_mat):
+        print('TRAIN:', train_index, 'TEST:', test_index)
+        X_train, X_test = X[train_index], X[test_index]
+        y_train, y_test = y[train_index], y[test_index]
+        
+    '''
     
-    nm_val_SH.append(ns_new)
-    f.append(fft(fourier_transform))
-    lg.append(magnitud_spectra)
-    
-
-#################################################################################################
-# distance calculation by Pearson correlation coefficient
-print('Computing Distance matrix .... ...')
-
-lg_df = pd.DataFrame(np.transpose(lg)) # transpose in order to compute PCC by observation
-pearsoncorr = lg_df.corr(method='pearson')  #Pearson correlation coefficient [-1 1]
-dist_mat = (1 - pearsoncorr)/2  #  normalize between 0 and 1
-
-
-# testing Pearson Correlation Distance
-#X = [[1460, 517.201, 230.163, 453.649, 266.169, 267.257], [1340, 569.351, 219.907, 473.615, 239.587, 229.557], [1462, 622.617, 324.276, 503.927, 214.432,223.652], [1994, 672.012, 456.685, 412.211, 219.068, 131.52]]
-#X_pd = pd.DataFrame(np.transpose(np.matrix(X)))
-#X_corr = X_pd.corr(method='pearson')
-#X_corr_norm = (1 - X_corr)/2
-
-
-##################################################################################################
-# train
-
-kf = KFold(n_splits=5)
-X = dist_mat
-y = sequences[:, 2]
-
-clf = svm.SVC(kernel='linear', C=1)
-scores = cross_val_score(clf, X, y, cv=5)
-print("scores cv=5", scores)
-print("mean score", statistics.mean(scores))
-
-# thain the whole database
-clf = svm.SVC(kernel='linear', C=1)
-clf.fit(X, y)
-
-current_dir = os.path.dirname(os.path.abspath(__file__))
-file_name = current_dir + '/models/' + database_name
-joblib.dump(clf, file_name + ".sav")
-np.savetxt(file_name + "_magnitud_spectrum.csv", lg, delimiter=',', fmt='%f')
-
-print(len(lg), " features")
-
-'''
-for train_index, test_index in kf.split(dist_mat):
-    print('TRAIN:', train_index, 'TEST:', test_index)
-    X_train, X_test = X[train_index], X[test_index]
-    y_train, y_test = y[train_index], y[test_index]
-    
-'''
- 
