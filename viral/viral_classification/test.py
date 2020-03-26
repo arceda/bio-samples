@@ -14,7 +14,7 @@ if not sys.warnoptions:
     import warnings
     warnings.simplefilter("ignore")
 
-#fasta = "/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/viral_classification/hiv1-genomes/A1.fasta"
+#fasta = "/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/viral_classification/sample_genomes/HIV.A1.fasta"
 #dataset = HIVSUBCG
 fasta = sys.argv[1]
 dataset = sys.argv[2]
