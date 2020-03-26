@@ -21,7 +21,7 @@ import os
 
 
 path_database = '/home/vicente/projects/BIOINFORMATICS/MLDSP/DataBase'
-database_name = 'Primates'
+database_name = 'Influenza'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
 
@@ -131,10 +131,14 @@ if __name__ == "__main__" :
     # distance calculation by Pearson correlation coefficient
     print('Computing Distance matrix .... ...')
 
-    lg_df = pd.DataFrame(np.transpose(lg)) # transpose in order to compute PCC by observation
-    pearsoncorr = lg_df.corr(method='pearson')  #Pearson correlation coefficient [-1 1]
-    dist_mat = (1 - pearsoncorr)/2  #  normalize between 0 and 1
+    # pandas version
+    #lg_df = pd.DataFrame(np.transpose(lg)) # transpose in order to compute PCC by observation
+    #pearsoncorr = lg_df.corr(method='pearson')  #Pearson correlation coefficient [-1 1]
+    #dist_mat = (1 - pearsoncorr)/2  #  normalize between 0 and 1
 
+    # numpy version
+    pearsoncorr = np.corrcoef(np.matrix(lg))
+    dist_mat = (1 - pearsoncorr)/2
 
     # testing Pearson Correlation Distance
     #X = [[1460, 517.201, 230.163, 453.649, 266.169, 267.257], [1340, 569.351, 219.907, 473.615, 239.587, 229.557], [1462, 622.617, 324.276, 503.927, 214.432,223.652], [1994, 672.012, 456.685, 412.211, 219.068, 131.52]]
@@ -142,7 +146,8 @@ if __name__ == "__main__" :
     #X_corr = X_pd.corr(method='pearson')
     #X_corr_norm = (1 - X_corr)/2
 
-
+    #X_corr_2 = np.corrcoef(np.matrix(X))
+    #X_corr_norm_2 = (1 - X_corr_2)/2
     ##################################################################################################
     # train
 
