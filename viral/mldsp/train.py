@@ -3,6 +3,8 @@
 
 import numpy as np
 from Bio import SeqIO
+from Bio import Phylo
+
 import re
 import sys
 import glob
@@ -18,7 +20,9 @@ from sklearn.model_selection import train_test_split
 import joblib
 import os
 
-
+from skbio import DistanceMatrix
+from skbio.tree import nj
+from ete3 import PhyloTree, TreeStyle
 
 path_database = '/home/vicente/projects/BIOINFORMATICS/MLDSP/DataBase'
 database_name = 'Influenza'
@@ -179,3 +183,29 @@ if __name__ == "__main__" :
         
     '''
     
+
+
+    #########################################################################################################
+    # phylogenetic tree
+
+    # some elements in diagonal are close to zero
+    for i in range(dist_mat.shape[0]):
+        if dist_mat[i][i] != 0.0:
+            print(i, " ", dist_mat[i][i])
+
+        dist_mat[i][i] = 0.0
+
+    # check simitric
+    asym = dist_mat - dist_mat.T
+    print(asym)
+    print("mean of no simetric distances:", asym.mean())
+
+    #print(dist_mat)
+    dm = DistanceMatrix(dist_mat, sequences[:, 0])
+    tree = nj(dm)
+    #print(tree.ascii_art())
+    newick_str = nj(dm, result_constructor=str)
+    #print(newick_str)
+    #print(newick_str[:55], "...")
+    t = PhyloTree(newick_str)
+    t.show()
