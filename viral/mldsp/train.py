@@ -53,6 +53,7 @@ def readFasta(database):
     cluster_names = []
     points_per_cluster = []
     sequences = []
+    str_all = ""
     
     #print(glob.glob(path + '/*' ))
     clusters = glob.glob(path + '/*' )
@@ -70,11 +71,12 @@ def readFasta(database):
             seqs = SeqIO.parse(file, "fasta") 
                       
             for record in seqs:
-                sequences.append([record.id, record.seq.upper(), cluster_name])                    
+                sequences.append([record.id, record.seq.upper(), cluster_name])      
+                str_all += ">" +   record.id + "\n"   +  str(record.seq.upper()) + "\n"       
 
     sequences_mat = np.array(sequences)
 
-    return sequences_mat, number_of_clases, cluster_names, points_per_cluster
+    return sequences_mat, number_of_clases, cluster_names, points_per_cluster, str_all
 
 # Compute the magnitud spectrum of FFT of a numerical sequence
 # seq: sequence, string of letters A, C, G, T
@@ -105,7 +107,7 @@ def descriptor(seq, median_len):
 
 
 if __name__ == "__main__" :
-    sequences, number_of_clases, cluster_names, points_per_cluster = readFasta(database_name)
+    sequences, number_of_clases, cluster_names, points_per_cluster, str_all = readFasta(database_name)
 
     #calculate length stats
     sequences_size  = list(map(len, sequences[:, 1]))
@@ -187,7 +189,7 @@ if __name__ == "__main__" :
 
     #########################################################################################################
     # phylogenetic tree
-
+    dist_mat = np.around(dist_mat, decimals=10)
     # some elements in diagonal are close to zero
     for i in range(dist_mat.shape[0]):
         if dist_mat[i][i] != 0.0:
@@ -207,5 +209,7 @@ if __name__ == "__main__" :
     newick_str = nj(dm, result_constructor=str)
     #print(newick_str)
     #print(newick_str[:55], "...")
+    #print(str_all)
     t = PhyloTree(newick_str)
+    #t.link_to_alignment(alignment=str_all, alg_format="fasta")
     t.show()
