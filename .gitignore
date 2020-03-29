@@ -9,3 +9,5 @@ viral/viral_classification/fig_file.png
 viral/viral_classification/results_k-mers_features.txt
 viral/viral_classification/__pycache__/feature_extractor.cpython-35.pyc
 viral/viral_classification/__pycache__/mykameris.cpython-35.pyc
+viral/mldsp/models/Influenza.sav
+viral/mldsp/models/Primates.sav

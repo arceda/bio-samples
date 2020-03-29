@@ -24,10 +24,59 @@ from skbio import DistanceMatrix
 from skbio.tree import nj
 from ete3 import PhyloTree, TreeStyle
 
+import matplotlib.pyplot as plt
+from mpl_toolkits import mplot3d
+import matplotlib.cm as cm
+
+from random import randint
+
 path_database = '/home/vicente/projects/BIOINFORMATICS/MLDSP/DataBase'
 database_name = 'Influenza'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
+
+ 
+def cmdscale(D):
+    """                                                                                       
+    Classical multidimensional scaling (MDS)                                                  
+                                                                                               
+    Parameters                                                                                
+    ----------                                                                                
+    D : (n, n) array                                                                          
+        Symmetric distance matrix.                                                            
+                                                                                               
+    Returns                                                                                   
+    -------                                                                                   
+    Y : (n, p) array                                                                          
+        Configuration matrix. Each column represents a dimension. Only the                    
+        p dimensions corresponding to positive eigenvalues of B are returned.                 
+        Note that each dimension is only determined up to an overall sign,                    
+        corresponding to a reflection.                                                        
+                                                                                               
+    e : (n,) array                                                                            
+        Eigenvalues of B.                                                                     
+                                                                                               
+    """
+    # Number of points                                                                        
+    n = len(D) 
+    # Centering matrix                                                                        
+    H = np.eye(n) - np.ones((n, n))/n 
+    # YY^T                                                                                    
+    B = -H.dot(D**2).dot(H)/2 
+    # Diagonalize                                                                             
+    evals, evecs = np.linalg.eigh(B) 
+    # Sort by eigenvalue in descending order                                                  
+    idx   = np.argsort(evals)[::-1]
+    evals = evals[idx]
+    evecs = evecs[:,idx] 
+    # Compute the coordinates using positive-eigenvalued components only                      
+    w, = np.where(evals > 0)
+    L  = np.diag(np.sqrt(evals[w]))
+    V  = evecs[:,w]
+    Y  = V.dot(L)
+ 
+    return np.matrix(Y), evals
+
 
 def numMappingPP(nucleotide):
     if nucleotide == 'A':
@@ -213,3 +262,45 @@ if __name__ == "__main__" :
     t = PhyloTree(newick_str)
     #t.link_to_alignment(alignment=str_all, alg_format="fasta")
     t.show()
+
+
+    #########################################################################################################
+    # Classical multidimentional scaling
+    Y, evals = cmdscale(dist_mat)
+    print("dist_mat.shape:", dist_mat.shape)
+    print("Y.shape:", Y.shape)
+
+    ax = plt.axes(projection='3d')
+
+    # Data for a three-dimensional line
+    #zline = np.linspace(0, 15, 1000)
+    #xline = np.sin(zline)
+    #yline = np.cos(zline)
+    #ax.plot3D(xline, yline, zline, 'gray')
+
+    # Data for three-dimensional scattered points
+    zdata = Y[:,0]
+    xdata = Y[:,1]
+    ydata = Y[:,2]
+
+    #import itertools
+    #colors = itertools.cycle(["r", "b", "g"])
+    colors = cm.rainbow(np.linspace(0, 1, number_of_clases))
+    
+    
+    print(points_per_cluster)
+    print(xdata.shape)
+    tmp = 0
+    for i in range(number_of_clases):        
+        ini = tmp
+        end = ini + points_per_cluster[i]
+        #print(ini, end)
+        #ax.scatter3D(xdata[ini:end], ydata[ini:end], zdata[ini:end], alpha=0.6, c=next(colors))
+        ax.scatter3D(xdata[ini:end], ydata[ini:end], zdata[ini:end], alpha=0.6, c=colors[i], label=cluster_names[i])
+        tmp = end 
+        
+    ax.legend()   
+  
+    plt.show()
+
+    #number_of_clases, cluster_names, points_per_cluster
