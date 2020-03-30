@@ -30,10 +30,7 @@ import matplotlib.cm as cm
 
 from random import randint
 
-path_database = '/home/vicente/projects/BIOINFORMATICS/MLDSP/DataBase'
-database_name = 'Influenza'
-path_database = sys.argv[1]
-database_name = sys.argv[2]
+
 
  
 def cmdscale(D):
@@ -156,6 +153,12 @@ def descriptor(seq, median_len):
 
 
 if __name__ == "__main__" :
+    path_database = '/home/vicente/projects/BIOINFORMATICS/MLDSP/DataBase'
+    database_name = 'Influenza'
+    path_database = sys.argv[1]
+    database_name = sys.argv[2]
+
+
     sequences, number_of_clases, cluster_names, points_per_cluster, str_all = readFasta(database_name)
 
     #calculate length stats
@@ -238,18 +241,26 @@ if __name__ == "__main__" :
 
     #########################################################################################################
     # phylogenetic tree
-    dist_mat = np.around(dist_mat, decimals=10)
+    # check simetry
     # some elements in diagonal are close to zero
+    # dist_mat = np.around(dist_mat, decimals=5)
+
     for i in range(dist_mat.shape[0]):
-        if dist_mat[i][i] != 0.0:
-            print(i, " ", dist_mat[i][i])
+        #if dist_mat[i][i] != 0.0:
+        #    print(i, " ", dist_mat[i][i])
 
         dist_mat[i][i] = 0.0
 
-    # check simitric
+
     asym = dist_mat - dist_mat.T
-    print(asym)
-    print("mean of no simetric distances:", asym.mean())
+    asym_ = np.where(asym != 0.0, 1, 0)
+    print(" no simetric distances:", np.sum(asym_))
+
+    dist_mat = dist_mat+ dist_mat.T - np.diag(np.diag(dist_mat))
+
+    asym = dist_mat - dist_mat.T
+    asym_ = np.where(asym != 0.0, 1, 0)
+    print(" no simetric distances:", np.sum(asym_))
 
     #print(dist_mat)
     dm = DistanceMatrix(dist_mat, sequences[:, 0])
