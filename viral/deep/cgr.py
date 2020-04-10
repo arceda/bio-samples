@@ -65,7 +65,7 @@ def chaos_game_representation(probabilities, k):
  
     return chaos
 
-def save_fcgr(id, sequence, k, path):
+def save_fcgr(id, sequence, k, path, name = ''):
     chaos = chaos_game_representation(probabilities(str(sequence), count_kmers(str(sequence), k), k), k)
     
     # show with pylab
@@ -81,7 +81,8 @@ def save_fcgr(id, sequence, k, path):
     img = ((img - min_value)/(max_value-min_value))*255
     #img = 255 - img  # the same al matplot
     #print(img.shape, img)    
-    cv2.imwrite(path + '/' + id + '_k=' + str(k) + '.jpg', img)
+    #cv2.imwrite(path + '/' + name + '_' + id + '_k=' + str(k) + '.jpg', img)
+    cv2.imwrite(path + '/' + name + '_k=' + str(k) + '.jpg', img)
     
  
 if __name__ == "__main__" :
