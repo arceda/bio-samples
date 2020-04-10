@@ -14,3 +14,5 @@ viral/mldsp/models/Primates.sav
 viral/mldsp/models/Dengue_magnitud_spectrum.csv
 viral/mldsp/models/Dengue.sav
 viral/mldsp/__pycache__/train.cpython-35.pyc
+viral/deep/cgr.pyc
+viral/deep/__pycache__/cgr.cpython-35.pyc

@@ -31,60 +31,55 @@ import matplotlib.pyplot as plt
 
 import csv
 
-def one_hot_encode(y_train, y_test)
+# read the csv and return the one hot encode of labels, use in train and test
+def one_hot_encode(y):  
     # integer encode
     label_encoder = LabelEncoder()
-    integer_encoded = label_encoder.fit_transform(y_train)
-    print(integer_encoded)
+    integer_encoded = label_encoder.fit_transform(y)
     # binary encode
     onehot_encoder = OneHotEncoder(sparse=False)
     integer_encoded = integer_encoded.reshape(len(integer_encoded), 1)
     onehot_encoded = onehot_encoder.fit_transform(integer_encoded)
-    print(onehot_encoded)
+
     # invert first example
-    inverted = label_encoder.inverse_transform([argmax(onehot_encoded[0, :])])
-    print(inverted)   
+    #inverted = label_encoder.inverse_transform([argmax(onehot_encoded[0, :])])
+    #print(inverted)  
+
+    return  integer_encoded, onehot_encoded, label_encoder
     
 
 def read_cgr(k, path_database, database_name):
     path = path_database + '/' + database_name
+    X = []
     X_train = []
     y_train = []
     X_test = []
     y_test = []
+    #119 train, 29 test
 
-    with open(path + '/train_labels.csv') as f:
-        labels_train_reader =  (csv.reader(f))
-    with open(path + '/test_labels.csv') as f:
-        labels_test_reader = dict(csv.reader(f))
+    labels_train = np.loadtxt(path + '/train_labels.csv', dtype=(str,str), delimiter=',')
+    labels_test = np.loadtxt(path + '/test_labels.csv', dtype=(str,str), delimiter=',')
+    file_labels = np.vstack( (labels_train, labels_test) )
+    labels = np.hstack( (labels_train[:,1], labels_test[:,1]) ) #hstack, xq tiene una dimension
 
+    integer_encoded, onehot_encoded, label_encoder = one_hot_encode(labels)
     
-    files = glob.glob(path + '/train/*.txt' )
-    for file in files: 
-        file_name = file.split('/')[-1]  
-        directory =  file.replace(file_name, '') 
+    for file_name, label in file_labels:
         file_name_without_ext = file_name.split('.')[0]
-        print(file_name)
+        # por ahora solo estamos considerando una secuenica por fasta
+        img = cv2.imread(path + '/cgr/' + file_name_without_ext + '_0_k=' + str(k) + '.jpg' ) 
+        #cv2.imshow("win", img)
+        #cv2.waitKey()
+        X.append(img)
 
-        img = cv2.imread(file_name_without_ext + '_0_k=' + str(k) + '.jpg' ) # por ahora solo estamos considerando una secuenica por fasta
-        X_train.append(img)
-        y_train.append(labels_train_reader[file_name])
-
-
-    files = glob.glob(path + '/test/*.txt' )
-    for file in files: 
-        file_name = file.split('/')[-1]  
-        directory =  file.replace(file_name, '') 
-        file_name_without_ext = file_name.split('.')[0]
-        print(file_name)
-
-        img = cv2.imread(file_name_without_ext + '_0_k=' + str(k) + '.jpg' ) # por ahora solo estamos considerando una secuenica por fasta
-        X_test.append(img)
-        y_test.append(labels_test_reader[file_name])
-
-
-
-    return np.array(X_train), np.array(y_train), np.array(X_test), np.array(y_test)
+    X = np.array(X)
+    X_train = X[0:len(labels_train),:,:,:]
+    X_test = X[len(labels_train):X.shape[0],:,:,:]
+    y_train = onehot_encoded[0:len(labels_train),:]
+    y_test = onehot_encoded[len(labels_train):X.shape[0],:]
+    
+    #print(X.shape, X_train.shape, X_test.shape, y_train.shape, y_test.shape)
+    return X_train, y_train, X_test, y_test, set(labels)
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 path_database = '/home/vicente/datasets/MLDSP/'
@@ -92,11 +87,7 @@ database_name = 'Primates'
 #path_database = sys.argv[1]
 #database_name = sys.argv[2]
 
-X_train, y_train = read_cgr(5, path_database, database_name)
-print(X_train.shape, y_train.shape)
-print(y_train)
-
-
+X_train, y_train, X_test, y_test, labels = read_cgr(5, path_database, database_name)
 
 #create model
 model = Sequential()#add model layers
@@ -115,6 +106,6 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 model.fit(X_train, y_train, epochs=3)
 
 #predict first 4 images in the test set
-results = model.predict(X_test[:4])
-print(round(results))
+results = model.predict(X_test)
+print(np.around(results))
 print(y_test)
