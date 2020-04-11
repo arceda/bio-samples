@@ -1,4 +1,14 @@
 # this script train a CNN
+import sys
+if not sys.warnoptions:
+    import warnings
+    warnings.simplefilter("ignore")
+
+from numpy.random import seed
+seed(1)
+import tensorflow as tf
+tf.random.set_seed(1)
+
 
 from sklearn.model_selection import KFold 
 from sklearn.model_selection import train_test_split
@@ -18,7 +28,6 @@ import re
 from cgr import save_fcgr
 import glob
 
-import tensorflow as tf
 
 from tensorflow.keras import datasets, layers, models
 from keras.models import Sequential
@@ -37,10 +46,6 @@ import matplotlib.pyplot as plt
 import statistics
 import pywt
 import csv
-
-if not sys.warnoptions:
-    import warnings
-    warnings.simplefilter("ignore")
 
 
 # read the csv and return the one hot encode of labels, use in train and test

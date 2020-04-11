@@ -1,4 +1,15 @@
 # this script train a CNN
+import sys
+if not sys.warnoptions:
+    import warnings
+    warnings.simplefilter("ignore")
+
+from numpy.random import seed
+seed(1)
+import tensorflow as tf
+tf.random.set_seed(1)
+
+
 
 from sklearn.model_selection import KFold 
 from sklearn.model_selection import train_test_split
@@ -42,9 +53,8 @@ from scipy.fftpack import fft
 import pandas as pd
 import csv
 
-if not sys.warnoptions:
-    import warnings
-    warnings.simplefilter("ignore")
+
+
 
 def numMappingPP(nucleotide):
     if nucleotide == 'A':
