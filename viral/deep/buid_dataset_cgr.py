@@ -20,7 +20,7 @@ from cgr import save_fcgr
 import glob
 from shutil import copyfile
 
-def split(path_database, database_name, path_dest):
+def split(path_database, database_name, path_dest, file_type):
 
     # delete directory and crate
     full_path_dest = path_dest + '/' + database_name
@@ -44,7 +44,7 @@ def split(path_database, database_name, path_dest):
     for cluster in clusters: 
         cluster_name = cluster.split('/')[-1]        
 
-        files = clusters = glob.glob(cluster + '/*.txt' )
+        files = clusters = glob.glob(cluster + '/*.' + file_type )
         shuffle(files)
 
         i = 0
@@ -111,7 +111,7 @@ def processDastaMLDSP(path_database, database_name): # process data in MLDSP dir
 
 
 
-def processDasta(path_database, database_name):     
+def processDasta(path_database, database_name, file_type):     
     path = path_database + '/' + database_name      
     path_cgr = path + '/' + '/cgr'
 
@@ -119,7 +119,7 @@ def processDasta(path_database, database_name):
         shutil.rmtree(path_cgr)
     os.mkdir(path_cgr)  
     
-    files = glob.glob(path + '/*/*.txt' )
+    files = glob.glob(path + '/*/*.'  + file_type )
     for file in files:              
         file_name = file.split('/')[-1]  
         directory =  file.replace(file_name, '') 
@@ -129,8 +129,8 @@ def processDasta(path_database, database_name):
         i = 0          
         for record in seqs:            
             save_fcgr(record.id, str(record.seq.upper()), 5, path_cgr, file_name_without_ext + '_' + str(i))      
-            save_fcgr(record.id, str(record.seq.upper()), 6, path_cgr, file_name_without_ext + '_' + str(i))   
-            save_fcgr(record.id, str(record.seq.upper()), 7, path_cgr, file_name_without_ext + '_' + str(i))  
+            #save_fcgr(record.id, str(record.seq.upper()), 6, path_cgr, file_name_without_ext + '_' + str(i))   
+            #save_fcgr(record.id, str(record.seq.upper()), 7, path_cgr, file_name_without_ext + '_' + str(i))  
             i += 1
 
  
@@ -140,9 +140,11 @@ if __name__ == "__main__" :
     path_database = '/home/vicente/projects/BIOINFORMATICS/MLDSP/DataBase/'
     path_dest = '/home/vicente/datasets/MLDSP/'
     database_name = 'Primates'
-    #path_database = sys.argv[1]
-    #database_name = sys.argv[2]
+    path_database = sys.argv[1]
+    path_dest = sys.argv[2]
+    database_name = sys.argv[3]
+    file_type = sys.argv[4]
 
     
-    split(path_database, database_name, path_dest)
-    processDasta(path_dest, database_name)
+    split(path_database, database_name, path_dest, file_type)
+    processDasta(path_dest, database_name, file_type)

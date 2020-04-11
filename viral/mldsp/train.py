@@ -92,7 +92,7 @@ def numMappingPP(nucleotide):
 # numberOfClusters: numero de clases
 # clusterNames: clases
 # muestras por clase
-def readFasta(database):
+def readFasta(path_database, database):
     path = path_database + '/' + database
 
     number_of_clases = 0
@@ -123,6 +123,8 @@ def readFasta(database):
     sequences_mat = np.array(sequences)
 
     return sequences_mat, number_of_clases, cluster_names, points_per_cluster, str_all
+
+
 
 # Compute the magnitud spectrum of FFT of a numerical sequence
 # seq: sequence, string of letters A, C, G, T
@@ -159,7 +161,9 @@ if __name__ == "__main__" :
     database_name = sys.argv[2]
 
 
-    sequences, number_of_clases, cluster_names, points_per_cluster, str_all = readFasta(database_name)
+
+    # read fasta ej folder jerarqui proposed by LSDSP
+    sequences, number_of_clases, cluster_names, points_per_cluster, str_all = readFasta(path_database, database_name)
 
     #calculate length stats
     sequences_size  = list(map(len, sequences[:, 1]))

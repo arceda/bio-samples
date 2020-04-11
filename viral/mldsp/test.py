@@ -17,16 +17,13 @@ import os
 
 from train import descriptor
 
-path_seq = "/home/vicente/projects/BIOINFORMATICS/bio-samples/viral/mldsp/sample_genomes/Haplorrhini2.fasta"
 database_name = "Primates"
 path_seq = sys.argv[1]
 database_name = sys.argv[2]
 
-# readding database
-print("readding model...")
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 file_name = current_dir + '/models/' + database_name
-clf = joblib.load(file_name + ".sav")
 
 print("readding magnitud spectrum...")
 lg = np.genfromtxt(file_name + "_magnitud_spectrum.csv", delimiter=',', dtype=float)
