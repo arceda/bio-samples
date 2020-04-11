@@ -180,17 +180,18 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 
 history = model.fit(X_train, y_train, epochs=epochs, validation_split=0.2)
 
-plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
+#plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
 
-# Plot the loss and accuracy curves for training and validation 
-fig, ax = plt.subplots(2,1, figsize=(18, 10))
-ax[0].plot(history.history['loss'], color='b', label="Training loss")
-ax[0].plot(history.history['val_loss'], color='r', label="validation loss",axes =ax[0])
-legend = ax[0].legend(loc='best', shadow=True)
+# Plot the loss and accuracy curves for training and validation
+# ##################################################################### 
+#fig, ax = plt.subplots(2,1, figsize=(18, 10))
+#ax[0].plot(history.history['loss'], color='b', label="Training loss")
+#ax[0].plot(history.history['val_loss'], color='r', label="validation loss",axes =ax[0])
+#legend = ax[0].legend(loc='best', shadow=True)
 
-ax[1].plot(history.history['accuracy'], color='b', label="Training accuracy")
-ax[1].plot(history.history['val_accuracy'], color='r',label="Validation accuracy")
-legend = ax[1].legend(loc='best', shadow=True)
+#ax[1].plot(history.history['accuracy'], color='b', label="Training accuracy")
+#ax[1].plot(history.history['val_accuracy'], color='r',label="Validation accuracy")
+#legend = ax[1].legend(loc='best', shadow=True)
 
 
 
@@ -205,13 +206,17 @@ mat = confusion_matrix(Y_test, Y_pred) # Confusion matrix
 sns.heatmap(mat.T, square=True, annot=True, cbar=False, cmap=plt.cm.Blues)
 plt.xlabel('Predicted Values')
 plt.ylabel('True Values')
-plt.show()
+#plt.show()
+plt.savefig(current_dir + '/results/' + database_name + '_matrix_cnn=tiny_epoch=10.png', dpi = 300)
 
 
 results = model.evaluate(X_test, y_test)
 print(results)
 
+with open(current_dir + '/results/results.txt', "a") as myfile:
+    myfile.write("\n " + database_name + "_acc_cnn=tiny_epoch=10 " + str(results))
+
 #predict first 4 images in the test set
-results = model.predict(X_test)
-print(np.around(results))
-print(y_test)
+#results = model.predict(X_test)
+#print(np.around(results))
+#print(y_test)

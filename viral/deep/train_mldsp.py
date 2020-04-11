@@ -207,9 +207,11 @@ mat = confusion_matrix(y_test, y_pred) # Confusion matrix
 sns.heatmap(mat.T, square=True, annot=True, cbar=False, cmap=plt.cm.Blues)
 plt.xlabel('Predicted Values')
 plt.ylabel('True Values')
-plt.show()
-
+#plt.show()
+plt.savefig(current_dir + '/results/' + database_name + '_matrix_mldsp.png', dpi = 300)
 
 results = accuracy_score(y_test, y_pred)
 print(results)
 
+with open(current_dir + '/results/results.txt', "a") as myfile:
+    myfile.write("\n " + database_name + "_acc_mldsp " + str(results))
