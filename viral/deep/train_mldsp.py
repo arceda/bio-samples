@@ -152,76 +152,79 @@ path_database = '/home/vicente/datasets/MLDSP/'
 database_name = 'Primates'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
+cross_val = int(sys.argv[3])
 
+print("Reading dataset ...")
 X_train, y_train, X_test, y_test, labels = read_seq(path_database, database_name)
 print(X_train.shape, y_train.shape, X_test.shape, y_test.shape, labels)
 
-sequences_size  = list(map(len, X_train))
-median_len  = int(statistics.median(sequences_size))
 
-nm_val_SH     = []
-f           = []
-lg          = []
-
-print('Generating numerical sequences, applying DFT, computing magnitude spectra ...')
-
-for seq in X_train:
-    ns_new, fourier_transform, magnitud_spectra = descriptor(seq, median_len)
-    
-    nm_val_SH.append(ns_new)
-    f.append(fft(fourier_transform))
-    lg.append(magnitud_spectra)
-    
-
-#################################################################################################
-# distance calculation by Pearson correlation coefficient
-print('Computing Distance matrix .... ...')
-
-# pandas version
-#lg_df = pd.DataFrame(np.transpose(lg)) # transpose in order to compute PCC by observation
-#pearsoncorr = lg_df.corr(method='pearson')  #Pearson correlation coefficient [-1 1]
-#dist_mat = (1 - pearsoncorr)/2  #  normalize between 0 and 1
-
-# numpy version
-pearsoncorr = np.corrcoef(np.matrix(lg))
-dist_mat = (1 - pearsoncorr)/2
-print("dist_mat", dist_mat.shape)
-
-X_train = dist_mat
+if cross_val == 1:
+    X_train = np.vstack( (X_train, X_test) )
+    y_train = np.vstack( (y_train, y_test) )
 
 
-model = svm.SVC()
-model.fit(X_train, y_train)
+else:
+    sequences_size  = list(map(len, X_train))
+    median_len  = int(statistics.median(sequences_size))
+
+    nm_val_SH     = []
+    f           = []
+    lg          = []
+
+    print('Generating numerical sequences, applying DFT, computing magnitude spectra ...')
+
+    for seq in X_train:
+        ns_new, fourier_transform, magnitud_spectra = descriptor(seq, median_len)
+        
+        nm_val_SH.append(ns_new)
+        f.append(fft(fourier_transform))
+        lg.append(magnitud_spectra)
+        
+
+    #################################################################################################
+    # distance calculation by Pearson correlation coefficient
+    print('Computing Distance matrix .... ...')
+    pearsoncorr = np.corrcoef(np.matrix(lg))
+    dist_mat = (1 - pearsoncorr)/2
+    print("dist_mat", dist_mat.shape)
+
+    X_train = dist_mat
+
+    model = svm.SVC()
+    model.fit(X_train, y_train)
 
 
-################################################TESTING##################################
-seq_distances = [] 
-for seq in X_test:
-    ns_new, fourier_transform, magnitud_spectra = descriptor(seq, median_len)
-    #print(magnitud_spectra, len(magnitud_spectra))
-    distances = [] # the feature vector
-    for observation in lg:
-        #print(observation.shape)
-        r = np.corrcoef(observation, magnitud_spectra)[0, 1] #corrcoef return a matrix
-        distances.append((1-r)/2)
+    ################################################TESTING##################################
+    seq_distances = [] 
+    for seq in X_test:
+        ns_new, fourier_transform, magnitud_spectra = descriptor(seq, median_len)
+        #print(magnitud_spectra, len(magnitud_spectra))
+        distances = [] # the feature vector
+        for observation in lg:
+            #print(observation.shape)
+            r = np.corrcoef(observation, magnitud_spectra)[0, 1] #corrcoef return a matrix
+            distances.append((1-r)/2)
 
-    seq_distances.append(distances)
+        seq_distances.append(distances)
 
-y_pred = model.predict(seq_distances)
-# Confusion matrix
-fig = plt.figure(figsize=(10, 10)) # Set Figure
-#print(y_pred)
-mat = confusion_matrix(y_test, y_pred) # Confusion matrix
+    y_pred = model.predict(seq_distances)
 
-# Plot Confusion matrix
-sns.heatmap(mat.T, square=True, annot=True, cbar=False, cmap=plt.cm.Blues)
-plt.xlabel('Predicted Values')
-plt.ylabel('True Values')
-#plt.show()
-plt.savefig(current_dir + '/results/' + database_name + '_matrix_mldsp.png', dpi = 300)
+    '''
+    # Confusion matrix
+    fig = plt.figure(figsize=(10, 10)) # Set Figure
+    #print(y_pred)
+    mat = confusion_matrix(y_test, y_pred) # Confusion matrix
+    # Plot Confusion matrix
+    sns.heatmap(mat.T, square=True, annot=True, cbar=False, cmap=plt.cm.Blues)
+    plt.xlabel('Predicted Values')
+    plt.ylabel('True Values')
+    #plt.show()
+    plt.savefig(current_dir + '/results/' + database_name + '_matrix_mldsp.png', dpi = 300)
+    '''
 
-results = accuracy_score(y_test, y_pred)
-print(results)
+    results = accuracy_score(y_test, y_pred)
+    print(results)
 
-with open(current_dir + '/results/results.txt', "a") as myfile:
-    myfile.write("\n " + database_name + "_acc_mldsp " + str(results))
+    with open(current_dir + '/results/results.txt', "a") as myfile:
+        myfile.write("\n " + database_name + "_acc_mldsp " + str(results))
