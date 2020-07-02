@@ -2,7 +2,7 @@ import numpy as np
 from Bio import SeqIO
 import re
 
-fa_file = "/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/POLYOMAVIRUS/VP1.fas"
+fa_file = "P21333.fasta"
 
 data = []
 data_full = []
@@ -24,3 +24,16 @@ print(len(record_dict))
 #print(record_dict.get_raw("AJ006022").decode())
 #record_dict.close()
     
+
+from Bio import SeqIO
+
+sequences = SeqIO.parse("P21333.fasta", "fasta")
+for record in sequences:
+    data1 = str(record.seq.upper()) # the fasta file just have one sequence 
+
+sequences = SeqIO.parse("Q8BTM8.fasta", "fasta")
+for record in sequences:
+    data2 = str(record.seq.upper()) # the fasta file just have one sequence  
+
+print(data1)
+print(data2)
