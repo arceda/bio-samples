@@ -18,6 +18,12 @@ import seaborn as sns
 
 from descriptor import get_features
 
+from ete3 import PhyloTree, TreeStyle
+
+from skbio import DistanceMatrix
+from skbio.tree import nj
+
+
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 ###################################################################################################################################
@@ -65,8 +71,8 @@ for sequence_file in sequences:
 
     data = []    
     fa_file = current_dir + "/sample_genomes/" + sequence_file
-    sequences = SeqIO.parse(fa_file, "fasta")
-    for record in sequences:
+    seqs = SeqIO.parse(fa_file, "fasta")
+    for record in seqs:
         #print(record.id)
         #print(record.description)
         data.append(record.seq.upper())      
@@ -79,40 +85,89 @@ for sequence_file in sequences:
 f_out.close()
 
 data_features = np.array(data_features)
+#mean_seq = data_features[0]
+#data_features = data_features[1:data_features.shape[0]]
 #print(data_features)
-mean_seq = data_features[0]
-data_features = data_features[1:data_features.shape[0]]
-
-#print(data_features)
-
 #distances = []
 #for features in data_features:
 #    dist = np.sqrt(np.sum((mean_seq - features)**2))
 #    distances.append(dist)
+#distances = (distances - np.min(distances)) / (np.max(distances) - np.min(distances))
 
-distances = (distances - np.min(distances)) / (np.max(distances) - np.min(distances))
+###################################################################################################################3
+# procesamos las distancias entre todos los vectores
+###################################################################################################################
+DIST_proposed = np.zeros((data_features.shape[0], data_features.shape[0]))
+for i in range(data_features.shape[0]):
+    row = np.zeros(data_features.shape[0])
+    for j in range(i, data_features.shape[0]):
+        dist = np.sqrt(np.sum((data_features[i] - data_features[j])**2))
+        row[j] = dist    
+    DIST_proposed[i] = row
 
-### distances from mega ###########################################################
+#copy the upper triangle to lower triangle in matrix
+DIST_proposed = DIST_proposed + DIST_proposed.T - np.diag(np.diag(DIST_proposed))
+
+DIST_proposed = (DIST_proposed - np.min(DIST_proposed)) / (np.max(DIST_proposed) - np.min(DIST_proposed))
+distances_proposed = DIST_proposed[0,1:DIST_proposed.shape[0]]
+###################################################################################################################
+###################################################################################################################
+
+
+
+
+
+
+###################################################################################################################
+###                    distances from mega              ###########################################################
+###################################################################################################################
 mega_dist_csv = pd.read_csv(csv_mega)  
 mega_dist_csv = mega_dist_csv.set_index(mega_dist_csv.columns[0])
-dist_data = mega_dist_csv.values
-dist_data = dist_data[ 1:dist_data.shape[0], 0:dist_data.shape[0]-1]
-distances_mega = dist_data[:, 0]
+DIST_mega = mega_dist_csv.values
+DIST_mega[np.isnan(DIST_mega)] = 0 # lllenamos con ceros los valores nan
+DIST_mega = DIST_mega + DIST_mega.T #copiamos el triangulo inferior al superir en la matriz
+distances_mega = DIST_mega[0,1:DIST_mega.shape[0]]
 
 distances_mega = (distances_mega - np.min(distances_mega)) / (np.max(distances_mega) - np.min(distances_mega))
+###################################################################################################################
+###################################################################################################################
 
-names = np.array(names)
-names = names[1:names.shape[0]] # eliminamos el primer elemento
+
+names_temp = np.array(sequences)
+names_temp = names_temp[1:names_temp.shape[0]] # eliminamos el primer elemento
 #print(names)
 
 plt.clf()
-plt.plot(names, distances, label='Proposed method')
-plt.plot(names, distances_mega, label='Mega')
-#chart = sns.lineplot(x = names, y = distances, label='Proposed method')
-#chart = sns.lineplot(x = names, y = distances_mega, label='Mega')
+plt.plot(names_temp, distances_proposed, label='Proposed method')
+plt.plot(names_temp, distances_mega, label='Mega')
+
 plt.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize=6 )
 plt.legend(loc='upper right')
 #plt.xlabel('longitude')
 #plt.ylabel('latitude')
 #plt.show()
 plt.savefig( results_file, dpi = 200, bbox_inches='tight')
+
+
+###################################################################################################################
+##########                   phylogenetics              ###########################################################
+###################################################################################################################
+
+dm = DistanceMatrix(DIST_proposed, sequences)
+tree = nj(dm)
+print(tree.ascii_art())
+newick_str = nj(dm, result_constructor=str)
+print(newick_str)
+#print(newick_str[:55], "...")
+t = PhyloTree(newick_str)
+t.show()
+
+dm = DistanceMatrix(DIST_mega, sequences)
+tree = nj(dm)
+print(tree.ascii_art())
+newick_str = nj(dm, result_constructor=str)
+print(newick_str)
+#print(newick_str[:55], "...")
+t = PhyloTree(newick_str)
+t.show()
+
