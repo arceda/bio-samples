@@ -59,6 +59,23 @@ results_file    = current_dir + "/results/db2.png"
 ###################################################################################################################################
 ###################################################################################################################################
 
+sequences = [   'V00662.fna',       'D38116.fna',           'D38113.fna',           'D38114.fna',       'D38115.fna', 
+                'X99256.fna',       'Y18001.fna',           'X79547.fna',           'Y07726.fna',       'X63726.fna', 
+                'X72004.fna',       'U20753.fna',           'X61145.fna',           'X72204.fna',       'V00654.fna', 
+                'X14848.fna',       'V00711.fna',           'X83427.fna']
+
+names    = [    'Human',            'Pygmy chimpanzee',     'Common chimpanzee',    'Gorilla',              'Orangutan', 
+                'Gibbon',           'Baboon',               'Horse',                'White rhinoceros',     'Harbor seal', 
+                'Gray seal',        'Cat',                  'Fin whale',            'Blue whale',           'Cow', 
+                'Rat',              'Mouse',                'Platypus']
+
+csv_mega        = current_dir + "/sample_genomes/seqs_db3_distances.csv"
+seq_file_full   = current_dir + "/sample_genomes/seqs_db3.fasta"
+results_file    = current_dir + "/results/db3.png"
+
+###################################################################################################################################
+###################################################################################################################################
+
 data_features = []
 
 f_out = open(seq_file_full, "w")
