@@ -17,6 +17,7 @@ import pandas as pd
 import seaborn as sns
 
 from descriptor import get_features
+from descriptor import get_features_glcm
 
 from ete3 import PhyloTree, TreeStyle
 
@@ -77,6 +78,7 @@ results_file    = current_dir + "/results/db3.png"
 ###################################################################################################################################
 
 data_features = []
+data_features_glcm = []
 
 f_out = open(seq_file_full, "w")
 
@@ -98,10 +100,14 @@ for sequence_file in sequences:
 
     skewness, my_kurtosis, energy, entropy = get_features(seq)
     data_features.append( [skewness, my_kurtosis, energy, entropy] )
+
+    entropy, contrast, energy, correlation, homogeneity = get_features_glcm(seq)
+    data_features_glcm.append( [entropy, contrast, energy, correlation, homogeneity] )
     #print([skewness, my_kurtosis, energy, entropy])
 f_out.close()
 
 data_features = np.array(data_features)
+data_features_glcm = np.array(data_features_glcm)
 #mean_seq = data_features[0]
 #data_features = data_features[1:data_features.shape[0]]
 #print(data_features)
@@ -114,6 +120,8 @@ data_features = np.array(data_features)
 ###################################################################################################################3
 # procesamos las distancias entre todos los vectores
 ###################################################################################################################
+
+# distance from first order statistics
 DIST_proposed = np.zeros((data_features.shape[0], data_features.shape[0]))
 for i in range(data_features.shape[0]):
     row = np.zeros(data_features.shape[0])
@@ -127,6 +135,22 @@ DIST_proposed = DIST_proposed + DIST_proposed.T - np.diag(np.diag(DIST_proposed)
 
 DIST_proposed = (DIST_proposed - np.min(DIST_proposed)) / (np.max(DIST_proposed) - np.min(DIST_proposed))
 distances_proposed = DIST_proposed[0,1:DIST_proposed.shape[0]]
+
+####################################################################################
+# distance from GLCM
+DIST_proposed_glcm = np.zeros((data_features_glcm.shape[0], data_features_glcm.shape[0]))
+for i in range(data_features_glcm.shape[0]):
+    row = np.zeros(data_features_glcm.shape[0])
+    for j in range(i, data_features_glcm.shape[0]):
+        dist = np.sqrt(np.sum((data_features_glcm[i] - data_features_glcm[j])**2))
+        row[j] = dist    
+    DIST_proposed_glcm[i] = row
+
+#copy the upper triangle to lower triangle in matrix
+DIST_proposed_glcm = DIST_proposed_glcm + DIST_proposed_glcm.T - np.diag(np.diag(DIST_proposed_glcm))
+
+DIST_proposed_glcm = (DIST_proposed_glcm - np.min(DIST_proposed_glcm)) / (np.max(DIST_proposed_glcm) - np.min(DIST_proposed_glcm))
+distances_proposed_glcm  = DIST_proposed_glcm[0,1:DIST_proposed_glcm.shape[0]]
 ###################################################################################################################
 ###################################################################################################################
 
@@ -156,6 +180,7 @@ names_temp = names_temp[1:names_temp.shape[0]] # eliminamos el primer elemento
 
 plt.clf()
 plt.plot(names_temp, distances_proposed, label='Proposed method')
+plt.plot(names_temp, distances_proposed_glcm, label='GLCM')
 plt.plot(names_temp, distances_mega, label='Mega')
 
 plt.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize=6 )
@@ -177,7 +202,7 @@ newick_str = nj(dm, result_constructor=str)
 print(newick_str)
 #print(newick_str[:55], "...")
 t = PhyloTree(newick_str)
-t.show()
+#t.show()
 
 dm = DistanceMatrix(DIST_mega, sequences)
 tree = nj(dm)
@@ -186,5 +211,5 @@ newick_str = nj(dm, result_constructor=str)
 print(newick_str)
 #print(newick_str[:55], "...")
 t = PhyloTree(newick_str)
-t.show()
+#t.show()
 

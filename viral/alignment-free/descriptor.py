@@ -16,6 +16,9 @@ from Bio import SeqIO
 import pandas as pd
 import seaborn as sns
 
+import numpy as np
+from skimage.feature import greycomatrix, greycoprops
+from skimage import io, color, img_as_ubyte
 
 def base_intensity(bases, G):
     if bases == "AA": intensity = G[0]
@@ -65,3 +68,40 @@ def get_features(seq):
 
     return skewness, my_kurtosis, energy, entropy
 
+
+def get_features_glcm(seq):
+    feature_vector = []
+    for i, base in enumerate(seq):
+        if base == 'A': val = 1
+        if base == 'C': val = 2
+        if base == 'G': val = 3
+        if base == 'T': val = 4
+
+        intensity = val + i
+        feature_vector.append( intensity )
+    feature_vector = np.array([feature_vector], dtype=np.uint8)
+    levels = np.max(feature_vector) + 1
+
+    glcm_full = greycomatrix(feature_vector, [1], [0], levels=levels, symmetric=False, normed=True)
+    glcm = glcm_full[:, :, 0, 0]
+
+    entropy = -(glcm*np.ma.log(np.abs(glcm))).sum()
+    contrast = greycoprops(glcm_full, 'contrast')    
+    energy = greycoprops(glcm_full, 'energy')    
+    correlation = greycoprops(glcm_full, 'correlation')        
+    homogeneity = greycoprops(glcm_full, 'homogeneity')    
+    
+    return entropy, contrast[0][0], energy[0][0], correlation[0][0], homogeneity[0][0]
+
+
+if __name__ == "__main__" :
+    data = []
+    #fa_file = "sample_genomes/KP317497.fna"
+    fa_file = "sample_genomes/V00672.fna"
+    sequences = SeqIO.parse(fa_file, "fasta")
+    for record in sequences:
+        data.append(record.seq.upper())
+    seq = data[0]
+
+    print(get_features_glcm(seq))
+    
