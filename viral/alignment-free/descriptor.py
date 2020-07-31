@@ -180,12 +180,12 @@ def get_features_lbp(seq):
 
     #print(lbp_max)
     #print(exponential)
-    print(bins)
+    #print(bins)
 
     hist, bins = np.histogram(lbp, bins=bins)
-    print(hist)
+    #print(hist)
     #print(lbp)
-    return np.array(lbp)
+    return np.array(hist)
 
 if __name__ == "__main__" :
 

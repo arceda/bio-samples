@@ -3,8 +3,10 @@
 
 from sklearn.model_selection import KFold 
 from sklearn.model_selection import train_test_split
-from matplotlib import pyplot as plt
-from matplotlib import cm
+#from matplotlib import pyplot as plt
+#from matplotlib import cm
+import matplotlib.pyplot as plt 
+from matplotlib import pyplot
 import math
 import os
 import sys
@@ -18,6 +20,7 @@ import seaborn as sns
 
 from descriptor import get_features
 from descriptor import get_features_glcm
+from descriptor import get_features_lbp
 
 from ete3 import PhyloTree, TreeStyle
 
@@ -79,6 +82,7 @@ results_file    = current_dir + "/results/db3.png"
 
 data_features = []
 data_features_glcm = []
+data_features_lbp = []
 
 f_out = open(seq_file_full, "w")
 
@@ -103,11 +107,15 @@ for sequence_file in sequences:
 
     entropy, contrast, energy, correlation, homogeneity = get_features_glcm(seq)
     data_features_glcm.append( [entropy, contrast, energy, correlation, homogeneity] )
+
+    hist_lbp = get_features_lbp(seq)
+    data_features_lbp.append( hist_lbp )
     #print([skewness, my_kurtosis, energy, entropy])
 f_out.close()
 
 data_features = np.array(data_features)
 data_features_glcm = np.array(data_features_glcm)
+data_features_lbp = np.array(data_features_lbp)
 #mean_seq = data_features[0]
 #data_features = data_features[1:data_features.shape[0]]
 #print(data_features)
@@ -154,7 +162,23 @@ distances_proposed_glcm  = DIST_proposed_glcm[0,1:DIST_proposed_glcm.shape[0]]
 ###################################################################################################################
 ###################################################################################################################
 
+####################################################################################
+# distance from LBP
+DIST_proposed_lbp = np.zeros((data_features_lbp.shape[0], data_features_lbp.shape[0]))
+for i in range(data_features_lbp.shape[0]):
+    row = np.zeros(data_features_lbp.shape[0])
+    for j in range(i, data_features_lbp.shape[0]):
+        dist = np.sqrt(np.sum((data_features_lbp[i] - data_features_lbp[j])**2))
+        row[j] = dist    
+    DIST_proposed_lbp[i] = row
 
+#copy the upper triangle to lower triangle in matrix
+DIST_proposed_lbp = DIST_proposed_lbp + DIST_proposed_lbp.T - np.diag(np.diag(DIST_proposed_lbp))
+
+DIST_proposed_lbp = (DIST_proposed_lbp - np.min(DIST_proposed_lbp)) / (np.max(DIST_proposed_lbp) - np.min(DIST_proposed_lbp))
+distances_proposed_lbp  = DIST_proposed_lbp[0,1:DIST_proposed_lbp.shape[0]]
+###################################################################################################################
+###################################################################################################################
 
 
 
@@ -179,15 +203,38 @@ names_temp = names_temp[1:names_temp.shape[0]] # eliminamos el primer elemento
 #print(names)
 
 plt.clf()
-plt.plot(names_temp, distances_proposed, label='Proposed method')
-plt.plot(names_temp, distances_proposed_glcm, label='GLCM')
-plt.plot(names_temp, distances_mega, label='Mega')
+
+#plt.plot(names_temp, distances_proposed, label='FOS', alpha=0.65)
+#plt.plot(names_temp, distances_proposed_glcm, label='GLCM', alpha=0.65)
+#plt.plot(names_temp, distances_proposed_lbp, label='LBP', alpha=0.65)
+#plt.plot(names_temp, distances_mega, label='MEGA')
+#plt.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize=6 )
+#plt.legend(loc='upper right')
+
+fig, axs = plt.subplots(3)
+axs[0].plot(names_temp, distances_proposed, 'b--', label='FOS')
+axs[0].plot(names_temp, distances_mega, 'r-.', label='MEGA')
+axs[0].legend(loc='upper right', fontsize=8)
+#axs[0].set_title('First order statistics')
+axs[1].plot(names_temp, distances_proposed_glcm, 'b--', label='GLCM')
+axs[1].plot(names_temp, distances_mega, 'r-.', label='MEGA')
+axs[1].legend(loc='upper right', fontsize=8)
+#axs[1].set_title('First order statistics')
+axs[2].plot(names_temp, distances_proposed_lbp, 'b--', label='LBP')
+axs[2].plot(names_temp, distances_mega, 'r-.', label='MEGA')
+axs[2].legend(loc='upper right', fontsize=8)
+#axs[1].set_title('First order statistics')
+
+for ax in axs.flat:
+    ax.set(xlabel='Sequence', ylabel='Distance')
+
+# Hide x labels and tick labels for top plots and y ticks for right plots.
+for ax in axs.flat:
+    ax.label_outer()
 
 plt.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize=6 )
-plt.legend(loc='upper right')
-#plt.xlabel('longitude')
-#plt.ylabel('latitude')
-#plt.show()
+
+
 plt.savefig( results_file, dpi = 200, bbox_inches='tight')
 
 
