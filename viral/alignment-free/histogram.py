@@ -17,7 +17,7 @@ from Bio import SeqIO
 import pandas as pd
 import seaborn as sns
 
-
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
 def contrast_stretching(img):
     a = 0
@@ -60,8 +60,8 @@ def base_intensity(bases, G):
 ##############################################################################
 # read fasta file 3
 data = []
-#fa_file = "sample_genomes/KP317497.fna"
-fa_file = "sample_genomes/NR_117152.fna"
+fa_file = "sample_genomes/KP317497.fna"
+#fa_file = "sample_genomes/NR_117152.fna"
 sequences = SeqIO.parse(fa_file, "fasta")
 for record in sequences:
     data.append(record.seq.upper())
@@ -125,6 +125,7 @@ hist = np.array(hist)
 #df.plot('x', 'y', kind='scatter')
 #sns.distplot(hist, bins=bins, kde=False, rug=True);
 sns.barplot(x=G, y=hist)
+plt.savefig( current_dir + "/results/histogram.png" , dpi = 200, bbox_inches='tight')
 ##############################################################################
 ##############################################################################
 

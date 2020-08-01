@@ -187,6 +187,33 @@ def get_features_lbp(seq):
     #print(lbp)
     return np.array(hist)
 
+def get_features_mlbp(seq):
+    feature_vector = bases2number(seq, 2)
+    #print(feature_vector.shape)
+    p = 6
+    result = []
+    for z in range(2,p+1):
+        lbp = []
+        for t, x in enumerate(feature_vector):
+            temp = 0
+            p=z
+            for i in range( int(p/2) ):
+                if t + i - p/2 >= 0 and t + i + 1 < feature_vector.shape[0]:
+                    temp = sign( feature_vector[t + i - int(p/2)] - feature_vector[t])*(2**i)  + sign( feature_vector[t + i + 1] - feature_vector[t])*(2**(i+int(p/2))) 
+
+            lbp.append(temp)
+        
+
+        # histogram
+        lbp_max = np.max(lbp)
+        exponential = math.ceil(math.log(lbp_max, 2))
+        bins = [2**i for i in range(exponential + 1)]
+        hist, bins = np.histogram(lbp, bins=bins)
+   
+        result = np.hstack((result, hist))
+
+    return np.array(result)
+
 if __name__ == "__main__" :
 
 
@@ -198,6 +225,6 @@ if __name__ == "__main__" :
     for record in sequences:
         data.append(record.seq.upper())
     seq = data[0]
-
-    print(get_features_lbp(seq).shape)
+    print(get_features_lbp(seq))
+    print(get_features_mlbp(seq))
     
