@@ -78,7 +78,6 @@ csv_mega        = current_dir + "/sample_genomes/seqs_db3_distances.csv"
 seq_file_full   = current_dir + "/sample_genomes/seqs_db3.fasta"
 results_file    = current_dir + "/results/compare_features/db3"
 
-
 ###################################################################################################################################
 ###################################################################################################################################
 
@@ -275,7 +274,7 @@ for ax in axs.flat:
 fig.text(0.04, 0.5, 'Distances', va='center', rotation='vertical', fontsize=6 )
 plt.savefig( results_file + "_fos.png", dpi = 200, bbox_inches='tight')
 
-###################################################################################################################3
+###################################################################################################################
 # procesamos las distancias con GLCM
 ###################################################################################################################
 plt.clf()
@@ -309,7 +308,7 @@ for ax in axs.flat:
 fig.text(0.04, 0.5, 'Distances', va='center', rotation='vertical', fontsize=6 )
 plt.savefig( results_file + "_glcm.png", dpi = 200, bbox_inches='tight')
 
-###################################################################################################################3
+###################################################################################################################
 # procesamos las distancias con LBP
 ###################################################################################################################
 plt.clf()
@@ -343,7 +342,7 @@ for ax in axs.flat:
 fig.text(0.04, 0.5, 'Distances', va='center', rotation='vertical', fontsize=6 )
 plt.savefig( results_file + "_lbp.png", dpi = 200, bbox_inches='tight')
 
-###################################################################################################################3
+###################################################################################################################
 # procesamos las distancias con MLBP
 ###################################################################################################################
 plt.clf()
@@ -403,3 +402,180 @@ df.to_csv(results_file + ".csv", index=True)
 #print(error_lbp)
 #print(error_mlbp)
 
+
+
+###################################################################################################################
+# proccesing a MAPPING 0 funciton with the all algorithms
+###################################################################################################################
+
+plt.clf()
+fig, axs = plt.subplots(2,2)
+axs[0,0].plot(names_temp, full_distances_fos[0], 'b--', label='FOS-MAP0')
+axs[0,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,0].legend(loc='upper right', fontsize=6)
+axs[0,1].plot(names_temp, full_distances_glcm[0], 'b--', label='GLCM-MAP0')
+axs[0,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,1].legend(loc='upper right', fontsize=6)
+axs[1,0].plot(names_temp, full_distances_lbp[0], 'b--', label='LBP-MAP0')
+axs[1,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,0].legend(loc='upper right', fontsize=6)
+axs[1,1].plot(names_temp, full_distances_mlbp[0], 'b--', label='MLBP-MAP0')
+axs[1,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,1].legend(loc='upper right', fontsize=6)
+
+
+for ax in axs.flat:
+    ax.label_outer()
+    ax.yaxis.set_tick_params(labelsize=6)
+    plt.sca(ax)
+    plt.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize=6 )
+    plt.xlabel('Sequences', fontsize=6)
+
+fig.text(0.04, 0.5, 'Distances', va='center', rotation='vertical', fontsize=6 )
+plt.savefig( results_file + "_0map.png", dpi = 200, bbox_inches='tight')
+
+###################################################################################################################
+# proccesing a MAPPING 1 funciton with the all algorithms
+###################################################################################################################
+
+plt.clf()
+fig, axs = plt.subplots(2,2)
+axs[0,0].plot(names_temp, full_distances_fos[1], 'b--', label='FOS-MAP1')
+axs[0,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,0].legend(loc='upper right', fontsize=6)
+axs[0,1].plot(names_temp, full_distances_glcm[1], 'b--', label='GLCM-MAP1')
+axs[0,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,1].legend(loc='upper right', fontsize=6)
+axs[1,0].plot(names_temp, full_distances_lbp[1], 'b--', label='LBP-MAP1')
+axs[1,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,0].legend(loc='upper right', fontsize=6)
+axs[1,1].plot(names_temp, full_distances_mlbp[1], 'b--', label='MLBP-MAP1')
+axs[1,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,1].legend(loc='upper right', fontsize=6)
+
+for ax in axs.flat:
+    ax.label_outer()
+    ax.yaxis.set_tick_params(labelsize=6)
+    plt.sca(ax)
+    plt.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize=6 )
+    plt.xlabel('Sequences', fontsize=6)
+
+fig.text(0.04, 0.5, 'Distances', va='center', rotation='vertical', fontsize=6 )
+plt.savefig( results_file + "_1map.png", dpi = 200, bbox_inches='tight')
+
+###################################################################################################################
+# proccesing a MAPPING 2 funciton with the all algorithms
+###################################################################################################################
+
+plt.clf()
+fig, axs = plt.subplots(2,2)
+axs[0,0].plot(names_temp, full_distances_fos[2], 'b--', label='FOS-MAP2')
+axs[0,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,0].legend(loc='upper right', fontsize=6)
+axs[0,1].plot(names_temp, full_distances_glcm[2], 'b--', label='GLCM-MAP2')
+axs[0,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,1].legend(loc='upper right', fontsize=6)
+axs[1,0].plot(names_temp, full_distances_lbp[2], 'b--', label='LBP-MAP2')
+axs[1,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,0].legend(loc='upper right', fontsize=6)
+axs[1,1].plot(names_temp, full_distances_mlbp[2], 'b--', label='MLBP-MAP2')
+axs[1,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,1].legend(loc='upper right', fontsize=6)
+
+for ax in axs.flat:
+    ax.label_outer()
+    ax.yaxis.set_tick_params(labelsize=6)
+    plt.sca(ax)
+    plt.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize=6 )
+    plt.xlabel('Sequences', fontsize=6)
+
+fig.text(0.04, 0.5, 'Distances', va='center', rotation='vertical', fontsize=6 )
+plt.savefig( results_file + "_2map.png", dpi = 200, bbox_inches='tight')
+
+###################################################################################################################
+# proccesing a MAPPING 3 funciton with the all algorithms
+###################################################################################################################
+
+plt.clf()
+fig, axs = plt.subplots(2,2)
+axs[0,0].plot(names_temp, full_distances_fos[3], 'b--', label='FOS-MAP3')
+axs[0,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,0].legend(loc='upper right', fontsize=6)
+axs[0,1].plot(names_temp, full_distances_glcm[3], 'b--', label='GLCM-MAP3')
+axs[0,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,1].legend(loc='upper right', fontsize=6)
+axs[1,0].plot(names_temp, full_distances_lbp[3], 'b--', label='LBP-MAP3')
+axs[1,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,0].legend(loc='upper right', fontsize=6)
+axs[1,1].plot(names_temp, full_distances_mlbp[3], 'b--', label='MLBP-MAP3')
+axs[1,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,1].legend(loc='upper right', fontsize=6)
+
+for ax in axs.flat:
+    ax.label_outer()
+    ax.yaxis.set_tick_params(labelsize=6)
+    plt.sca(ax)
+    plt.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize=6 )
+    plt.xlabel('Sequences', fontsize=6)
+
+fig.text(0.04, 0.5, 'Distances', va='center', rotation='vertical', fontsize=6 )
+plt.savefig( results_file + "_3map.png", dpi = 200, bbox_inches='tight')
+
+
+###################################################################################################################
+# proccesing a MAPPING 4 funciton with the all algorithms
+###################################################################################################################
+
+plt.clf()
+fig, axs = plt.subplots(2,2)
+axs[0,0].plot(names_temp, full_distances_fos[4], 'b--', label='FOS-MAP4')
+axs[0,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,0].legend(loc='upper right', fontsize=6)
+axs[0,1].plot(names_temp, full_distances_glcm[4], 'b--', label='GLCM-MAP4')
+axs[0,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,1].legend(loc='upper right', fontsize=6)
+axs[1,0].plot(names_temp, full_distances_lbp[4], 'b--', label='LBP-MAP4')
+axs[1,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,0].legend(loc='upper right', fontsize=6)
+axs[1,1].plot(names_temp, full_distances_mlbp[4], 'b--', label='MLBP-MAP4')
+axs[1,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,1].legend(loc='upper right', fontsize=6)
+
+for ax in axs.flat:
+    ax.label_outer()
+    ax.yaxis.set_tick_params(labelsize=6)
+    plt.sca(ax)
+    plt.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize=6 )
+    plt.xlabel('Sequences', fontsize=6)
+
+fig.text(0.04, 0.5, 'Distances', va='center', rotation='vertical', fontsize=6 )
+plt.savefig( results_file + "_4map.png", dpi = 200, bbox_inches='tight')
+
+###################################################################################################################
+# proccesing a MAPPING 5 funciton with the all algorithms
+###################################################################################################################
+
+plt.clf()
+fig, axs = plt.subplots(2,2)
+axs[0,0].plot(names_temp, full_distances_fos[5], 'b--', label='FOS-MAP5')
+axs[0,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,0].legend(loc='upper right', fontsize=6)
+axs[0,1].plot(names_temp, full_distances_glcm[5], 'b--', label='GLCM-MAP5')
+axs[0,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[0,1].legend(loc='upper right', fontsize=6)
+axs[1,0].plot(names_temp, full_distances_lbp[5], 'b--', label='LBP-MAP5')
+axs[1,0].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,0].legend(loc='upper right', fontsize=6)
+axs[1,1].plot(names_temp, full_distances_mlbp[5], 'b--', label='MLBP-MAP5')
+axs[1,1].plot(names_temp, distances_mega, 'r-.', label='CLUSTALW')
+axs[1,1].legend(loc='upper right', fontsize=6)
+
+for ax in axs.flat:
+    ax.label_outer()
+    ax.yaxis.set_tick_params(labelsize=6)
+    plt.sca(ax)
+    plt.xticks(rotation=45, horizontalalignment='right', fontweight='light', fontsize=6 )
+    plt.xlabel('Sequences', fontsize=6)
+
+fig.text(0.04, 0.5, 'Distances', va='center', rotation='vertical', fontsize=6 )
+plt.savefig( results_file + "_5map.png", dpi = 200, bbox_inches='tight')
