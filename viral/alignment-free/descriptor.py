@@ -77,7 +77,7 @@ def bases2number(seq, option):
             if base == 'T': val = 0.1335
             feature_vector.append( val )
 
-    if option == 43: #used in mlbp. Atomic [3]
+    if option == 4: #used in mlbp. Atomic [3]
         for i, base in enumerate(seq):
             if base == 'A': val = 70
             if base == 'C': val = 58
@@ -96,12 +96,12 @@ def bases2number(seq, option):
     feature_vector = np.array(feature_vector)
     return feature_vector
 
-def get_features(seq):
+def get_features(seq, type_base_number=0):
     # intensities
     G = np.array([1,  17,  34,  51,  68,  85, 102, 119, 136, 153, 170, 187, 204, 221, 238, 255])
 
     # feature vector
-    feature_vector = bases2number(seq, 0)
+    feature_vector = bases2number(seq, type_base_number)
     #feature_vector = []
     #for i in range(0, len(seq)-1, 1):
     #    intensity = base_intensity(seq[i]+seq[i+1], G)    
@@ -127,8 +127,8 @@ def get_features(seq):
     return skewness, my_kurtosis, energy, entropy
 
 
-def get_features_glcm(seq):
-    feature_vector = bases2number(seq, 1)
+def get_features_glcm(seq, type_base_number=1):
+    feature_vector = bases2number(seq, type_base_number)
     #feature_vector = []
     #for i, base in enumerate(seq):
     ##    if base == 'A': val = 1
@@ -158,8 +158,8 @@ def sign(x):
     else:
         return 1
 
-def get_features_lbp(seq):
-    feature_vector = bases2number(seq, 2)
+def get_features_lbp(seq, type_base_number=2):
+    feature_vector = bases2number(seq, type_base_number)
     #print(feature_vector.shape)
     p = 6
     lbp = []
@@ -187,8 +187,8 @@ def get_features_lbp(seq):
     #print(lbp)
     return np.array(hist)
 
-def get_features_mlbp(seq):
-    feature_vector = bases2number(seq, 2)
+def get_features_mlbp(seq, type_base_number=2):
+    feature_vector = bases2number(seq, type_base_number)
     #print(feature_vector.shape)
     p = 6
     result = []
