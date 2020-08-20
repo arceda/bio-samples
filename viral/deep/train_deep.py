@@ -136,15 +136,18 @@ database_name = 'Primates'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
 
-# example: python3 train_deep.py '/home/vicente/DATASETS/MLDSP/' HIVGRPCG 
+# example: python3 train_deep.py '/home/vicente/datasets/MLDSP/' HIVGRPCG 
 
 X_train, y_train, X_test, y_test, labels = read_cgr(5, path_database, database_name)
 
 #create model
-epochs = 10
+epochs = 4
 batch_size = 64
 
-
+##########################################################################################
+##########################################################################################
+'''
+model_type = "tiny"
 model = Sequential()#add model layers
 model.add(Conv2D(32, kernel_size=3, activation='relu', input_shape=(32,32,3)))
 model.add(Conv2D(64, kernel_size=3, activation='relu'))
@@ -158,9 +161,14 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 #train the model
 #model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=3)
 #model.fit(X_train, y_train, epochs=3)
-
-
 '''
+##########################################################################################
+##########################################################################################
+
+
+##########################################################################################
+##########################################################################################
+model_type = "medium"
 model=Sequential()
 #model.add(Lambda(standardize,input_shape=(28,28,1)))    
 model.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu", input_shape=(32,32,3)))
@@ -183,26 +191,35 @@ model.add(Dense(512,activation="relu"))
     
 model.add(Dense(len(labels),activation="softmax"))    
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
-'''
+##########################################################################################
+##########################################################################################
+
+
+
 
 history = model.fit(X_train, y_train, epochs=epochs, validation_split=0.2)
 
 #plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
 
+#########################################################################################################
 # Plot the loss and accuracy curves for training and validation
-# ##################################################################### 
-#fig, ax = plt.subplots(2,1, figsize=(18, 10))
-#ax[0].plot(history.history['loss'], color='b', label="Training loss")
-#ax[0].plot(history.history['val_loss'], color='r', label="validation loss",axes =ax[0])
-#legend = ax[0].legend(loc='best', shadow=True)
+######################################################################################################### 
+plt.clf()
+fig, ax = plt.subplots(2,1, figsize=(18, 10))
+ax[0].plot(history.history['loss'], color='b', label="Training loss")
+ax[0].plot(history.history['val_loss'], color='r', label="validation loss",axes =ax[0])
+legend = ax[0].legend(loc='best', shadow=True)
 
-#ax[1].plot(history.history['accuracy'], color='b', label="Training accuracy")
-#ax[1].plot(history.history['val_accuracy'], color='r',label="Validation accuracy")
-#legend = ax[1].legend(loc='best', shadow=True)
+ax[1].plot(history.history['accuracy'], color='b', label="Training accuracy")
+ax[1].plot(history.history['val_accuracy'], color='r',label="Validation accuracy")
+legend = ax[1].legend(loc='best', shadow=True)
 
-
+plt.savefig(current_dir + '/results/' + database_name + '_history_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
+#########################################################################################################
+#########################################################################################################
 
 # Confusion matrix
+plt.clf()
 fig = plt.figure(figsize=(10, 10)) # Set Figure
 y_pred = model.predict(X_test) # Predict encoded label as 2 => [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
 Y_pred = np.argmax(y_pred, 1) # Decode Predicted labels
@@ -214,14 +231,15 @@ sns.heatmap(mat.T, square=True, annot=True, cbar=False, cmap=plt.cm.Blues)
 plt.xlabel('Predicted Values')
 plt.ylabel('True Values')
 #plt.show()
-plt.savefig(current_dir + '/results/' + database_name + '_matrix_cnn=tiny_epoch=10.png', dpi = 300)
+plt.savefig(current_dir + '/results/' + database_name + '_matrix_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
 
 
 results = model.evaluate(X_test, y_test)
 print(results)
+print(model.metrics_names)
 
 with open(current_dir + '/results/results.txt', "a") as myfile:
-    myfile.write("\n " + database_name + "_acc_cnn=tiny_epoch=10 " + str(results))
+    myfile.write("\n " + database_name + "_acc_cnn=" + model_type + '_epoch='+ str(epochs) + ' ' + str(results))
 
 #predict first 4 images in the test set
 #results = model.predict(X_test)

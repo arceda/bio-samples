@@ -239,4 +239,4 @@ if __name__ == "__main__" :
         splitKASTOR(path_database, database_name, path_dest)
         processDastaMLDSP(path_dest, database_name, file_type)
 
-#EXAMPLES: python3 buid_dataset_cgr.py '/home/vicente/PROJECTS/BIOINFORMATICS/datasets/VIRAL/HIV/' '/home/vicente/DATASETS/MLDSP' HIVGRPCG kastor fasta
+#EXAMPLES: python3 buid_dataset_cgr.py '/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/HIV/' '/home/vicente/datasets/MLDSP' HIVGRPCG kastor fasta
