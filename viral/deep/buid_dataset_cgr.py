@@ -224,7 +224,7 @@ if __name__ == "__main__" :
     current_dir = os.path.dirname(os.path.abspath(__file__))
     path_database = '/home/vicente/projects/BIOINFORMATICS/MLDSP/DataBase/'
     path_database = '/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/HIV'
-    path_dest = '/home/vicente/datasets/MLDSP/'
+    path_dest = '/home/vicente/DATASETS/MLDSP/'
     database_name = 'Primates'
     path_database = sys.argv[1]
     path_dest = sys.argv[2]
@@ -238,3 +238,5 @@ if __name__ == "__main__" :
     if database_type == 'kastor':
         splitKASTOR(path_database, database_name, path_dest)
         processDastaMLDSP(path_dest, database_name, file_type)
+
+#EXAMPLES: python3 buid_dataset_cgr.py '/home/vicente/PROJECTS/BIOINFORMATICS/datasets/VIRAL/HIV/' '/home/vicente/DATASETS/MLDSP' HIVGRPCG kastor fasta

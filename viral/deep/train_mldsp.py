@@ -71,11 +71,15 @@ def numMappingPP(nucleotide):
 # seq: sequence, string of letters A, C, G, T
 # median_len: median size of all sequences in a dataset
 def descriptor(seq, median_len):
+    #print(seq, median_len) 
     ns  = list(map(numMappingPP, seq))  # here we map the nucleotides to numbers
+    ns = list(filter(None.__ne__, ns))
 
     ## we ensure that all the sequences have the same size 
     I   = median_len - len(ns) # change "median_len" to other length stat for length normalization
-    if I > 0: # when the seq size is smaller than the median
+    if I > 0: # when the seq size is smaller than the 
+        #print("I > 0")
+        #print(ns, median_len)
         ns_temp = pywt.pad(ns, I, 'antisymmetric') #wextend('1','asym',ns,I);
         ns_temp = np.array(ns_temp)
         #print(len(ns_temp), len(ns))
@@ -148,11 +152,13 @@ def read_seq(path_database, database):
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-path_database = '/home/vicente/datasets/MLDSP/'
+path_database = '/home/vicente/DATASETS/MLDSP/'
 database_name = 'Primates'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
 cross_val = int(sys.argv[3])
+
+# example: python3 train_mldsp.py '/home/vicente/DATASETS/MLDSP/' HIVGRPCG 0
 
 print("Reading dataset ...")
 X_train, y_train, X_test, y_test, labels = read_seq(path_database, database_name)

@@ -136,6 +136,8 @@ database_name = 'Primates'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
 
+# example: python3 train_deep.py '/home/vicente/DATASETS/MLDSP/' HIVGRPCG 
+
 X_train, y_train, X_test, y_test, labels = read_cgr(5, path_database, database_name)
 
 #create model

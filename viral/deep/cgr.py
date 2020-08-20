@@ -24,9 +24,13 @@ def count_kmers(sequence, k):
     d = collections.defaultdict(int)
     for i in range(len(sequence)-(k-1)):
         d[sequence[i:i+k]] +=1
-    for key in d.keys():
-        if "N" in key:
-            del d[key]
+
+    #print(d.keys)
+    #for key in d.keys():
+
+        #print(key)
+        #if "N" in key:
+        #    del d[key]
     return d
  
 def probabilities(sequence, kmer_count, k):
