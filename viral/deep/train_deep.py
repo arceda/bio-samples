@@ -141,12 +141,12 @@ database_name = sys.argv[2]
 X_train, y_train, X_test, y_test, labels = read_cgr(5, path_database, database_name)
 
 #create model
-epochs = 4
+epochs = 10
 batch_size = 64
 
 ##########################################################################################
 ##########################################################################################
-'''
+
 model_type = "tiny"
 model = Sequential()#add model layers
 model.add(Conv2D(32, kernel_size=3, activation='relu', input_shape=(32,32,3)))
@@ -158,16 +158,13 @@ model.add(Dense(len(labels), activation='softmax'))
 #compile model using accuracy to measure model performance
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-#train the model
-#model.fit(X_train, y_train, validation_data=(X_test, y_test), epochs=3)
-#model.fit(X_train, y_train, epochs=3)
+##########################################################################################
+##########################################################################################
+
+
+##########################################################################################
+##########################################################################################
 '''
-##########################################################################################
-##########################################################################################
-
-
-##########################################################################################
-##########################################################################################
 model_type = "medium"
 model=Sequential()
 #model.add(Lambda(standardize,input_shape=(28,28,1)))    
@@ -191,6 +188,7 @@ model.add(Dense(512,activation="relu"))
     
 model.add(Dense(len(labels),activation="softmax"))    
 model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
+'''
 ##########################################################################################
 ##########################################################################################
 
@@ -214,31 +212,31 @@ ax[1].plot(history.history['accuracy'], color='b', label="Training accuracy")
 ax[1].plot(history.history['val_accuracy'], color='r',label="Validation accuracy")
 legend = ax[1].legend(loc='best', shadow=True)
 
-plt.savefig(current_dir + '/results/' + database_name + '_history_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
+plt.savefig(current_dir + '/results_v2/' + database_name + '_history_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
 #########################################################################################################
 #########################################################################################################
 
 # Confusion matrix
-plt.clf()
-fig = plt.figure(figsize=(10, 10)) # Set Figure
-y_pred = model.predict(X_test) # Predict encoded label as 2 => [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
-Y_pred = np.argmax(y_pred, 1) # Decode Predicted labels
-Y_test = np.argmax(y_test, 1) # Decode labels
-mat = confusion_matrix(Y_test, Y_pred) # Confusion matrix
+#plt.clf()
+#fig = plt.figure(figsize=(10, 10)) # Set Figure
+#y_pred = model.predict(X_test) # Predict encoded label as 2 => [0, 0, 1, 0, 0, 0, 0, 0, 0, 0]
+#Y_pred = np.argmax(y_pred, 1) # Decode Predicted labels
+#Y_test = np.argmax(y_test, 1) # Decode labels
+# = confusion_matrix(Y_test, Y_pred) # Confusion matrix
 
 # Plot Confusion matrix
-sns.heatmap(mat.T, square=True, annot=True, cbar=False, cmap=plt.cm.Blues)
-plt.xlabel('Predicted Values')
-plt.ylabel('True Values')
+#sns.heatmap(mat.T, square=True, annot=True, cbar=False, cmap=plt.cm.Blues)
+#plt.xlabel('Predicted Values')
+#plt.ylabel('True Values')
 #plt.show()
-plt.savefig(current_dir + '/results/' + database_name + '_matrix_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
+#plt.savefig(current_dir + '/results/' + database_name + '_matrix_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
 
 
 results = model.evaluate(X_test, y_test)
 print(results)
 print(model.metrics_names)
 
-with open(current_dir + '/results/results.txt', "a") as myfile:
+with open(current_dir + '/results_v2/results_v2.txt', "a") as myfile:
     myfile.write("\n " + database_name + "_acc_cnn=" + model_type + '_epoch='+ str(epochs) + ' ' + str(results))
 
 #predict first 4 images in the test set

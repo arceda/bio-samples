@@ -1,0 +1,8 @@
+
+ Primates_acc_mldsp 0.9666666666666667
+ Primates_acc_cnn=tiny_epoch=10 [0.10077156871557236, 0.9666666388511658]
+ Primates_acc_cnn=tiny_epoch=50 [0.014810207299888134, 1.0]
+ Primates_acc_cnn=medium_epoch=50 [0.01231743860989809, 1.0]
+ Primates_acc_cnn=medium_epoch=100 [0.0007625211146660149, 1.0]
+ Dengue_acc_mldsp 0.9957671957671957
+ Dengue_acc_cnn=tiny_epoch=10 [1.921163601537046e-07, 1.0]

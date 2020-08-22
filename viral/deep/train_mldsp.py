@@ -152,13 +152,15 @@ def read_seq(path_database, database):
 
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
-path_database = '/home/vicente/DATASETS/MLDSP/'
+path_database = '/home/vicente/datasets/MLDSP/'
 database_name = 'Primates'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
 cross_val = int(sys.argv[3])
 
-# example: python3 train_mldsp.py '/home/vicente/DATASETS/MLDSP/' HIVGRPCG 0
+# example: python3 train_mldsp.py '/home/vicente/datasets/MLDSP/' HIVGRPCG 0
+# python3 train_mldsp.py '/home/vicente/datasets/MLDSP/' Primates  0
+########################################################################################################
 
 print("Reading dataset ...")
 X_train, y_train, X_test, y_test, labels = read_seq(path_database, database_name)
@@ -232,5 +234,5 @@ else:
     results = accuracy_score(y_test, y_pred)
     print(results)
 
-    with open(current_dir + '/results/results.txt', "a") as myfile:
+    with open(current_dir + '/results_v2/results_v2.txt', "a") as myfile:
         myfile.write("\n " + database_name + "_acc_mldsp " + str(results))

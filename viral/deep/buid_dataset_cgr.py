@@ -21,6 +21,8 @@ import glob
 from shutil import copyfile
 import csv
 
+from sklearn.model_selection import train_test_split
+
 # to create a SeqRecord
 from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
@@ -44,6 +46,8 @@ def splitMLDSP(path_database, database_name, path_dest, file_type):
 
     train_labels = []
     test_labels = []
+    X = []
+    y = []
         
     clusters = glob.glob(path_database + '/' + database_name + '/*' )
 
@@ -63,14 +67,24 @@ def splitMLDSP(path_database, database_name, path_dest, file_type):
                 file_name = file_name_without_ext + '_name_changed.txt' 
             copyfile(file, path_seq + '/' + file_name)
 
-            if i < len(files)*0.8: # 80%                
-                train_labels.append([file_name, cluster_name])
-            else:                
-                test_labels.append([file_name, cluster_name])
+            X.append(file_name)
+            y.append(cluster_name)
+            #if i < len(files)*0.8: # 80%                
+            #    train_labels.append([file_name, cluster_name])
+            #else:                
+            #    test_labels.append([file_name, cluster_name])
             i += 1
 
-    train_labels = np.matrix(train_labels)
-    test_labels = np.matrix(test_labels)
+    X = np.matrix(X).T   
+    y = np.matrix(y).T   
+
+      
+
+    # con esto aseguramos que se chocoleen las muestras
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=1)
+
+    train_labels = np.hstack((X_train, y_train))
+    test_labels = np.hstack((X_test, y_test))
     np.savetxt(full_path_dest + '/train_labels.csv', train_labels, delimiter=",", fmt="%s") 
     np.savetxt(full_path_dest + '/test_labels.csv', test_labels, delimiter=",", fmt="%s") 
 
@@ -152,47 +166,6 @@ def splitKASTOR(path_database, database_name, path_dest):
     np.savetxt(full_path_dest + '/test_labels.csv', test_labels, delimiter=",", fmt="%s") 
     
 
-'''
-def processDastaMLDSP(path_database, database_name): # process data in MLDSP directories
-    
-    path = path_database + '/' + database_name   
-
-    number_of_clases = 0
-    cluster_names = []
-    points_per_cluster = []
-    sequences = []
-    str_all = ""
-    
-    #print(glob.glob(path + '/*' ))
-    clusters = glob.glob(path + '/*' )
-    number_of_clases = len(clusters)
-    for cluster in clusters:       
-
-        cluster_name = cluster.split('/')[-1]
-        cluster_names.append( cluster_name )
-       
-        # read each fasta file
-        files = clusters = glob.glob(cluster + '/*.txt' )
-        points_per_cluster.append(len(files))
-        
-        # read sequences from each file, the majority have one sequence per file          
-        for file in files:  
-            file_name = file.split('/')[-1]  
-            file_name = file_name.split('.')[0]  
-            seqs = SeqIO.parse(file, "fasta") 
-
-            i = 0          
-            for record in seqs:
-                
-                save_fcgr(record.id, str(record.seq.upper()), 5, cluster, file_name + '_' + str(i))      
-                save_fcgr(record.id, str(record.seq.upper()), 6, cluster, file_name + '_' + str(i))   
-                save_fcgr(record.id, str(record.seq.upper()), 7, cluster, file_name + '_' + str(i))  
-                i += 1 
-
-    sequences_mat = np.array(sequences)
-
-    return sequences_mat, number_of_clases, cluster_names, points_per_cluster, str_all
-'''
 
 
 def processDastaMLDSP(path_database, database_name, file_type):     
@@ -212,7 +185,7 @@ def processDastaMLDSP(path_database, database_name, file_type):
         seqs = SeqIO.parse(file, "fasta") 
         i = 0          
         for record in seqs:      
-            print(file_name_without_ext)      
+            #print(file_name_without_ext)      
             save_fcgr(record.id, str(record.seq.upper()), 5, path_cgr, file_name_without_ext + '_' + str(i))      
             #save_fcgr(record.id, str(record.seq.upper()), 6, path_cgr, file_name_without_ext + '_' + str(i))   
             #save_fcgr(record.id, str(record.seq.upper()), 7, path_cgr, file_name_without_ext + '_' + str(i))  
@@ -240,3 +213,4 @@ if __name__ == "__main__" :
         processDastaMLDSP(path_dest, database_name, file_type)
 
 #EXAMPLES: python3 buid_dataset_cgr.py '/home/vicente/projects/BIOINFORMATICS/datasets/VIRAL/HIV/' '/home/vicente/datasets/MLDSP' HIVGRPCG kastor fasta
+# python3 buid_dataset_cgr.py '/home/vicente/projects/BIOINFORMATICS/MLDSP/DataBase/' '/home/vicente/datasets/MLDSP' Primates  mldsp  txt
