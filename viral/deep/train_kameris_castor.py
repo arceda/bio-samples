@@ -225,7 +225,6 @@ path_database = '/home/vicente/datasets/MLDSP/'
 database_name = 'Primates'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
-cross_val = int(sys.argv[3])
 
 # example: python3 train_mldsp.py '/home/vicente/datasets/MLDSP/' HIVGRPCG 0
 # python3 train_mldsp.py '/home/vicente/datasets/MLDSP/' Primates  0

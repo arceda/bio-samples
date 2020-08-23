@@ -135,7 +135,7 @@ path_database = '/home/vicente/datasets/MLDSP/'
 database_name = 'Primates'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
-epochs = sys.argv[3]
+epochs = int(sys.argv[3])
 
 # example: python3 train_deep.py '/home/vicente/datasets/MLDSP/' HIVGRPCG 
 
