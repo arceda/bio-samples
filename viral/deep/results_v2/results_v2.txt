@@ -6,7 +6,64 @@
  Primates_acc_cnn=tiny_epoch=50 [0.014810207299888134, 1.0]
  Primates_acc_cnn=medium_epoch=50 [0.01231743860989809, 1.0]
  Primates_acc_cnn=medium_epoch=100 [0.0007625211146660149, 1.0]
+
  Dengue_acc_mldsp 0.9957671957671957
  Dengue_acc_cnn=tiny_epoch=10 [1.921163601537046e-07, 1.0]
  Dengue_acc_kameris_k=5 1.0
  Dengue_acc_castor_k=5 1.0
+
+ Protists_acc_mldsp 0.5
+ Protists_acc_cnn=tiny_epoch=10 [0.056667983531951904, 1.0]
+ Protists_acc_cnn=tiny_epoch=50 [0.010112476535141468, 1.0]
+ Protists_acc_kameris_k=5 1.0
+ Protists_acc_castor_k=5 1.0
+
+ Fungi_acc_mldsp 0.4
+ Fungi_acc_cnn=tiny_epoch=10 [0.17964475486013626, 0.9333333373069763]
+ Fungi_acc_cnn=tiny_epoch=50 [0.03322288131134377, 1.0]
+ Fungi_acc_kameris_k=5 1.0
+ Fungi_acc_castor_k=5 1.0
+
+ Plants_acc_mldsp 0.6857142857142857
+ Plants_acc_cnn=tiny_epoch=10 [0.44280468566077097, 0.800000011920929]
+ Plants_acc_cnn=tiny_epoch=50 [0.3141072486128126, 0.8857142925262451]
+ Plants_acc_kameris_k=5 0.8857142857142857
+ Plants_acc_castor_k=5 0.9714285714285714
+
+ Amphibians_acc_mldsp 0.603448275862069
+ Amphibians_acc_cnn=tiny_epoch=10 [0.041683925685055294, 0.982758641242981]
+ Amphibians_acc_cnn=tiny_epoch=50 [0.00658757778302092, 1.0]
+ Amphibians_acc_kameris_k=5 1.0
+ Amphibians_acc_castor_k=5 1.0
+
+ Mammals_acc_mldsp 0.2222222222222222
+ Mammals_acc_cnn=tiny_epoch=10 [1.849884033203125, 0.5555555820465088]
+ Mammals_acc_cnn=tiny_epoch=50 [0.0023193657398223877, 1.0]
+ Mammals_acc_kameris_k=5 1.0
+ Mammals_acc_castor_k=5 1.0
+
+ Insects_acc_mldsp 0.37222222222222223
+ Insects_acc_cnn=tiny_epoch=10 [0.1333490946640571, 0.9611111283302307]
+ Insects_acc_cnn=tiny_epoch=50 [0.18515544339186615, 0.9555555582046509]
+ Insects_acc_kameris_k=5 0.9944444444444445
+ Insects_acc_castor_k=5 0.9944444444444445
+
+ 3classes_acc_mldsp 0.5691244239631337
+ 3classes_acc_cnn=tiny_epoch=10 [0.0007124856850416008, 1.0]
+ 3classes_acc_cnn=tiny_epoch=50 [4.755165299839525e-06, 1.0]
+ 3classes_acc_kameris_k=5 1.0
+ 3classes_acc_castor_k=5 1.0
+
+ Vertebrates_acc_mldsp 0.5236994219653179
+ Vertebrates_acc_cnn=tiny_epoch=10 [0.08762570860201782, 0.9976878762245178]
+ Vertebrates_acc_cnn=tiny_epoch=50 [0.08780530519444187, 0.9976878762245178]
+ Vertebrates_acc_kameris_k=5 0.9976878612716763
+ Vertebrates_acc_castor_k=5 0.9976878612716763
+
+
+
+
+
+
+
+
