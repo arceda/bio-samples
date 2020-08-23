@@ -17,3 +17,5 @@ viral/mldsp/__pycache__/train.cpython-35.pyc
 viral/deep/cgr.pyc
 viral/deep/__pycache__/cgr.cpython-35.pyc
 model_plot.png
+viral/deep/__pycache__/feature_extractor.cpython-38.pyc
+viral/deep/__pycache__/mykameris.cpython-38.pyc
