@@ -136,6 +136,7 @@ database_name = 'Primates'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
 epochs = int(sys.argv[3])
+batch_size = int(sys.argv[4])
 
 # example: python3 train_deep.py '/home/vicente/datasets/MLDSP/' HIVGRPCG 
 
@@ -143,7 +144,7 @@ X_train, y_train, X_test, y_test, labels = read_cgr(5, path_database, database_n
 
 #create model
 #epochs = 10
-batch_size = 64
+#batch_size = 64
 
 ##########################################################################################
 ##########################################################################################
@@ -196,7 +197,7 @@ model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accur
 
 
 
-history = model.fit(X_train, y_train, epochs=epochs, validation_split=0.2)
+history = model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split=0.2)
 
 #plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
 
