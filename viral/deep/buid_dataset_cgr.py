@@ -146,7 +146,9 @@ def splitKASTOR(path_database, database_name, path_dest):
             #print(record)
 
             # save record in fasta file
-            file_name = str(file_count) + "_" + seq_id + ".fasta"
+            
+            #file_name = str(file_count) + "_" + seq_id + ".fasta"
+            file_name =  label + "_" + str(file_count) + ".fasta"
             output_handle = open(path_seq + "/" + file_name, "w")
             SeqIO.write(record, output_handle, "fasta")
             output_handle.close()
