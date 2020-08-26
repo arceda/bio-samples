@@ -29,21 +29,21 @@ python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/H
 
 
 echo -e  "\n\nCreating POLYOMAVIRUS POLSPELT..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/POLYOMAVIRUS/' '/home/siso/datasets/MLDSP/' POLSPELT kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/POLYOMAVIRUS/' '/home/siso/datasets/MLDSP/' POLSPELT kastor fasta
 echo -e  "\n\nCreating POLYOMAVIRUS POLSPEST..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/POLYOMAVIRUS/' '/home/siso/datasets/MLDSP/' POLSPEST kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/POLYOMAVIRUS/' '/home/siso/datasets/MLDSP/' POLSPEST kastor fasta
 echo -e  "\n\nCreating POLYOMAVIRUS POLSPEVP1..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/POLYOMAVIRUS/' '/home/siso/datasets/MLDSP/' POLSPEVP1 kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/POLYOMAVIRUS/' '/home/siso/datasets/MLDSP/' POLSPEVP1 kastor fasta
 echo -e  "\n\nCreating POLYOMAVIRUS POLSPEVP2..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/POLYOMAVIRUS/' '/home/siso/datasets/MLDSP/' POLSPEVP2 kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/POLYOMAVIRUS/' '/home/siso/datasets/MLDSP/' POLSPEVP2 kastor fasta
 echo -e  "\n\nCreating POLYOMAVIRUS POLSPEVP3..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/POLYOMAVIRUS/' '/home/siso/datasets/MLDSP/' POLSPEVP3 kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/POLYOMAVIRUS/' '/home/siso/datasets/MLDSP/' POLSPEVP3 kastor fasta
 
 
 echo -e  "\n\nCreating PAPILLOMA HPVGENCG..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/PAPILLOMA/' '/home/siso/datasets/MLDSP/' HPVGENCG kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/PAPILLOMA/' '/home/siso/datasets/MLDSP/' HPVGENCG kastor fasta
 echo -e  "\n\nCreating PAPILLOMA HPVSPECG..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/PAPILLOMA/' '/home/siso/datasets/MLDSP/' HPVSPECG kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/PAPILLOMA/' '/home/siso/datasets/MLDSP/' HPVSPECG kastor fasta
 
 echo -e  "\n\n FINISH DATASETS CREATION :) ###########################################################"
 
