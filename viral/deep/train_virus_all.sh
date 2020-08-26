@@ -20,12 +20,12 @@ echo -e  "\n\nCreating HIV HIVGRPCG..."
 python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/HIV/' '/home/siso/datasets/MLDSP/' HIVSUBPOL kastor fasta
 
 
-#echo -e  "\n\nCreating INFLUENZA INFSUBHA..."
-#python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/INFLUENZA/' '/home/siso/datasets/MLDSP/' INFSUBHA kastor fasta
-#echo -e  "\n\nCreating INFLUENZA INFSUBMP..."
-#python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/INFLUENZA/' '/home/siso/datasets/MLDSP/' INFSUBMP kastor fasta
-#echo -e  "\n\nCreating INFLUENZA INSUBFNA..."
-#python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/INFLUENZA/' '/home/siso/datasets/MLDSP/' INSUBFNA kastor fasta
+echo -e  "\n\nCreating INFLUENZA INFSUBHA..."
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/INFLUENZA/' '/home/siso/datasets/MLDSP/' INFSUBHA kastor fasta
+echo -e  "\n\nCreating INFLUENZA INFSUBMP..."
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/INFLUENZA/' '/home/siso/datasets/MLDSP/' INFSUBMP kastor fasta
+echo -e  "\n\nCreating INFLUENZA INSUBFNA..."
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/INFLUENZA/' '/home/siso/datasets/MLDSP/' INSUBFNA kastor fasta
 
 
 echo -e  "\n\nCreating POLYOMAVIRUS POLSPELT..."
@@ -50,36 +50,29 @@ echo -e  "\n\n FINISH DATASETS CREATION :) #####################################
 
 
 
-
-
 echo -e  "\n\ntraining EBOSPECG EBOSPECG dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' EBOSPECG  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' EBOSPECG  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' EBOSPECG  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' EBOSPECG
 
 echo -e  "\n\ntraining HEPATITIS-B HBVGENCG dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' HBVGENCG  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' HBVGENCG  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' HBVGENCG  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' HBVGENCG
 
 # HIV
 echo -e  "\n\ntraining HIV HIVGRPCG dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' HIVGRPCG  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' HIVGRPCG  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' HIVGRPCG  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' HIVGRPCG
 
 echo -e  "\n\ntraining HIV HIVSUBCG dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' HIVSUBCG  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' HIVSUBCG  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' HIVSUBCG  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' HIVSUBCG
 
 echo -e  "\n\ntraining HIV HIVSUBPOL dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' HIVSUBPOL  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' HIVSUBPOL  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' HIVSUBPOL  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' HIVSUBPOL
 
@@ -88,63 +81,53 @@ python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' HIVSUBPOL
 # POLIOMAVIRUS
 echo -e  "\n\ntraining POLYOMAVIRUS POLSPELT dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' POLSPELT  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' POLSPELT  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' POLSPELT  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' POLSPELT
 
 echo -e  "\n\ntraining POLYOMAVIRUS POLSPEST dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' POLSPEST  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' POLSPEST  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' POLSPEST  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' POLSPEST
 
 echo -e  "\n\ntraining POLYOMAVIRUS POLSPEVP1 dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' POLSPEVP1  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' POLSPEVP1  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' POLSPEVP1  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' POLSPEVP1
 
 echo -e  "\n\ntraining POLYOMAVIRUS POLSPEVP2 dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' POLSPEVP2  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' POLSPEVP2  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' POLSPEVP2  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' POLSPEVP2
 
 echo -e  "\n\ntraining POLYOMAVIRUS  POLSPEVP3 dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' POLSPEVP3  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' POLSPEVP3  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' POLSPEVP3  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' POLSPEVP3
 
 # PAPILLOMA
 echo -e  "\n\ntraining PAPILLOMA HPVGENCG dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' HPVGENCG  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' HPVGENCG  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' HPVGENCG  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' HPVGENCG
 
 echo -e  "\n\ntraining PAPILLOMA HPVSPECG dataset..."
 python3 train_mldsp.py '/home/siso/datasets/MLDSP/' HPVSPECG  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/' HPVSPECG  10 128
 python3 train_deep.py '/home/siso/datasets/MLDSP/' HPVSPECG  50 128
 python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' HPVSPECG
 
 # INFLUENZA
-#echo -e  "\n\ntraining INFLUENZA INFSUBHA dataset..."
-#python3 train_mldsp.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBHA  0
-#python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBHA  10 128
-#python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBHA  50 128
-#python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBHA
+echo -e  "\n\ntraining INFLUENZA INFSUBHA dataset..."
+python3 train_mldsp.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBHA  0
+python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBHA  50 128
+python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBHA
 
-#echo -e  "\n\nraining INFLUENZA INFSUBMP dataset..."
-#python3 train_mldsp.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBMP  0
-#python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBMP  10 128
-#python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBMP  50 128
-#python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBMP
+echo -e  "\n\nraining INFLUENZA INFSUBMP dataset..."
+python3 train_mldsp.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBMP  0
+python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBMP  50 128
+python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBMP
 
-#echo -e  "\n\ntraining INFLUENZA INSUBFNA dataset..."
-#python3 train_mldsp.py '/home/siso/datasets/MLDSP/INFLUENZA/' INSUBFNA  0
-#python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INSUBFNA  10 128
-#python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INSUBFNA  50 128
-#python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/INFLUENZA/' INSUBFNA
+echo -e  "\n\ntraining INFLUENZA INSUBFNA dataset..."
+python3 train_mldsp.py '/home/siso/datasets/MLDSP/INFLUENZA/' INSUBFNA  0
+python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INSUBFNA  50 128
+python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/INFLUENZA/' INSUBFNA
 
