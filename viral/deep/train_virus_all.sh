@@ -5,6 +5,7 @@ echo -e  "this script will train mldsp, cnn, kameris and castor over all dataset
 # database creation
 echo -e  "\n\nCreating datasets..."
 
+
 echo -e  "\n\nCreating EBOLA EBOSPECG..."
 python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/EBOLA/' '/home/siso/datasets/MLDSP/' EBOSPECG kastor fasta
 
@@ -44,6 +45,10 @@ echo -e  "\n\nCreating PAPILLOMA HPVGENCG..."
 python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/PAPILLOMA/' '/home/siso/datasets/MLDSP/' HPVGENCG kastor fasta
 echo -e  "\n\nCreating PAPILLOMA HPVSPECG..."
 python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/PAPILLOMA/' '/home/siso/datasets/MLDSP/' HPVSPECG kastor fasta
+
+
+echo -e  "\n\nCreating RHINOVIRUS RHISPECG..."
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/RHINOVIRUS/' '/home/siso/datasets/MLDSP/' RHISPECG kastor fasta
 
 echo -e  "\n\n FINISH DATASETS CREATION :) ###########################################################"
 
@@ -117,17 +122,22 @@ python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' HPVSPECG
 
 # INFLUENZA
 echo -e  "\n\ntraining INFLUENZA INFSUBHA dataset..."
-python3 train_mldsp.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBHA  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBHA  50 128
-python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBHA
+python3 train_mldsp.py '/home/siso/datasets/MLDSP/' INFSUBHA  0
+python3 train_deep.py '/home/siso/datasets/MLDSP/' INFSUBHA  50 128
+python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' INFSUBHA
 
 echo -e  "\n\nraining INFLUENZA INFSUBMP dataset..."
-python3 train_mldsp.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBMP  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBMP  50 128
-python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/INFLUENZA/' INFSUBMP
+python3 train_mldsp.py '/home/siso/datasets/MLDSP/' INFSUBMP  0
+python3 train_deep.py '/home/siso/datasets/MLDSP/' INFSUBMP  50 128
+python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' INFSUBMP
 
 echo -e  "\n\ntraining INFLUENZA INSUBFNA dataset..."
-python3 train_mldsp.py '/home/siso/datasets/MLDSP/INFLUENZA/' INSUBFNA  0
-python3 train_deep.py '/home/siso/datasets/MLDSP/INFLUENZA/' INSUBFNA  50 128
-python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/INFLUENZA/' INSUBFNA
+python3 train_mldsp.py '/home/siso/datasets/MLDSP/' INSUBFNA  0
+python3 train_deep.py '/home/siso/datasets/MLDSP/' INSUBFNA  50 128
+python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' INSUBFNA
 
+# RHINOVIRUS
+echo -e  "\n\ntraining RHINOVIRUS RHISPECG dataset..."
+python3 train_mldsp.py '/home/siso/datasets/MLDSP/' RHISPECG  0
+python3 train_deep.py '/home/siso/datasets/MLDSP/' RHISPECG  50 128
+python3 train_kameris_castor.py '/home/siso/datasets/MLDSP/' RHISPECG

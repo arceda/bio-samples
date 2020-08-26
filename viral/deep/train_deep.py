@@ -138,6 +138,7 @@ database_name = sys.argv[2]
 epochs = int(sys.argv[3])
 batch_size = int(sys.argv[4])
 
+
 # example: python3 train_deep.py '/home/vicente/datasets/MLDSP/' HIVGRPCG 
 
 X_train, y_train, X_test, y_test, labels = read_cgr(5, path_database, database_name)
@@ -148,8 +149,9 @@ X_train, y_train, X_test, y_test, labels = read_cgr(5, path_database, database_n
 
 ##########################################################################################
 ##########################################################################################
-
+'''
 model_type = "tiny"
+
 model = Sequential()#add model layers
 model.add(Conv2D(32, kernel_size=3, activation='relu', input_shape=(32,32,3)))
 model.add(Conv2D(64, kernel_size=3, activation='relu'))
@@ -159,38 +161,46 @@ model.add(Dense(len(labels), activation='softmax'))
 
 #compile model using accuracy to measure model performance
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-
-##########################################################################################
-##########################################################################################
-
-
-##########################################################################################
-##########################################################################################
 '''
+##########################################################################################
+##########################################################################################
+
+
+##########################################################################################
+##########################################################################################
+
 model_type = "medium"
-model=Sequential()
-#model.add(Lambda(standardize,input_shape=(28,28,1)))    
-model.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu", input_shape=(32,32,3)))
-model.add(Conv2D(filters=64, kernel_size = (3,3), activation="relu"))
 
-model.add(MaxPooling2D(pool_size=(2,2)))
-model.add(BatchNormalization())
-model.add(Conv2D(filters=128, kernel_size = (3,3), activation="relu"))
-model.add(Conv2D(filters=128, kernel_size = (3,3), activation="relu"))
+# Initialising the CNN
+classifier = Sequential()
 
-model.add(MaxPooling2D(pool_size=(2,2)))
-model.add(BatchNormalization())    
-model.add(Conv2D(filters=256, kernel_size = (3,3), activation="relu"))
-    
-model.add(MaxPooling2D(pool_size=(2,2)))
-    
-model.add(Flatten())
-model.add(BatchNormalization())
-model.add(Dense(512,activation="relu"))
-    
-model.add(Dense(len(labels),activation="softmax"))    
-model.compile(loss="categorical_crossentropy", optimizer="adam", metrics=["accuracy"])
-'''
+# Step 1 - Convolution
+classifier.add(Conv2D(32, (3, 3), input_shape = (img_rows, img_cols, img_channels), activation = 'relu'))
+
+# Step 2 - Pooling
+classifier.add(MaxPooling2D(pool_size = (2, 2)))
+
+# Adding a second convolutional layer
+classifier.add(Conv2D(64, (3, 3), activation = 'relu'))
+classifier.add(MaxPooling2D(pool_size = (2, 2)))
+
+# Adding a third convolutional layer
+classifier.add(Conv2D(128, (3, 3), activation = 'relu'))
+classifier.add(MaxPooling2D(pool_size = (2, 2)))
+
+# Adding a fourth convolutional layer
+classifier.add(Conv2D(128, (3, 3), activation = 'relu'))
+classifier.add(MaxPooling2D(pool_size = (2, 2)))
+
+# Step 3 - Flattening
+classifier.add(Flatten())
+
+# Step 4 - Full connection
+classifier.add(Dense(units = 64, activation = 'relu'))
+classifier.add(Dense(units = len(labels), activation = 'softmax'))
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
 ##########################################################################################
 ##########################################################################################
 
