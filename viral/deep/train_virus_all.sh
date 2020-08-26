@@ -6,19 +6,18 @@ echo -e  "this script will train mldsp, cnn, kameris and castor over all dataset
 echo -e  "\n\nCreating datasets..."
 
 echo -e  "\n\nCreating EBOLA EBOSPECG..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/EBOLA/' '/home/siso/datasets/MLDSP/' EBOSPECG kastor fasta
-
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/EBOLA/' '/home/siso/datasets/MLDSP/' EBOSPECG kastor fasta
 
 echo -e  "\n\nCreating HEPATITIS-B HBVGENCG..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/HEPATITIS-B/' '/home/siso/datasets/MLDSP/' HBVGENCG kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/HEPATITIS-B/' '/home/siso/datasets/MLDSP/' HBVGENCG kastor fasta
 
 
 echo -e  "\n\nCreating HIV HIVGRPCG..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/HIV/' '/home/siso/datasets/MLDSP/' HIVGRPCG kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/HIV/' '/home/siso/datasets/MLDSP/' HIVGRPCG kastor fasta
 echo -e  "\n\nCreating HIV HIVGRPCG..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/HIV/' '/home/siso/datasets/MLDSP/' HIVSUBCG kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/HIV/' '/home/siso/datasets/MLDSP/' HIVSUBCG kastor fasta
 echo -e  "\n\nCreating HIV HIVGRPCG..."
-python3 buid_dataset_cgr.py '/home/siso/datasets/MLDSP/HIV/' '/home/siso/datasets/MLDSP/' HIVSUBPOL kastor fasta
+python3 buid_dataset_cgr.py '/home/siso/projects/BIOINFORMATICS/datasets/VIRAL/HIV/' '/home/siso/datasets/MLDSP/' HIVSUBPOL kastor fasta
 
 
 #echo -e  "\n\nCreating INFLUENZA INFSUBHA..."
