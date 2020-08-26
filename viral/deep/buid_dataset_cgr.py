@@ -134,7 +134,9 @@ def splitKASTOR(path_database, database_name, path_dest):
         #label = find_class(seq_id, reader_csv)
         label = reader[seq_id]
 
-        print("processing... ", seq_id, label)
+        #print("processing... ", seq_id, label)
+
+        
 
         # save seq in a file
         file_name =  label + "_" + str(file_count) + ".fasta"
