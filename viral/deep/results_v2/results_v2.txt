@@ -178,3 +178,19 @@
  HPVSPECG_acc_cnn=tiny_epoch=50 [0.001028908765874803, 1.0]
  HPVSPECG_acc_kameris_k=5 1.0
  HPVSPECG_acc_castor_k=5 1.0
+ INFSUBHA_acc_mldsp 1.0
+ INFSUBHA_acc_cnn=tiny_epoch=50 [0.0, 1.0]
+ INFSUBHA_acc_kameris_k=5 1.0
+ INFSUBHA_acc_castor_k=5 1.0
+ INFSUBMP_acc_mldsp 0.8900816802800466
+ INFSUBMP_acc_cnn=tiny_epoch=50 [0.09868548522085818, 0.9701283574104309]
+ INFSUBMP_acc_kameris_k=5 0.9892648774795799
+ INFSUBMP_acc_castor_k=5 0.9878646441073512
+ INSUBFNA_acc_mldsp 1.0
+ INSUBFNA_acc_cnn=tiny_epoch=50 [0.0, 1.0]
+ INSUBFNA_acc_kameris_k=5 1.0
+ INSUBFNA_acc_castor_k=5 1.0
+ RHISPECG_acc_mldsp 1.0
+ RHISPECG_acc_cnn=tiny_epoch=50 [2.2312473736912413e-05, 1.0]
+ RHISPECG_acc_kameris_k=5 1.0
+ RHISPECG_acc_castor_k=5 1.0
