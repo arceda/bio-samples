@@ -7,7 +7,7 @@ if not sys.warnoptions:
 from numpy.random import seed
 seed(1)
 import tensorflow as tf
-#tf.random.set_seed(1)
+tf.random.set_seed(1)
 
 
 from sklearn.model_selection import KFold 
@@ -168,7 +168,7 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 
 ##########################################################################################
 ##########################################################################################
-# VGG16
+
 model_type = "medium"
 
 # Initialising the CNN
@@ -176,47 +176,13 @@ model = Sequential()
 
 model.add(Conv2D(input_shape=(32,32,3),filters=64,kernel_size=(3,3),padding="same", activation="relu"))
 
-model.add(Conv2D(filters=64,kernel_size=(3,3),padding="same", activation="relu"))
+model.add(Conv2D(filters=128,kernel_size=(3,3),padding="same", activation="relu"))
 
-model.add(MaxPooling2D(pool_size=(2,2),strides=(2,2)))
-
-model.add(Conv2D(filters=128, kernel_size=(3,3), padding="same", activation="relu"))
-
-model.add(Conv2D(filters=128, kernel_size=(3,3), padding="same", activation="relu"))
-
-#model.add(MaxPool2D(pool_size=(2,2),strides=(2,2)))
-
-model.add(Conv2D(filters=256, kernel_size=(3,3), padding="same", activation="relu"))
-
-model.add(Conv2D(filters=256, kernel_size=(3,3), padding="same", activation="relu"))
-
-model.add(Conv2D(filters=256, kernel_size=(3,3), padding="same", activation="relu"))
-
-#model.add(MaxPool2D(pool_size=(2,2),strides=(2,2)))
-
-model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
-
-model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
-
-model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
-
-#model.add(MaxPool2D(pool_size=(2,2),strides=(2,2)))
-
-model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
-
-model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
-
-model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
-
-#model.add(MaxPool2D(pool_size=(2,2),strides=(2,2)))
+model.add(Conv2D(filters=256,kernel_size=(3,3),padding="same", activation="relu"))
 
 # Step 3 - Flattening
 model.add(Flatten())
-
-model.add(Dense(units=4096,activation="relu"))
-
-model.add(Dense(units=4096,activation="relu"))
-
+model.add(Dense(units=64,activation="relu"))
 model.add(Dense(units = len(labels), activation = 'softmax'))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
