@@ -166,3 +166,7 @@
  POLSPEVP3_acc_cnn=medium_epoch=50 [2.5915058543546365e-08, 1.0]
  HPVGENCG_acc_cnn=medium_epoch=50 [8.874529885360971e-05, 1.0]
  HPVSPECG_acc_cnn=medium_epoch=50 [0.0076573737896978855, 1.0]
+ INFSUBHA_acc_cnn=medium_epoch=50 [0.0, 1.0]
+ INFSUBMP_acc_cnn=medium_epoch=50 [0.05217104197717913, 0.9843640327453613]
+ INSUBFNA_acc_cnn=medium_epoch=50 [0.0, 1.0]
+ RHISPECG_acc_cnn=medium_epoch=50 [9.031005707570192e-10, 1.0]
