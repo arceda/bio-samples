@@ -168,36 +168,56 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 
 ##########################################################################################
 ##########################################################################################
-
+# VGG16
 model_type = "medium"
 
 # Initialising the CNN
-classifier = Sequential()
+model = Sequential()
 
-# Step 1 - Convolution
-classifier.add(Conv2D(32, (3, 3), input_shape = (32, 32, 3), activation = 'relu'))
+model.add(Conv2D(input_shape=(32,32,3),filters=64,kernel_size=(3,3),padding="same", activation="relu"))
 
-# Step 2 - Pooling
-classifier.add(MaxPooling2D(pool_size = (2, 2)))
+model.add(Conv2D(filters=64,kernel_size=(3,3),padding="same", activation="relu"))
 
-# Adding a second convolutional layer
-classifier.add(Conv2D(64, (3, 3), activation = 'relu'))
-classifier.add(MaxPooling2D(pool_size = (2, 2)))
+model.add(MaxPooling2D(pool_size=(2,2),strides=(2,2)))
 
-# Adding a third convolutional layer
-classifier.add(Conv2D(128, (3, 3), activation = 'relu'))
-classifier.add(MaxPooling2D(pool_size = (2, 2)))
+model.add(Conv2D(filters=128, kernel_size=(3,3), padding="same", activation="relu"))
 
-# Adding a fourth convolutional layer
-classifier.add(Conv2D(128, (3, 3), activation = 'relu'))
-classifier.add(MaxPooling2D(pool_size = (2, 2)))
+model.add(Conv2D(filters=128, kernel_size=(3,3), padding="same", activation="relu"))
+
+#model.add(MaxPool2D(pool_size=(2,2),strides=(2,2)))
+
+model.add(Conv2D(filters=256, kernel_size=(3,3), padding="same", activation="relu"))
+
+model.add(Conv2D(filters=256, kernel_size=(3,3), padding="same", activation="relu"))
+
+model.add(Conv2D(filters=256, kernel_size=(3,3), padding="same", activation="relu"))
+
+#model.add(MaxPool2D(pool_size=(2,2),strides=(2,2)))
+
+model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
+
+model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
+
+model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
+
+#model.add(MaxPool2D(pool_size=(2,2),strides=(2,2)))
+
+model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
+
+model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
+
+model.add(Conv2D(filters=512, kernel_size=(3,3), padding="same", activation="relu"))
+
+#model.add(MaxPool2D(pool_size=(2,2),strides=(2,2)))
 
 # Step 3 - Flattening
-classifier.add(Flatten())
+model.add(Flatten())
 
-# Step 4 - Full connection
-classifier.add(Dense(units = 64, activation = 'relu'))
-classifier.add(Dense(units = len(labels), activation = 'softmax'))
+model.add(Dense(units=4096,activation="relu"))
+
+model.add(Dense(units=4096,activation="relu"))
+
+model.add(Dense(units = len(labels), activation = 'softmax'))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
