@@ -41,6 +41,8 @@ python3 train_deep.py '/home/siso/datasets/MLDSP/' EBOSPECG  50 128
 echo -e  "\n\ntraining HEPATITIS-B HBVGENCG dataset..."
 python3 train_deep.py '/home/siso/datasets/MLDSP/' HBVGENCG  50 128
 
+
+
 echo -e  "\n\ntraining HIV HIVGRPCG dataset..."
 python3 train_deep.py '/home/siso/datasets/MLDSP/' HIVGRPCG  50 128
 

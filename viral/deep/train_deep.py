@@ -31,7 +31,7 @@ import glob
 
 from tensorflow.keras import datasets, layers, models
 from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
+from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
 from keras.utils import to_categorical
 from keras.utils.vis_utils import plot_model
 
@@ -166,9 +166,11 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 ##########################################################################################
 
 
-##########################################################################################
-##########################################################################################
+# cnn es vencido en Plants, Insects, HIV,  INFSUBMP
 
+##########################################################################################
+##########################################################################################
+'''
 model_type = "medium"
 
 # Initialising the CNN
@@ -186,11 +188,58 @@ model.add(Dense(units=64,activation="relu"))
 model.add(Dense(units = len(labels), activation = 'softmax'))
 
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+'''
+##########################################################################################
+##########################################################################################
 
 ##########################################################################################
 ##########################################################################################
 
+model_type = "complex"
 
+# Initialising the CNN
+model = Sequential()
+
+model.add(Conv2D(input_shape=(32,32,3),filters=8,kernel_size=(3,3),padding="same", activation="relu"))
+#model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
+model.add(BatchNormalization())
+
+model.add(Conv2D(input_shape=(32,32,3),filters=16,kernel_size=(3,3),padding="same", activation="relu"))
+#model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
+model.add(BatchNormalization())
+
+model.add(Conv2D(input_shape=(32,32,3),filters=32,kernel_size=(3,3),padding="same", activation="relu"))
+#model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
+model.add(BatchNormalization())
+
+model.add(Conv2D(input_shape=(32,32,3),filters=64,kernel_size=(3,3),padding="same", activation="relu"))
+#model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
+model.add(BatchNormalization())
+
+model.add(Conv2D(input_shape=(32,32,3),filters=128,kernel_size=(3,3),padding="same", activation="relu"))
+#model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
+model.add(BatchNormalization())
+
+model.add(Flatten())
+
+model.add(Dense(units=256,activation="relu"))
+model.add(Dropout(0.4))
+model.add(BatchNormalization())
+
+model.add(Dense(units=128,activation="relu"))
+model.add(Dropout(0.4))
+model.add(BatchNormalization())
+
+model.add(Dense(units=64,activation="relu"))
+model.add(Dropout(0.4))
+model.add(BatchNormalization())
+
+model.add(Dense(units = len(labels), activation = 'softmax'))
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+##########################################################################################
+##########################################################################################
 
 
 history = model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split=0.2)

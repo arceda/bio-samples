@@ -1,62 +1,70 @@
 
  Primates_acc_mldsp 0.9666666666666667
- Primates_acc_kameris_k=5 1.0
- Primates_acc_castor_k=5 1.0
  Primates_acc_cnn=tiny_epoch=10 [0.10077156871557236, 0.9666666388511658]
  Primates_acc_cnn=tiny_epoch=50 [0.014810207299888134, 1.0]
- Primates_acc_cnn=medium_epoch=50 [0.01231743860989809, 1.0]
- Primates_acc_cnn=medium_epoch=100 [0.0007625211146660149, 1.0]
+ Primates_acc_cnn=medium_epoch=50 [0.005414072424173355, 1.0]
+ Primates_acc_kameris_k=5 1.0
+ Primates_acc_castor_k=5 1.0
 
  Dengue_acc_mldsp 0.9957671957671957
  Dengue_acc_cnn=tiny_epoch=10 [1.921163601537046e-07, 1.0]
+ Dengue_acc_cnn=medium_epoch=50 [1.5780660873349002e-07, 1.0]
  Dengue_acc_kameris_k=5 1.0
  Dengue_acc_castor_k=5 1.0
 
  Protists_acc_mldsp 0.5
  Protists_acc_cnn=tiny_epoch=10 [0.056667983531951904, 1.0]
  Protists_acc_cnn=tiny_epoch=50 [0.010112476535141468, 1.0]
+ Protists_acc_cnn=medium_epoch=50 [0.1196613609790802, 0.96875]
  Protists_acc_kameris_k=5 1.0
  Protists_acc_castor_k=5 1.0
 
  Fungi_acc_mldsp 0.4
  Fungi_acc_cnn=tiny_epoch=10 [0.17964475486013626, 0.9333333373069763]
  Fungi_acc_cnn=tiny_epoch=50 [0.03322288131134377, 1.0]
+ Fungi_acc_cnn=medium_epoch=50 [0.00915911150061422, 1.0]
  Fungi_acc_kameris_k=5 1.0
  Fungi_acc_castor_k=5 1.0
 
  Plants_acc_mldsp 0.6857142857142857
  Plants_acc_cnn=tiny_epoch=10 [0.44280468566077097, 0.800000011920929]
  Plants_acc_cnn=tiny_epoch=50 [0.3141072486128126, 0.8857142925262451]
+ Plants_acc_cnn=medium_epoch=50 [0.24809082065309798, 0.9142857193946838]
  Plants_acc_kameris_k=5 0.8857142857142857
  Plants_acc_castor_k=5 0.9714285714285714
 
  Amphibians_acc_mldsp 0.603448275862069
  Amphibians_acc_cnn=tiny_epoch=10 [0.041683925685055294, 0.982758641242981]
  Amphibians_acc_cnn=tiny_epoch=50 [0.00658757778302092, 1.0]
+ Amphibians_acc_cnn=medium_epoch=50 [0.0003424828339183446, 1.0]
  Amphibians_acc_kameris_k=5 1.0
  Amphibians_acc_castor_k=5 1.0
 
  Mammals_acc_mldsp 0.2222222222222222
  Mammals_acc_cnn=tiny_epoch=10 [1.849884033203125, 0.5555555820465088]
  Mammals_acc_cnn=tiny_epoch=50 [0.0023193657398223877, 1.0]
+ Mammals_acc_cnn=medium_epoch=50 [1.845999002456665, 0.7777777910232544]
  Mammals_acc_kameris_k=5 1.0
  Mammals_acc_castor_k=5 1.0
 
  Insects_acc_mldsp 0.37222222222222223
  Insects_acc_cnn=tiny_epoch=10 [0.1333490946640571, 0.9611111283302307]
  Insects_acc_cnn=tiny_epoch=50 [0.18515544339186615, 0.9555555582046509]
+ Insects_acc_cnn=medium_epoch=50 [0.14138551623457007, 0.9666666388511658]
  Insects_acc_kameris_k=5 0.9944444444444445
  Insects_acc_castor_k=5 0.9944444444444445
 
  3classes_acc_mldsp 0.5691244239631337
  3classes_acc_cnn=tiny_epoch=10 [0.0007124856850416008, 1.0]
  3classes_acc_cnn=tiny_epoch=50 [4.755165299839525e-06, 1.0]
+ 3classes_acc_cnn=medium_epoch=50 [0.00018883784916364936, 1.0]
  3classes_acc_kameris_k=5 1.0
  3classes_acc_castor_k=5 1.0
 
  Vertebrates_acc_mldsp 0.5236994219653179
  Vertebrates_acc_cnn=tiny_epoch=10 [0.08762570860201782, 0.9976878762245178]
  Vertebrates_acc_cnn=tiny_epoch=50 [0.08780530519444187, 0.9976878762245178]
+ Vertebrates_acc_cnn=medium_epoch=50 [0.07641444672364475, 0.9988439083099365]
  Vertebrates_acc_kameris_k=5 0.9976878612716763
  Vertebrates_acc_castor_k=5 0.9976878612716763
 
@@ -65,108 +73,106 @@
 
  EBOSPECG_acc_mldsp 0.9205298013245033
  EBOSPECG_acc_cnn=tiny_epoch=50 [2.7631275286952908e-08, 1.0]
+ EBOSPECG_acc_cnn=medium_epoch=50 [2.842074722143073e-08, 1.0]
  EBOSPECG_acc_kameris_k=5 1.0
  EBOSPECG_acc_castor_k=5 1.0
 
  HBVGENCG_acc_mldsp 0.15217391304347827
  HBVGENCG_acc_cnn=tiny_epoch=50 [9.637057565254034e-06, 1.0]
+ HBVGENCG_acc_cnn=medium_epoch=50 [9.638899257919073e-05, 1.0]
  HBVGENCG_acc_kameris_k=5 1.0
  HBVGENCG_acc_castor_k=5 1.0
 
+
  HIVGRPCG_acc_mldsp 0.4375
  HIVGRPCG_acc_cnn=tiny_epoch=50 [0.3953207731246948, 0.9375]
+ HIVGRPCG_acc_cnn=medium_epoch=50 [0.008067506365478039, 1.0]
  HIVGRPCG_acc_kameris_k=5 1.0
  HIVGRPCG_acc_castor_k=5 1.0
 
+*******************************************************************************
  HIVSUBCG_acc_mldsp 0.05
  HIVSUBCG_acc_cnn=tiny_epoch=50 [0.22468621705969175, 0.9666666388511658]
+ HIVSUBCG_acc_cnn=medium_epoch=50 [0.18255866592129072, 0.9833333492279053]
  HIVSUBCG_acc_kameris_k=5 1.0
  HIVSUBCG_acc_castor_k=5 1.0
 
  HIVSUBPOL_acc_mldsp 0.01107011070110701
  HIVSUBPOL_acc_cnn=tiny_epoch=50 [0.06972760457985405, 0.9852398633956909]
+ HIVSUBPOL_acc_cnn=medium_epoch=50 [0.12322441675370333, 0.9704797267913818]
  HIVSUBPOL_acc_kameris_k=5 0.992619926199262
  HIVSUBPOL_acc_castor_k=5 0.992619926199262
+*******************************************************************************
 
  POLSPELT_acc_mldsp 0.34615384615384615
  POLSPELT_acc_cnn=tiny_epoch=50 [3.599492073059082, 0.9230769276618958]
+ POLSPELT_acc_cnn=medium_epoch=50 [2.421379566192627, 0.9230769276618958]
  POLSPELT_acc_kameris_k=5 0.9230769230769231
  POLSPELT_acc_castor_k=5 0.9230769230769231
 
  POLSPEST_acc_mldsp 0.3076923076923077
  POLSPEST_acc_cnn=tiny_epoch=50 [0.001108724158257246, 1.0]
+ POLSPEST_acc_cnn=medium_epoch=50 [6.694025387332658e-07, 1.0]
  POLSPEST_acc_kameris_k=5 1.0
  POLSPEST_acc_castor_k=5 1.0
 
  POLSPEVP1_acc_mldsp 0.4
  POLSPEVP1_acc_cnn=tiny_epoch=50 [0.008956634439527988, 1.0]
+ POLSPEVP1_acc_cnn=medium_epoch=50 [0.0022757009137421846, 1.0]
  POLSPEVP1_acc_kameris_k=5 0.96
  POLSPEVP1_acc_castor_k=5 0.96
 
  POLSPEVP2_acc_mldsp 0.56
  POLSPEVP2_acc_cnn=tiny_epoch=50 [3.0540027618408203, 0.9599999785423279]
+ POLSPEVP2_acc_cnn=medium_epoch=50 [1.1534994840621948, 0.9599999785423279]
  POLSPEVP2_acc_kameris_k=5 0.96
  POLSPEVP2_acc_castor_k=5 0.96
 
  POLSPEVP3_acc_mldsp 0.4782608695652174
  POLSPEVP3_acc_cnn=tiny_epoch=50 [2.503361201888765e-06, 1.0]
+ POLSPEVP3_acc_cnn=medium_epoch=50 [2.5915058543546365e-08, 1.0]
  POLSPEVP3_acc_kameris_k=5 1.0
  POLSPEVP3_acc_castor_k=5 1.0
 
  HPVGENCG_acc_mldsp 0.36
  HPVGENCG_acc_cnn=tiny_epoch=50 [0.03626296669244766, 1.0]
+ HPVGENCG_acc_cnn=medium_epoch=50 [8.874529885360971e-05, 1.0]
  HPVGENCG_acc_kameris_k=5 1.0
  HPVGENCG_acc_castor_k=5 1.0
 
  HPVSPECG_acc_mldsp 0.08333333333333333
  HPVSPECG_acc_cnn=tiny_epoch=50 [0.001028908765874803, 1.0]
+ HPVSPECG_acc_cnn=medium_epoch=50 [0.0076573737896978855, 1.0]
  HPVSPECG_acc_kameris_k=5 1.0
  HPVSPECG_acc_castor_k=5 1.0
 
  INFSUBHA_acc_mldsp 1.0
  INFSUBHA_acc_cnn=tiny_epoch=50 [0.0, 1.0]
+ INFSUBHA_acc_cnn=medium_epoch=50 [0.0, 1.0]
  INFSUBHA_acc_kameris_k=5 1.0
  INFSUBHA_acc_castor_k=5 1.0
 
+*******************************************************************************
  INFSUBMP_acc_mldsp 0.8900816802800466
  INFSUBMP_acc_cnn=tiny_epoch=50 [0.09868548522085818, 0.9701283574104309]
+ INFSUBMP_acc_cnn=medium_epoch=50 [0.05217104197717913, 0.9843640327453613]
  INFSUBMP_acc_kameris_k=5 0.9892648774795799
  INFSUBMP_acc_castor_k=5 0.9878646441073512
+*******************************************************************************
 
  INSUBFNA_acc_mldsp 1.0
  INSUBFNA_acc_cnn=tiny_epoch=50 [0.0, 1.0]
+ INSUBFNA_acc_cnn=medium_epoch=50 [0.0, 1.0]
  INSUBFNA_acc_kameris_k=5 1.0
  INSUBFNA_acc_castor_k=5 1.0
 
  RHISPECG_acc_mldsp 1.0
  RHISPECG_acc_cnn=tiny_epoch=50 [2.2312473736912413e-05, 1.0]
+ RHISPECG_acc_cnn=medium_epoch=50 [9.031005707570192e-10, 1.0]
  RHISPECG_acc_kameris_k=5 1.0
  RHISPECG_acc_castor_k=5 1.0
 
  
- Primates_acc_cnn=medium_epoch=50 [0.005414072424173355, 1.0]
- Dengue_acc_cnn=medium_epoch=50 [1.5780660873349002e-07, 1.0]
- Protists_acc_cnn=medium_epoch=50 [0.1196613609790802, 0.96875]
- Fungi_acc_cnn=medium_epoch=50 [0.00915911150061422, 1.0]
- Plants_acc_cnn=medium_epoch=50 [0.24809082065309798, 0.9142857193946838]
- Amphibians_acc_cnn=medium_epoch=50 [0.0003424828339183446, 1.0]
- Mammals_acc_cnn=medium_epoch=50 [1.845999002456665, 0.7777777910232544]
- Insects_acc_cnn=medium_epoch=50 [0.14138551623457007, 0.9666666388511658]
- 3classes_acc_cnn=medium_epoch=50 [0.00018883784916364936, 1.0]
- Vertebrates_acc_cnn=medium_epoch=50 [0.07641444672364475, 0.9988439083099365]
- EBOSPECG_acc_cnn=medium_epoch=50 [2.842074722143073e-08, 1.0]
- HBVGENCG_acc_cnn=medium_epoch=50 [9.638899257919073e-05, 1.0]
- HIVGRPCG_acc_cnn=medium_epoch=50 [0.008067506365478039, 1.0]
- HIVSUBCG_acc_cnn=medium_epoch=50 [0.18255866592129072, 0.9833333492279053]
- HIVSUBPOL_acc_cnn=medium_epoch=50 [0.12322441675370333, 0.9704797267913818]
- POLSPELT_acc_cnn=medium_epoch=50 [2.421379566192627, 0.9230769276618958]
- POLSPEST_acc_cnn=medium_epoch=50 [6.694025387332658e-07, 1.0]
- POLSPEVP1_acc_cnn=medium_epoch=50 [0.0022757009137421846, 1.0]
- POLSPEVP2_acc_cnn=medium_epoch=50 [1.1534994840621948, 0.9599999785423279]
- POLSPEVP3_acc_cnn=medium_epoch=50 [2.5915058543546365e-08, 1.0]
- HPVGENCG_acc_cnn=medium_epoch=50 [8.874529885360971e-05, 1.0]
- HPVSPECG_acc_cnn=medium_epoch=50 [0.0076573737896978855, 1.0]
- INFSUBHA_acc_cnn=medium_epoch=50 [0.0, 1.0]
- INFSUBMP_acc_cnn=medium_epoch=50 [0.05217104197717913, 0.9843640327453613]
- INSUBFNA_acc_cnn=medium_epoch=50 [0.0, 1.0]
- RHISPECG_acc_cnn=medium_epoch=50 [9.031005707570192e-10, 1.0]
+ HIVSUBCG_acc_cnn=complex_epoch=50 [1.2060253620147705, 0.8583333492279053] # with one layer of maxpooling at the begining
+ HIVSUBCG_acc_cnn=complex_epoch=100 [0.15811100602149963, 0.9666666388511658] # with one layer of maxpooling at the begining
+ HIVSUBCG_acc_cnn=complex_epoch=100 [0.10475807636976242, 0.9916666746139526] # without maxpooling
