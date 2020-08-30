@@ -174,6 +174,44 @@ for ax in axs.flat:
 plt.savefig(current_dir + '/results/' + 'comparison4_kameris_castor_dr=0_1.png', dpi = 300)
 #############################################################################################
 
+
+############################################################################################
+# comparison between 'POLSPELT', 'HIVGRPCG', 'HIVSUBCG', 'HIVSUBPOL' without dimentionality reduction
+fig, (axs1, axs2, axs3) = plt.subplots(nrows=3, ncols=1)
+fig.tight_layout() # agrega padding
+axs1.plot(HIVGRPCG[:, k_pos], HIVGRPCG[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs1.plot(HIVGRPCG[:, k_pos], HIVGRPCG[:, fscore_castor_pos], 'b', label='castor')
+axs1.plot(HIVGRPCG_dr[:, k_pos], HIVGRPCG_dr[:, fscore_kameris_pos], 'g--', label='kameris-svd')
+axs1.plot(HIVGRPCG_dr[:, k_pos], HIVGRPCG_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
+axs1.legend(loc='lower right', fontsize=8)
+axs1.set_title('HIVGRPCG')
+axs2.plot(HIVSUBCG[:, k_pos], HIVSUBCG[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs2.plot(HIVSUBCG[:, k_pos], HIVSUBCG[:, fscore_castor_pos], 'b', label='castor')
+axs2.plot(HIVSUBCG_dr[:, k_pos], HIVSUBCG_dr[:, fscore_kameris_pos], 'g--', label='kameris-svd')
+axs2.plot(HIVSUBCG_dr[:, k_pos], HIVSUBCG_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
+axs2.legend(loc='lower right', fontsize=8)
+axs2.set_title('HIVSUBCG')
+axs3.plot(HIVSUBPOL[:, k_pos], HIVSUBPOL[:, fscore_kameris_pos], 'r.-', label='kameris')
+axs3.plot(HIVSUBPOL[:, k_pos], HIVSUBPOL[:, fscore_castor_pos], 'b', label='castor')
+axs3.plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, fscore_kameris_pos], 'g--', label='kameris-svd')
+axs3.plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, fscore_castor_pos], 'm-.', label='castor-krfe')
+axs3.legend(loc='lower right', fontsize=8)
+axs3.set_title('HIVSUBPOL')
+
+axs1.label_outer()
+axs2.label_outer()
+
+for ax in axs.flat:
+    ax.set(xlabel='k', ylabel='fscore')
+
+# Hide x labels and tick labels for top plots and y ticks for right plots.
+for ax in axs.flat:
+    ax.label_outer()
+
+#plt.show()
+plt.savefig(current_dir + '/results/' + 'comparison4_1_kameris_castor_dr=0_1.png', dpi = 300)
+#############################################################################################
+
 '''
 ############################################################################################
 # comparison between kameris with and with SVD 'POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST' 
@@ -371,6 +409,37 @@ for ax in axs.flat:
 
 #plt.show()
 plt.savefig(current_dir + '/results/' + 'comparison5_kameris_castor_dr=0_1.png', dpi = 300)
+#############################################################################################
+
+############################################################################################
+# comparison between 'POLSPEVP1', 'POLSPEVP2', 'POLSPEVP3', 'POLSPEST' without dimentionality reduction
+fig, (axs1, axs2, axs3) = plt.subplots(nrows=3, ncols=1)
+fig.tight_layout() # agrega padding
+axs1.plot(HIVGRPCG_dr[:, k_pos], HIVGRPCG_dr[:, nfeatures_kameris_pos], 'g--', label='kameris-svd')
+axs1.plot(HIVGRPCG_dr[:, k_pos], HIVGRPCG_dr[:, nfeatures_castor_pos], 'm-.', label='castor-krfe')
+axs1.legend(loc='upper left', fontsize=8)
+axs1.set_title('HIVGRPCG')
+axs2.plot(HIVSUBCG_dr[:, k_pos], HIVSUBCG_dr[:, nfeatures_kameris_pos], 'g--', label='kameris-svd')
+axs2.plot(HIVSUBCG_dr[:, k_pos], HIVSUBCG_dr[:, nfeatures_castor_pos], 'm-.', label='castor-krfe')
+axs2.legend(loc='upper left', fontsize=8)
+axs2.set_title('HIVSUBCG')
+axs3.plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, nfeatures_kameris_pos], 'g--', label='kameris-svd')
+axs3.plot(HIVSUBPOL_dr[:, k_pos], HIVSUBPOL_dr[:, nfeatures_castor_pos], 'm-.', label='castor-krfe')
+axs3.legend(loc='upper left', fontsize=8)
+axs3.set_title('HIVSUBPOL')
+
+axs2.label_outer()
+axs1.label_outer()
+
+for ax in axs.flat:
+    ax.set(xlabel='k', ylabel='nfeatures')
+
+# Hide x labels and tick labels for top plots and y ticks for right plots.
+for ax in axs.flat:
+    ax.label_outer()
+
+#plt.show()
+plt.savefig(current_dir + '/results/' + 'comparison5_1_kameris_castor_dr=0_1.png', dpi = 300)
 #############################################################################################
 
 

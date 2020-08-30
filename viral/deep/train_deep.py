@@ -240,11 +240,15 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 
 ##########################################################################################
 ##########################################################################################
+#plot_model(model, to_file='model_plot_complex.png', show_shapes=True, show_layer_names=True,  rankdir='TB', expand_nested=True, dpi=96)
 
+#plot_model(model,  show_shapes=True, show_layer_names=True)
+
+#sys.exit(0)
 
 history = model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split=0.2)
 
-#plot_model(model, to_file='model_plot.png', show_shapes=True, show_layer_names=True)
+
 
 #########################################################################################################
 # Plot the loss and accuracy curves for training and validation
