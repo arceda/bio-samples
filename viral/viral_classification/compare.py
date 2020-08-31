@@ -202,7 +202,8 @@ if dataset_type  == 'POL':
     datasets = ['POLYOMAVIRUS/POLSPEVP1', 'POLYOMAVIRUS/POLSPEVP2', 'POLYOMAVIRUS/POLSPEVP3', 
                 'POLYOMAVIRUS/POLSPEST', 'POLYOMAVIRUS/POLSPELT'] 
 elif dataset_type  == 'HIV':
-    datasets = ['HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL'] 
+    datasets = ['HIV/HIVSUBPOL'] 
+    #datasets = ['HIV/HIVGRPCG', 'HIV/HIVSUBCG', 'HIV/HIVSUBPOL'] 
 
 elif dataset_type  == 'DENGE':
     datasets = ['DENGE/DENSPECG'] 
