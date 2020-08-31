@@ -1,6 +1,6 @@
 import os
 import subprocess
-import kameris_formats
+#import kameris_formats
 import numpy as np
 from Bio import SeqIO
 import re

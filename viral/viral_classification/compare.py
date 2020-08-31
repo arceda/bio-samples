@@ -221,12 +221,13 @@ for i, dataset in enumerate(datasets):
 
     csv = []
 
-    for k in range(1,10):
+    #for k in range(1,10):
+    for k in range(5, 6):
         print("\n\nEvaluating with k-mer:", k, " ==========================")
 
         data = fe.generateLabeledData(dataset_path + dataset + "/data.fa", dataset_path  + dataset + "/class.csv")         
         
-        kf = KFold(n_splits = 5, shuffle = True, random_state=1)
+        kf = KFold(n_splits = 10, shuffle = True, random_state=1)
         i = 0
 
         metrics_castor = []
@@ -253,7 +254,9 @@ for i, dataset in enumerate(datasets):
         metrics_castor_mean     = metrics_castor.mean(0)
 
         print("mean metrics_kameris: ", np.array(metrics_kameris_mean)[0])
+        print(metrics_kameris)
         print("mean metrics_castor:  ", np.array(metrics_castor_mean)[0])
+        print(metrics_castor)
 
         row = np.append( np.array([k]), np.array(metrics_kameris_mean)[0]  )
         row = np.append( row , np.array(metrics_castor_mean)[0] )
@@ -262,8 +265,8 @@ for i, dataset in enumerate(datasets):
 
     file_name = current_dir + '/results/' + dataset.split('/')[1] + '_dr=' + str(dimention_reduction) + "_nfeatures.csv"
     header = "'k', 'k_acc', 'k_presicion', 'k_recall', 'k_fscore', 'k_nfeatures', 'c_acc', 'c_presicion', 'c_recall', 'c_fscore', 'c_nfeatures'"
-    np.savetxt(file_name, np.array(csv), delimiter=',', fmt='%f', header=header)
-    print("save file to: ", file_name)
+    #np.savetxt(file_name, np.array(csv), delimiter=',', fmt='%f', header=header)
+    #print("save file to: ", file_name)
         
     
 
