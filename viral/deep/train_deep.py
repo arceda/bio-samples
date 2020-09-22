@@ -34,7 +34,10 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
 from keras.utils import to_categorical
 from keras.utils.vis_utils import plot_model
+from sklearn.metrics import precision_recall_fscore_support
+from sklearn.metrics import accuracy_score
 
+from keras.utils import to_categorical
 from keras.layers.normalization import BatchNormalization
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
@@ -137,9 +140,9 @@ path_database = sys.argv[1]
 database_name = sys.argv[2]
 epochs = int(sys.argv[3])
 batch_size = int(sys.argv[4])
+model_type = sys.argv[5]
 
-
-# example: python3 train_deep.py '/home/vicente/datasets/MLDSP/' HIVGRPCG 
+# example: python3 train_deep.py '/home/vicente/datasets/MLDSP/' Primates 10 32 tiny 
 
 X_train, y_train, X_test, y_test, labels = read_cgr(5, path_database, database_name)
 
@@ -149,19 +152,18 @@ X_train, y_train, X_test, y_test, labels = read_cgr(5, path_database, database_n
 
 ##########################################################################################
 ##########################################################################################
-'''
-model_type = "tiny"
+if model_type == "tiny":
 
-model = Sequential()#add model layers
-model.add(Conv2D(32, kernel_size=3, activation='relu', input_shape=(32,32,3)))
-model.add(Conv2D(64, kernel_size=3, activation='relu'))
-model.add(Conv2D(64, kernel_size=3, activation='relu'))
-model.add(Flatten())
-model.add(Dense(len(labels), activation='softmax'))
+    model = Sequential()#add model layers
+    model.add(Conv2D(32, kernel_size=3, activation='relu', input_shape=(32,32,3)))
+    model.add(Conv2D(64, kernel_size=3, activation='relu'))
+    model.add(Conv2D(64, kernel_size=3, activation='relu'))
+    model.add(Flatten())
+    model.add(Dense(len(labels), activation='softmax'))
 
-#compile model using accuracy to measure model performance
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-'''
+    #compile model using accuracy to measure model performance
+    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
 ##########################################################################################
 ##########################################################################################
 
@@ -170,73 +172,72 @@ model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accur
 
 ##########################################################################################
 ##########################################################################################
-'''
-model_type = "medium"
 
-# Initialising the CNN
-model = Sequential()
+if model_type == "medium":
 
-model.add(Conv2D(input_shape=(32,32,3),filters=64,kernel_size=(3,3),padding="same", activation="relu"))
+    # Initialising the CNN
+    model = Sequential()
 
-model.add(Conv2D(filters=128,kernel_size=(3,3),padding="same", activation="relu"))
+    model.add(Conv2D(input_shape=(32,32,3),filters=64,kernel_size=(3,3),padding="same", activation="relu"))
 
-model.add(Conv2D(filters=256,kernel_size=(3,3),padding="same", activation="relu"))
+    model.add(Conv2D(filters=128,kernel_size=(3,3),padding="same", activation="relu"))
 
-# Step 3 - Flattening
-model.add(Flatten())
-model.add(Dense(units=64,activation="relu"))
-model.add(Dense(units = len(labels), activation = 'softmax'))
+    model.add(Conv2D(filters=256,kernel_size=(3,3),padding="same", activation="relu"))
 
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-'''
-##########################################################################################
-##########################################################################################
+    # Step 3 - Flattening
+    model.add(Flatten())
+    model.add(Dense(units=64,activation="relu"))
+    model.add(Dense(units = len(labels), activation = 'softmax'))
+
+    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 ##########################################################################################
 ##########################################################################################
 
-model_type = "complex"
+##########################################################################################
+##########################################################################################
 
-# Initialising the CNN
-model = Sequential()
+if model_type == "complex":
+    # Initialising the CNN
+    model = Sequential()
 
-model.add(Conv2D(input_shape=(32,32,3),filters=8,kernel_size=(3,3),padding="same", activation="relu"))
-#model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
-model.add(BatchNormalization())
+    model.add(Conv2D(input_shape=(32,32,3),filters=8,kernel_size=(3,3),padding="same", activation="relu"))
+    #model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
+    model.add(BatchNormalization())
 
-model.add(Conv2D(input_shape=(32,32,3),filters=16,kernel_size=(3,3),padding="same", activation="relu"))
-#model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
-model.add(BatchNormalization())
+    model.add(Conv2D(input_shape=(32,32,3),filters=16,kernel_size=(3,3),padding="same", activation="relu"))
+    #model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
+    model.add(BatchNormalization())
 
-model.add(Conv2D(input_shape=(32,32,3),filters=32,kernel_size=(3,3),padding="same", activation="relu"))
-#model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
-model.add(BatchNormalization())
+    model.add(Conv2D(input_shape=(32,32,3),filters=32,kernel_size=(3,3),padding="same", activation="relu"))
+    #model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
+    model.add(BatchNormalization())
 
-model.add(Conv2D(input_shape=(32,32,3),filters=64,kernel_size=(3,3),padding="same", activation="relu"))
-#model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
-model.add(BatchNormalization())
+    model.add(Conv2D(input_shape=(32,32,3),filters=64,kernel_size=(3,3),padding="same", activation="relu"))
+    #model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
+    model.add(BatchNormalization())
 
-model.add(Conv2D(input_shape=(32,32,3),filters=128,kernel_size=(3,3),padding="same", activation="relu"))
-#model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
-model.add(BatchNormalization())
+    model.add(Conv2D(input_shape=(32,32,3),filters=128,kernel_size=(3,3),padding="same", activation="relu"))
+    #model.add(MaxPooling2D(pool_size=(2), strides=(2), padding='valid'))
+    model.add(BatchNormalization())
 
-model.add(Flatten())
+    model.add(Flatten())
 
-model.add(Dense(units=256,activation="relu"))
-model.add(Dropout(0.4))
-model.add(BatchNormalization())
+    model.add(Dense(units=256,activation="relu"))
+    model.add(Dropout(0.4))
+    model.add(BatchNormalization())
 
-model.add(Dense(units=128,activation="relu"))
-model.add(Dropout(0.4))
-model.add(BatchNormalization())
+    model.add(Dense(units=128,activation="relu"))
+    model.add(Dropout(0.4))
+    model.add(BatchNormalization())
 
-model.add(Dense(units=64,activation="relu"))
-model.add(Dropout(0.4))
-model.add(BatchNormalization())
+    model.add(Dense(units=64,activation="relu"))
+    model.add(Dropout(0.4))
+    model.add(BatchNormalization())
 
-model.add(Dense(units = len(labels), activation = 'softmax'))
+    model.add(Dense(units = len(labels), activation = 'softmax'))
 
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+    model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
 ##########################################################################################
 ##########################################################################################
@@ -283,12 +284,26 @@ plt.savefig(current_dir + '/results_v2/' + database_name + '_history_cnn=' + mod
 #plt.savefig(current_dir + '/results/' + database_name + '_matrix_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
 
 
-results = model.evaluate(X_test, y_test)
-print(results)
-print(model.metrics_names)
+#results = model.evaluate(X_test, y_test)
+#print(results)
+#print(model.metrics_names)
 
-with open(current_dir + '/results_v2/results_v2.txt', "a") as myfile:
-    myfile.write("\n " + database_name + "_acc_cnn=" + model_type + '_epoch='+ str(epochs) + ' ' + str(results))
+y_pred = model.predict(X_test)
+#print(y_pred, y_test)
+
+y_pred = np.argmax(y_pred, axis=-1)
+y_test = np.argmax(y_test, axis=-1)
+
+#print(y_pred, y_test)
+acc = accuracy_score(y_test, y_pred)
+metrics = precision_recall_fscore_support(y_test, y_pred, average='weighted')
+#print(acc, metrics)
+
+with open(current_dir + '/results_v3/results_v3.csv', "a") as myfile:
+    myfile.write("\n" + database_name +",CNN-" + model_type + "," + str(acc) + ","+ str(metrics[0]) + ","+ str(metrics[1]) + "," + str(metrics[2]))
+
+#with open(current_dir + '/results_v2/results_v2.txt', "a") as myfile:
+#    myfile.write("\n " + database_name + "_acc_cnn=" + model_type + '_epoch='+ str(epochs) + ' ' + str(results))
 
 #predict first 4 images in the test set
 #results = model.predict(X_test)

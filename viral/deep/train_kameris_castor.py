@@ -38,7 +38,7 @@ from keras.utils import to_categorical
 from keras.utils.vis_utils import plot_model
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import StandardScaler
-
+from sklearn.metrics import precision_recall_fscore_support
 from keras.layers.normalization import BatchNormalization
 import seaborn as sns
 from sklearn.preprocessing import LabelEncoder
@@ -58,7 +58,7 @@ import csv
 import mykameris as kam
 import feature_extractor as fe
 
-
+import time
 
 def kameris(X_train, y_train, X_test, y_test, k, dimention_reduction):
 
@@ -117,11 +117,12 @@ def kameris(X_train, y_train, X_test, y_test, k, dimention_reduction):
     # predict
     y_pred = clf.predict(X_test)
         
-    #metrics = precision_recall_fscore_support(y_test, y_pred, average='weighted')
+    metrics = precision_recall_fscore_support(y_test, y_pred, average='weighted')
     acc = accuracy_score(y_test, y_pred)
 
     #print('metrics: acc, precision, recall, fscore ', acc, metrics)
-    return acc
+    #return acc
+    return acc, metrics[0], metrics[1], metrics[2]
 
 
 ###################################################################################################
@@ -174,10 +175,12 @@ def castor(X_train, y_train, X_test, y_test, k, dimention_reduction):
 
     y_pred = clf.predict(X_test)        
    
+
+    metrics = precision_recall_fscore_support(y_test, y_pred, average='weighted')
     acc = accuracy_score(y_test, y_pred)
 
     #print('metrics: acc, precision, recall, fscore ', acc, metrics)
-    return acc
+    return acc, metrics[0], metrics[1], metrics[2]
 
     
 
@@ -226,8 +229,8 @@ database_name = 'Primates'
 path_database = sys.argv[1]
 database_name = sys.argv[2]
 
-# example: python3 train_mldsp.py '/home/vicente/datasets/MLDSP/' HIVGRPCG 0
-# python3 train_mldsp.py '/home/vicente/datasets/MLDSP/' Primates  0
+# example: python3 train_kameris_castor.py '/home/vicente/datasets/MLDSP/' HIVGRPCG 0
+# python3 train_kameris_castor.py '/home/vicente/datasets/MLDSP/' Primates  0
 ########################################################################################################
 
 print("Reading dataset ...")
@@ -236,14 +239,12 @@ print(X_train.shape, y_train.shape, X_test.shape, y_test.shape, labels)
 
 k = 5
 
-acc_kameris = kameris(X_train, y_train, X_test, y_test, k, 0)
-print(acc_kameris)
+acc, presicion, recall, fscore = kameris(X_train, y_train, X_test, y_test, k, 0)
+with open(current_dir + '/results_v3/results_v3.csv', "a") as myfile:
+    #myfile.write("\n " + database_name + "_acc_kameris_k=" + str(k) + " " + str(acc_kameris))
+    myfile.write("\n" + database_name +",kameris_k=" + str(k) + "," + str(acc) + ","+ str(presicion) + ","+ str(recall) + "," + str(fscore))
 
-acc_castor = castor(X_train, y_train, X_test, y_test, k, 0)
-print(acc_castor)
-
-with open(current_dir + '/results_v2/results_v2.txt', "a") as myfile:
-    myfile.write("\n " + database_name + "_acc_kameris_k=" + str(k) + " " + str(acc_kameris))
-
-with open(current_dir + '/results_v2/results_v2.txt', "a") as myfile:
-    myfile.write("\n " + database_name + "_acc_castor_k=" + str(k) + " " + str(acc_castor))
+acc, presicion, recall, fscore = castor(X_train, y_train, X_test, y_test, k, 0)
+with open(current_dir + '/results_v3/results_v3.csv', "a") as myfile:
+    #myfile.write("\n " + database_name + "_acc_castor_k=" + str(k) + " " + str(acc_castor))
+    myfile.write("\n" + database_name +",castor_k=" + str(k) + "," + str(acc) + ","+ str(presicion) + ","+ str(recall) + "," + str(fscore))
