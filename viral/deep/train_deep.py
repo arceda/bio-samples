@@ -264,7 +264,7 @@ ax[1].plot(history.history['accuracy'], color='b', label="Training accuracy")
 ax[1].plot(history.history['val_accuracy'], color='r',label="Validation accuracy")
 legend = ax[1].legend(loc='best', shadow=True)
 
-plt.savefig(current_dir + '/results_v2/' + database_name + '_history_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
+plt.savefig(current_dir + '/results_v3/' + database_name + '_history_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
 #########################################################################################################
 #########################################################################################################
 
