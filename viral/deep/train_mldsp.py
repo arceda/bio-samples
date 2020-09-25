@@ -195,7 +195,7 @@ X_train = dist_mat
 model = svm.SVC()
 model.fit(X_train, y_train)
 
-pickle.dump(clf, open(current_dir + "/models/" + database_name + '-mldsp.joblib', 'wb'))
+pickle.dump(model, open(current_dir + "/models/" + database_name + '-mldsp.joblib', 'wb'))
 ################################################TESTING##################################
 seq_distances = [] 
 for seq in X_test:
