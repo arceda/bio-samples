@@ -249,6 +249,7 @@ if model_type == "complex":
 
 history = model.fit(X_train, y_train, epochs=epochs, batch_size=batch_size, validation_split=0.2)
 
+model.save(current_dir + "/models/" + database_name + "-CNN-" + model_type + '.h5')
 
 
 #########################################################################################################
@@ -264,7 +265,7 @@ ax[1].plot(history.history['accuracy'], color='b', label="Training accuracy")
 ax[1].plot(history.history['val_accuracy'], color='r',label="Validation accuracy")
 legend = ax[1].legend(loc='best', shadow=True)
 
-plt.savefig(current_dir + '/results_v3/' + database_name + '_history_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
+plt.savefig(current_dir + '/results_v4/' + database_name + '_history_cnn=' + model_type + '_epoch='+ str(epochs) +'.png', dpi = 300)
 #########################################################################################################
 #########################################################################################################
 
@@ -299,7 +300,7 @@ acc = accuracy_score(y_test, y_pred)
 metrics = precision_recall_fscore_support(y_test, y_pred, average='weighted')
 #print(acc, metrics)
 
-with open(current_dir + '/results_v3/results_v3.csv', "a") as myfile:
+with open(current_dir + '/results_v4/results_v4.csv', "a") as myfile:
     myfile.write("\n" + database_name +",CNN-" + model_type + "," + str(acc) + ","+ str(metrics[0]) + ","+ str(metrics[1]) + "," + str(metrics[2]))
 
 #with open(current_dir + '/results_v2/results_v2.txt', "a") as myfile:

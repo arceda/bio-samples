@@ -10,7 +10,7 @@ import tensorflow as tf
 tf.random.set_seed(1)
 
 
-
+import pickle
 from sklearn.model_selection import KFold 
 from sklearn.model_selection import train_test_split
 import collections
@@ -60,7 +60,7 @@ import feature_extractor as fe
 
 import time
 
-def kameris(X_train, y_train, X_test, y_test, k, dimention_reduction):
+def kameris(X_train, y_train, X_test, y_test, k, dimention_reduction, database_name):
 
     minMaxScaler = MinMaxScaler(feature_range=(0, 1), copy = False)
     scaler1 = StandardScaler()
@@ -102,6 +102,8 @@ def kameris(X_train, y_train, X_test, y_test, k, dimention_reduction):
     clf = svm.SVC(kernel = "linear", C = 1) 
     clf.fit(X_train, y_train)
 
+    pickle.dump(clf, open(current_dir + "/models/" + database_name + '-kameris.joblib', 'wb'))
+
     #############################################
     # scaling 
     #X_test = minMaxScaler.fit_transform(X_test) 
@@ -129,7 +131,7 @@ def kameris(X_train, y_train, X_test, y_test, k, dimention_reduction):
 #############################               castor                  ###############################
 # this funtion return de acc, fcore, .... of the models proposed by
 # Toward an Alignment-Free Method for Feature Extraction [1]
-def castor(X_train, y_train, X_test, y_test, k, dimention_reduction):
+def castor(X_train, y_train, X_test, y_test, k, dimention_reduction, database_name):
     scaler1 = StandardScaler()
 
     train = []
@@ -167,6 +169,8 @@ def castor(X_train, y_train, X_test, y_test, k, dimention_reduction):
     # Implement and fit classifier
     clf = svm.SVC(kernel = "linear", C = 1) 
     clf.fit(X_train, y_train)
+
+    pickle.dump(clf, open(current_dir + "/models/" + database_name + '-castor.joblib', 'wb'))
 
     # test   
     X_test, y_test      = fe.generateXYMatrice(test, k_mers, k) # OCURRENCE MATRIX
@@ -239,12 +243,12 @@ print(X_train.shape, y_train.shape, X_test.shape, y_test.shape, labels)
 
 k = 5
 
-acc, presicion, recall, fscore = kameris(X_train, y_train, X_test, y_test, k, 0)
-with open(current_dir + '/results_v3/results_v3.csv', "a") as myfile:
+acc, presicion, recall, fscore = kameris(X_train, y_train, X_test, y_test, k, 0, database_name)
+with open(current_dir + '/results_v4/results_v4.csv', "a") as myfile:
     #myfile.write("\n " + database_name + "_acc_kameris_k=" + str(k) + " " + str(acc_kameris))
     myfile.write("\n" + database_name +",kameris_k=" + str(k) + "," + str(acc) + ","+ str(presicion) + ","+ str(recall) + "," + str(fscore))
 
-acc, presicion, recall, fscore = castor(X_train, y_train, X_test, y_test, k, 0)
-with open(current_dir + '/results_v3/results_v3.csv', "a") as myfile:
+acc, presicion, recall, fscore = castor(X_train, y_train, X_test, y_test, k, 0, database_name)
+with open(current_dir + '/results_v4/results_v4.csv', "a") as myfile:
     #myfile.write("\n " + database_name + "_acc_castor_k=" + str(k) + " " + str(acc_castor))
     myfile.write("\n" + database_name +",castor_k=" + str(k) + "," + str(acc) + ","+ str(presicion) + ","+ str(recall) + "," + str(fscore))

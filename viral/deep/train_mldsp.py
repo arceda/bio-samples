@@ -9,7 +9,7 @@ seed(1)
 import tensorflow as tf
 tf.random.set_seed(1)
 
-
+import pickle
 
 from sklearn.model_selection import KFold 
 from sklearn.model_selection import train_test_split
@@ -195,6 +195,7 @@ X_train = dist_mat
 model = svm.SVC()
 model.fit(X_train, y_train)
 
+pickle.dump(clf, open(current_dir + "/models/" + database_name + '-mldsp.joblib', 'wb'))
 ################################################TESTING##################################
 seq_distances = [] 
 for seq in X_test:
