@@ -218,6 +218,6 @@ metrics = precision_recall_fscore_support(y_test, y_pred, average='weighted')
 #with open(current_dir + '/results_v2/results_v3.txt', "a") as myfile:
 #    myfile.write("\n " + database_name + "_acc_mldsp " + str(results))
 
-with open(current_dir + '/results_v3/results_v3.csv', "a") as myfile:
+with open(current_dir + '/results_v4/results_v4.csv', "a") as myfile:
     #myfile.write("\n " + database_name + "_acc_castor_k=" + str(k) + " " + str(acc_castor))
     myfile.write("\n" + database_name +",mldsp=" + "," + str(acc) + ","+ str(metrics[0]) + ","+ str(metrics[1]) + "," + str(metrics[2]))
