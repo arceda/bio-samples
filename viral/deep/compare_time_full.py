@@ -63,6 +63,13 @@ from cgr import count_kmers
 
 import time
 
+from pyblast import BioBlast
+from pyblast.utils import make_linear, make_circular
+from Bio.SeqRecord import SeqRecord
+from Bio.Seq import Seq
+
+import glob
+
 def numMappingPP(nucleotide):
     if nucleotide == 'A':
         return -1
@@ -154,56 +161,107 @@ for i, dataset in enumerate(datasets):
 
     sequences, min_seq_len = read_seq(dataset_path, dataset)
 
+    ####### para blast ######################################################
+    #########################################################################
+    queries = [SeqRecord(Seq(sequences[0]))]
+    subjects = []
+    files_seq = glob.glob( dataset_path + "/" + dataset + "/seq/*" )
+    # rega usa 87 instancias, pero en nuestro caso, hay una BD con solo 76 muestras
+    for seq_index in range(76):
+        #print(files_seq[seq_index])
+        seqs_records = SeqIO.parse(files_seq[seq_index], "fasta")
+
+        for record in seqs_records:
+            subjects.append( record )
+        
+    
+    t0 = time.time()
+
+    subjects = make_linear(subjects)
+    queries = make_linear(queries)
+
+    blast = BioBlast(subjects, queries)
+    results = blast.blastn()
+
+    times_blast_acc = time.time() - t0    
+    print("times_blast_acc", times_blast_acc)
+    #########################################################################
+    
     times_castor_acc = 0
     times_kameris_acc = 0
     times_mldsp_acc = 0
-    times_cnn_acc = 0
-    # para castror solo
+    times_cnn1_acc = 0
+    times_cnn2_acc = 0
+    times_cnn3_acc = 0
+    
+    # para castor solo
     train = []
     for i in range(sequences.shape[0]):
         train.append([0, sequences[i], 0])   
     k_mers_castor   = fe.generate_K_mers(train, k=5) 
+    
+    #model_castor = pickle.load(open( 'models/' + dataset + '-castor.joblib', 'rb'))
+    #model_kameris = pickle.load(open( 'models/' + dataset + '-kameris.joblib', 'rb'))
+    #model_mldsp = pickle.load(open( 'models/' + dataset + '-mldsp.joblib', 'rb'))
+    #model_cnn1 = keras.models.load_model('models/' + dataset + '-cnn-tiny.h5', 'rb')
+    #model_cnn2 = keras.models.load_model('models/' + dataset + '-cnn-medium.h5', 'rb')
+    #model_cnn3 = keras.models.load_model('models/' + dataset + '-cnn-complex.h5', 'rb')
 
-    # castor time
-    t_0 = time.time()
-    X_train, y_train    = fe.generateXYMatrice(train, k_mers_castor, k=5) 
-    times_castor_acc += time.time() - t_0
+    for i in range(sequences.shape[0]): 
+        # castor time        
+        t_0 = time.time()
+        train_castor = [[0, sequences[i], 0]]   
+        X_train, y_train    = fe.generateXYMatrice(train_castor, k_mers_castor, k=5)         
+        #pred = model_castor.predict(X_train)
+        times_castor_acc += time.time() - t_0
 
-    loaded_model = pickle.load(open( 'models/Primates-castor.joblib', 'rb'))
-    pred = loaded_model.predict(X_train)
-    print(pred)
-
-    sys.exit()
-
-    '''
-
-    for i in range(sequences.shape[0]):
         # kameris time
         t_0 = time.time()
         k_mers_frecuencies = kam.cgr(sequences[i], k=5) 
+        #pred = model_kameris.predict( [ k_mers_frecuencies ] )
         times_kameris_acc += time.time() - t_0
 
         # mldsp time
         t_0 = time.time()
         ns_new, fourier_transform, magnitud_spectra = descriptor(sequences[i], min_seq_len)
+        pearsoncorr = np.corrcoef(np.matrix([magnitud_spectra])) # simulacion solo para una instancia, pero se nceesitraria toda la bd
+        X = (1 - pearsoncorr)/2
+        #pred = model_kameris.predict( [ X ] )
         times_mldsp_acc += time.time() - t_0
 
-        # cnn
+        # cnn 1
         t_0 = time.time()
         chaos = chaos_game_representation(probabilities(str(sequences[i]), count_kmers(str(sequences[i]), 5), 5), 5)
-        times_cnn_acc += time.time() - t_0
+        #pred = model_cnn1.predict([chaos])
+        times_cnn1_acc += time.time() - t_0
+
+        # cnn 2
+        t_0 = time.time()
+        chaos = chaos_game_representation(probabilities(str(sequences[i]), count_kmers(str(sequences[i]), 5), 5), 5)
+        #pred = model_cnn2.predict([chaos])
+        times_cnn2_acc += time.time() - t_0
+
+        # cnn 3
+        t_0 = time.time()
+        chaos = chaos_game_representation(probabilities(str(sequences[i]), count_kmers(str(sequences[i]), 5), 5), 5)
+        #pred = model_cnn3.predict([chaos])
+        times_cnn3_acc += time.time() - t_0
 
     time_kameris = times_kameris_acc/sequences.shape[0]
     time_castor = times_castor_acc/sequences.shape[0]
     time_mldsp = times_mldsp_acc/sequences.shape[0]
-    time_cnn = times_cnn_acc/sequences.shape[0]
+    time_cnn1 = times_cnn1_acc/sequences.shape[0]
+    time_cnn2 = times_cnn2_acc/sequences.shape[0]
+    time_cnn3 = times_cnn3_acc/sequences.shape[0]
     print(times_kameris_acc/sequences.shape[0])
     print(times_castor_acc/sequences.shape[0])
     print(times_mldsp_acc/sequences.shape[0])
-    print(times_cnn_acc/sequences.shape[0])
+    print(times_cnn1_acc/sequences.shape[0])
+    print(times_cnn2_acc/sequences.shape[0])
+    print(times_cnn3_acc/sequences.shape[0])
     
 
     with open(current_dir + '/results_v4/time_full.csv', "a") as myfile:    
-        myfile.write("\n" + dataset +", " + str(time_kameris) + "," + str(time_castor) + ","+ str(time_mldsp) + ","+ str(time_cnn) + "," + str(min_seq_len))
+        myfile.write("\n" + dataset +", " + str(times_blast_acc) + "," + str(time_kameris) + "," + str(time_castor) + ","+ str(time_mldsp) + ","+ str(time_cnn1) + ","+ str(time_cnn2)+ ","+ str(time_cnn3) + "," + str(min_seq_len))
 
-    '''
+    
