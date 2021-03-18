@@ -18,7 +18,7 @@ def read_fasta(fa_file):
 
     return data
 
-def cgr(seq, k, order='ACGT'):
+def cgr(seq, k, order='ACGT'): 
     result = np.zeros(pow(4, k), dtype='uint8')
     #print(result.shape, result)
 

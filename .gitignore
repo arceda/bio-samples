@@ -28,3 +28,4 @@ viral/deep/__pycache__/mykameris.cpython-38.pyc
 viral/viral_classification/__pycache__/feature_extractor.cpython-38.pyc
 viral/viral_classification/__pycache__/mykameris.cpython-38.pyc
 viral/deep/__pycache__/train_mldsp.cpython-38.pyc
+.vscode/settings.json
