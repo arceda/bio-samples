@@ -5,7 +5,7 @@ from pyblast import BioBlast
 from pyblast.utils import make_linear, make_circular
 from Bio.SeqRecord import SeqRecord
 from Bio.Seq import Seq
-
+from Bio.Blast import NCBIXML
 from Bio import SeqIO
 import time
 
@@ -13,7 +13,8 @@ queries = [
   SeqRecord(Seq("ACGTGATTCGTCGTGTAGTTGAGTGTTACGTTGCATGTCGTACGTGTGTAGTGTCGTGTAGTGCTGATGCTACGTGATCG"))
 ]
 subjects = [
-  SeqRecord(Seq("TCGTGTAGTTGAGTGTTACGTTGCATGTCGTTACGTGATCG"), id="aa1")
+  SeqRecord(Seq("TCGTGTAGTTGAGTGTTACGTTGCATGTCGTTACGTGATCG"), id="aa1"),
+  SeqRecord(Seq("TCGTGTAGTTGAGTGTTACGTTGCATGTCGGGGACGTGATCG"), id="aa2")
   ]
 
 # pyblast requires a 'topology' annotation on the SeqRecords.
@@ -27,12 +28,13 @@ queries = make_linear(queries)
 blast = BioBlast(subjects, queries)
 results = blast.blastn()
 
+
 t1 = time.time() - t0
 #print(t1)
 #print(results)
 
 
-fa_file = "P21333.fasta"
+fa_file = "../samples/P21333.fasta"
 sequences = SeqIO.parse(fa_file, "fasta")
 queries = []
 subjects = []
@@ -41,7 +43,7 @@ for record in sequences:
 
 
 #sequences = SeqIO.parse("viral/viral_classification/sample_genomes/HIV.B.fasta", "fasta")
-sequences = SeqIO.parse("/home/vicente/datasets/MLDSP/Primates/seq/H1.txt", "fasta")
+sequences = SeqIO.parse("../samples/H1.txt", "fasta")
 for record in sequences:
     subjects.append( record )
 
