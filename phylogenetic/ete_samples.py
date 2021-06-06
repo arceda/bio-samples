@@ -4,19 +4,7 @@ from skbio import DistanceMatrix
 from skbio.tree import nj
 
 
-data = [[0, 8, 4, 6],
-        [8, 0, 8, 8],
-        [4, 8, 0, 6],         
-        [6, 8, 6, 0]]
-ids = list('abcd')
-dm = DistanceMatrix(data, ids)
-tree = nj(dm)
-print(tree.ascii_art())
-newick_str = nj(dm, result_constructor=str)
-print(newick_str)
-#print(newick_str[:55], "...")
-t = PhyloTree(newick_str)
-t.show()
+
 
 alg = """
  >Dme_001
@@ -55,6 +43,22 @@ def get_example_tree():
     return recon_tree, TreeStyle()
 
 if __name__ == "__main__":
+    print("Tree using only a distance matrix")
+    data = [[0, 8, 4, 6],
+            [8, 0, 8, 8],
+            [4, 8, 0, 6],         
+            [6, 8, 6, 0]]
+    ids = list('abcd')
+    dm = DistanceMatrix(data, ids)
+    tree = nj(dm)
+    print(tree.ascii_art())
+    newick_str = nj(dm, result_constructor=str)
+    print(newick_str)
+    #print(newick_str[:55], "...")
+    t = PhyloTree(newick_str)
+    t.show()
+
+    print("\n\nTree from sequence")
     # Visualize the reconciled tree
     t, ts = get_example_tree()
     t.show(tree_style=ts)
@@ -73,6 +77,7 @@ if __name__ == "__main__":
     MAEAPDETIQQFMALTNVSHNIAVQYLSEFGDLNEAL--------------REEAH
     """
 
+    print("\n\nTree from other sequence")
     # Load a tree and link it to an alignment.
     t = PhyloTree("(((seqA,seqB),seqC),seqD);")
     t.link_to_alignment(alignment=fasta_txt, alg_format="fasta")
